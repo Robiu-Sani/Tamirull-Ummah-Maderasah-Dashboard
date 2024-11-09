@@ -1,5 +1,7 @@
 import { Outlet } from "react-router-dom";
 import SiteNavBar from "./RootCommon/SiteNavBar";
+import DashboardHeader from "./RootCommon/DashboardHeader";
+import Footer from "./Footer";
 
 export default function Root() {
   return (
@@ -8,7 +10,11 @@ export default function Root() {
         <SiteNavBar />
       </div>
       <div className="w-full flex flex-col">
-        <Outlet />
+        <DashboardHeader />
+        <div className="w-full h-[calc(100vh-90px)] overflow-y-auto p-5">
+          <Outlet />
+        </div>
+        <Footer />
       </div>
     </div>
   );
