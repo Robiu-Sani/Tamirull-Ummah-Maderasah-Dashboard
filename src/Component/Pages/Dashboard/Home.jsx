@@ -1,3 +1,9 @@
+import TopCards from "./HomeComponent/TopCards";
+
 export default function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <TopCards />
+    </div>
+  );
 }
