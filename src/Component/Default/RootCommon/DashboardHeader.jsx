@@ -4,7 +4,7 @@ import { MdOutlineNotificationsActive } from "react-icons/md";
 
 export default function DashboardHeader({ handleCallNav }) {
   return (
-    <div className="w-full h-[60px] p-3 px-5 flex justify-between items-center border-b bg-white">
+    <div className="w-full h-[60px] p-3 px-5 flex shadow-md justify-between items-center border-b bg-white">
       <div className="flex justify-start items-center">
         <span
           onClick={() => handleCallNav(true)}

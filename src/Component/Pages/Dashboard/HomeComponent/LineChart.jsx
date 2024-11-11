@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export default function LineChart() {
+export default function SmoothLineChart() {
   // Dummy data for boys and girls in class 0 to 12
   const data = {
     labels: [
@@ -38,37 +38,45 @@ export default function LineChart() {
       "10",
       "11",
       "12",
-    ], // Class labels
+    ],
     datasets: [
       {
-        label: "Boys", // Label for the first line
-        data: [50, 60, 70, 80, 85, 90, 95, 10, 110, 115, 120, 10, 140], // Dummy data for boys
-        fill: false,
+        label: "Boys",
+        data: [50, 70, 60, 80, 85, 90, 95, 100, 110, 115, 120, 125, 140],
+        fill: true,
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
         borderColor: "rgb(75, 192, 192)",
-        tension: 0.1,
-        pointBackgroundColor: "rgb(75, 192, 192)", // Point color on hover
+        borderWidth: 2,
+        tension: 0.4,
+        pointBackgroundColor: "rgb(75, 192, 192)",
+        pointHoverRadius: 7,
       },
       {
-        label: "Girls", // Label for the second line
-        data: [45, 55, 65, 75, 80, 85, 90, 95, 105, 110, 10, 125, 15], // Dummy data for girls
-        fill: false,
-        borderColor: "rgb(255, 29, 132)",
-        tension: 0.1,
-        pointBackgroundColor: "rgb(255, 259, 102)", // Point color on hover
+        label: "Girls",
+        data: [45, 55, 65, 75, 80, 85, 120, 95, 105, 120, 105, 120, 130],
+        fill: true,
+        backgroundColor: "rgba(255, 99, 132, 0.2)",
+        borderColor: "rgb(255, 99, 132)",
+        borderWidth: 2,
+        tension: 0.4,
+        pointBackgroundColor: "rgb(255, 99, 132)",
+        pointHoverRadius: 7,
       },
     ],
   };
 
-  // Chart options with hover interaction
   const options = {
     responsive: true,
     interaction: {
-      mode: "index", // Hover across multiple datasets (index)
-      intersect: false, // Prevent hover interaction when cursor doesn't intersect the chart
+      mode: "index",
+      intersect: false,
     },
     plugins: {
       legend: {
         position: "top",
+        labels: {
+          usePointStyle: true,
+        },
       },
       tooltip: {
         callbacks: {
@@ -76,18 +84,29 @@ export default function LineChart() {
             return `${tooltipItem.dataset.label}: ${tooltipItem.raw}`;
           },
         },
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
       },
     },
     scales: {
       y: {
         beginAtZero: true,
+        grid: {
+          color: "rgba(200, 200, 200, 0.2)",
+        },
+      },
+      x: {
+        grid: {
+          color: "rgba(200, 200, 200, 0.2)",
+        },
       },
     },
   };
 
   return (
-    <div className="w-full p-2 rounded-md shadow-md bg-white col-span-1 sm:col-span-2">
-      <h2 className="text-left -mb-2 text-sm ">Boys and Girls (Class 0-12)</h2>
+    <div className="w-full p-4 rounded-md shadow-md bg-white col-span-1 sm:col-span-2">
+      <h2 className="text-left -mb-2 text-sm font-semibold">
+        Boys and Girls (Class 0-12)
+      </h2>
       <Line data={data} options={options} />
     </div>
   );
