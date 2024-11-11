@@ -1,4 +1,5 @@
 import ChartContainer from "./HomeComponent/ChartContainer";
+import EditeBannerContainer from "./HomeComponent/EditeBannerContainer";
 import TopCards from "./HomeComponent/TopCards";
 
 export default function Home() {
@@ -7,6 +8,7 @@ export default function Home() {
       <TopCards />
       <div className="w-full ">
         <ChartContainer />
+        <EditeBannerContainer />
       </div>
     </div>
   );

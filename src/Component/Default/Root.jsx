@@ -12,7 +12,7 @@ export default function Root() {
     setCallNav(data);
   };
   return (
-    <div className="bg-gray-100 relative w-full flex h-screen">
+    <div className="bg-gray-100 shadow-md relative w-full flex h-screen">
       <div
         className={`w-full ${
           callNav ? "left-0" : "-left-[100%]"

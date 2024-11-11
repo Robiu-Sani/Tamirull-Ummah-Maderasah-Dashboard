@@ -53,7 +53,7 @@ export default function SmoothLineChart() {
       },
       {
         label: "Girls",
-        data: [45, 55, 65, 75, 80, 85, 120, 95, 105, 120, 105, 120, 130],
+        data: [0, 55, 65, 75, 80, 85, 120, 95, 105, 120, 105, 120, 130],
         fill: true,
         backgroundColor: "rgba(255, 99, 132, 0.2)",
         borderColor: "rgb(255, 99, 132)",
