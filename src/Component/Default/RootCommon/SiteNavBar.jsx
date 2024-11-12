@@ -10,6 +10,7 @@ import {
   MdReport,
   MdHome,
   MdSettings,
+  MdMessage,
 } from "react-icons/md";
 import {
   FaBed,
@@ -23,6 +24,7 @@ import {
   RiLogoutCircleRLine,
 } from "react-icons/ri";
 import { GiTeacher } from "react-icons/gi";
+import { FaDiamond } from "react-icons/fa6";
 
 const navItems = [
   {
@@ -106,9 +108,19 @@ const navItems = [
       { name: "Services Page", path: "/update/services", icon: <MdSettings /> },
     ],
   },
+  {
+    name: "Messages",
+    path: "/messages",
+    icon: <MdMessage />,
+  },
+  {
+    name: "Admins",
+    path: "/admins",
+    icon: <FaDiamond />,
+  },
 ];
 
-export default function SiteNavBar() {
+export default function SiteNavBar({ handleCallNav }) {
   const [openMenu, setOpenMenu] = useState({});
 
   const toggleMenu = (index) => {
@@ -130,12 +142,14 @@ export default function SiteNavBar() {
             {item.children ? (
               <div
                 className={`w-full gap-2 p-1 rounded-md px-3 my-1 cursor-pointer ${
-                  openMenu[index] ? "bg-[rgba(0,10,27,0.74)] text-white" : ""
+                  openMenu[index]
+                    ? "bg-[rgba(0,10,27,0.74)] text-white"
+                    : "text-gray-700"
                 }`}
                 onClick={() => toggleMenu(index)}
               >
                 <div className="w-full flex justify-between  items-center">
-                  <div className="flex gap-3 items-center">
+                  <div className="flex gap-3  items-center">
                     {item.icon}
                     {item.name}
                   </div>
@@ -151,10 +165,11 @@ export default function SiteNavBar() {
                       <NavLink
                         key={idx}
                         to={child.path}
+                        onClick={() => handleCallNav(false)}
                         className={({ isActive }) =>
                           `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
                             isActive
-                              ? "bg-white text-black"
+                              ? "bg-white !text-gray-900"
                               : "hover:!text-gray-900 text-gray-200 hover:bg-gray-100"
                           }`
                         }
@@ -170,6 +185,7 @@ export default function SiteNavBar() {
             ) : (
               <NavLink
                 to={item.path}
+                onClick={() => handleCallNav(false)}
                 className={({ isActive }) =>
                   `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
                     isActive
