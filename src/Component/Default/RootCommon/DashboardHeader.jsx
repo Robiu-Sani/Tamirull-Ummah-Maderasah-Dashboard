@@ -38,9 +38,9 @@ export default function DashboardHeader({ handleCallNav }) {
         </div>
       </div>
       <div
-        className={`w-full sm:w-[350px] ${
+        className={`w-[calc(100%-40px)] sm:w-[350px] ${
           callNotifiction ? "block" : "hidden"
-        }  rounded-md shadow-md h-[500px] overflow-y-auto bg-white absolute border top-[50px] right-5`}
+        }  rounded-md shadow-md max-h-[500px] overflow-y-auto bg-white absolute border top-[50px] right-5`}
       >
         <div className="p-2 border-b">
           <h3>Notifections</h3>
