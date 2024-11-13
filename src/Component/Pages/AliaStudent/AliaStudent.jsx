@@ -1,3 +1,9 @@
+import StudentsTable from "../../Shaire/StudentsTable";
+
 export default function AliaStudent() {
-  return <div>AliaStudent</div>;
+  return (
+    <div>
+      <StudentsTable />
+    </div>
+  );
 }

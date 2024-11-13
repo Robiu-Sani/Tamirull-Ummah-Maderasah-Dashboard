@@ -136,7 +136,7 @@ export default function SiteNavBar({ handleCallNav }) {
           className="mx-auto w-[80px] h-[80px]"
         />
       </div>
-      <div className="w-full dashboard h-[calc(100vh-210px)] scroll-none overflow-y-scroll">
+      <div className="w-full dashboard h-[calc(100vh-230px)] scroll-none overflow-y-scroll">
         {navItems.map((item, index) => (
           <div key={index} className="w-full">
             {item.children ? (

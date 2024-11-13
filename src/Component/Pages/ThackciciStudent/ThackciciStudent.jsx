@@ -1,3 +1,9 @@
+import StudentsTable from "../../Shaire/StudentsTable";
+
 export default function ThackciciStudent() {
-  return <div>ThackciciStudent</div>;
+  return (
+    <div>
+      <StudentsTable />
+    </div>
+  );
 }

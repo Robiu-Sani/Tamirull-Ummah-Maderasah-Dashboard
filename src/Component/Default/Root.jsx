@@ -16,7 +16,7 @@ export default function Root() {
       <div
         className={`w-full ${
           callNav ? "left-0" : "-left-[100%]"
-        } absolute md:static  min-w-[250px] sm:max-w-[255px] border-0 sm:border-r bg-white min-h-screen overflow-y-auto`}
+        } absolute md:static z-[999999999] min-w-[250px] sm:max-w-[255px] border-0 sm:border-r bg-white min-h-screen overflow-y-auto`}
       >
         <span
           onClick={() => handleCallNav(false)}

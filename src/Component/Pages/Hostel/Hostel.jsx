@@ -1,3 +1,9 @@
+import StudentsTable from "../../Shaire/StudentsTable";
+
 export default function Hostel() {
-  return <div>Hostel</div>;
+  return (
+    <div>
+      <StudentsTable />
+    </div>
+  );
 }
