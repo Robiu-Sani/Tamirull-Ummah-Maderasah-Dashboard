@@ -1,3 +1,11 @@
+import ChieldNavTopBox from "../../Shaire/ChieldNavTopBox";
+import TeachersTable from "../../Shaire/TeachersTable";
+
 export default function HostelTeachers() {
-  return <div>HostelTeachers</div>;
+  return (
+    <div>
+      <ChieldNavTopBox />
+      <TeachersTable />
+    </div>
+  );
 }

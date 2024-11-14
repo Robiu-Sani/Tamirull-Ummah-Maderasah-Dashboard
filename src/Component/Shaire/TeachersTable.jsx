@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { FaEllipsisV, FaEye, FaEdit, FaTrash } from "react-icons/fa";
 
-export default function StudentsTable() {
+export default function TeachersTable() {
   const [menuIndex, setMenuIndex] = useState(null);
 
-  const students = Array.from({ length: 50 }, (_, i) => ({
-    name: `Student ${i + 1}`,
+  const teachers = Array.from({ length: 30 }, (_, i) => ({
+    name: `Teacher ${i + 1}`,
+    subject: i % 3 === 0 ? "Math" : i % 3 === 1 ? "Science" : "English",
+    number: `01712${i + 1000}`,
+    section: i % 2 === 0 ? "A" : "B",
     gender: i % 2 === 0 ? "Male" : "Female",
-    class: `Class ${Math.floor(i / 5) + 1}`,
-    section: i % 3 === 0 ? "A" : i % 3 === 1 ? "B" : "C",
-    number: `01234${i + 1000}`,
-    roll: i + 1,
+    shift: i % 2 === 0 ? "Morning" : "Evening",
   }));
 
   const toggleMenu = (index) => {
@@ -18,7 +18,7 @@ export default function StudentsTable() {
   };
 
   return (
-    <div className="w-full mx-auto ">
+    <div className="w-full mx-auto">
       {/* --------- top section  ------------ */}
       <div className="w-full flex flex-wrap gap-3 py-3 justify-between items-center">
         {/* Dropdown 1 */}
@@ -63,32 +63,32 @@ export default function StudentsTable() {
       <div className="overflow-x-auto border rounded-lg shadow-lg">
         <table className="table-auto w-full border-collapse border bg-white rounded-lg">
           <thead>
-            <tr className="bg-xinc-500 text-gray-600">
+            <tr className="bg-gray-300 text-gray-600">
               <th className="border border-gray-200 px-4 py-3 font-semibold">
                 Name
               </th>
               <th className="border border-gray-200 px-4 py-3 font-semibold">
-                Gender
-              </th>
-              <th className="border border-gray-200 px-4 py-3 font-semibold">
-                Class
-              </th>
-              <th className="border border-gray-200 px-4 py-3 font-semibold">
-                Section
+                Subject
               </th>
               <th className="border border-gray-200 px-4 py-3 font-semibold">
                 Number
               </th>
               <th className="border border-gray-200 px-4 py-3 font-semibold">
-                Roll
+                Section
               </th>
-              <th className="border border-gray-200 px-4 py-3  font-semibold">
+              <th className="border border-gray-200 px-4 py-3 font-semibold">
+                Gender
+              </th>
+              <th className="border border-gray-200 px-4 py-3 font-semibold">
+                Shift
+              </th>
+              <th className="border border-gray-200 px-4 py-3 font-semibold">
                 Action
               </th>
             </tr>
           </thead>
           <tbody>
-            {students.map((student, index) => (
+            {teachers.map((teacher, index) => (
               <tr
                 key={index}
                 className={`transition-colors duration-200 ${
@@ -96,22 +96,22 @@ export default function StudentsTable() {
                 } hover:bg-gray-200`}
               >
                 <td className="border text-center px-4 py-3 text-gray-700">
-                  {student.name}
+                  {teacher.name}
                 </td>
                 <td className="border text-center px-4 py-3 text-gray-700">
-                  {student.gender}
+                  {teacher.subject}
                 </td>
                 <td className="border text-center px-4 py-3 text-gray-700">
-                  {student.class}
+                  {teacher.number}
                 </td>
                 <td className="border text-center px-4 py-3 text-gray-700">
-                  {student.section}
+                  {teacher.section}
                 </td>
                 <td className="border text-center px-4 py-3 text-gray-700">
-                  {student.number}
+                  {teacher.gender}
                 </td>
                 <td className="border text-center px-4 py-3 text-gray-700">
-                  {student.roll}
+                  {teacher.shift}
                 </td>
                 <td className="border text-center px-4 py-3 relative text-gray-700">
                   <button
