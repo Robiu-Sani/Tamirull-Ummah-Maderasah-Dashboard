@@ -60,8 +60,8 @@ export default function TeachersTable() {
       </div>
 
       {/* ---------------  */}
-      <div className="overflow-x-auto border rounded-lg shadow-lg">
-        <table className="table-auto w-full border-collapse border bg-white rounded-lg">
+      <div className="overflow-x-auto border scroll-none rounded-lg shadow-lg">
+        <table className="table-auto w-full  border-collapse border bg-white rounded-lg">
           <thead>
             <tr className="bg-gray-300 text-gray-600">
               <th className="border border-gray-200 px-4 py-3 font-semibold">

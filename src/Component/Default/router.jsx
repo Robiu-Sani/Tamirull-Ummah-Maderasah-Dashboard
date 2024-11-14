@@ -13,6 +13,7 @@ import HifzTeachers from "../Pages/HifzTeachers/HifzTeachers";
 import AliaTeachers from "../Pages/AliaTeachers/AliaTeachers";
 import Admins from "../Pages/Admins/Admins";
 import Messages from "../Pages/Messages/Messages";
+import CreateAdmin from "../Pages/Admins/CreateAdmin/CreateAdmin";
 
 const router = createBrowserRouter([
   {
@@ -68,6 +69,10 @@ const router = createBrowserRouter([
       {
         path: "/admins",
         element: <Admins />,
+      },
+      {
+        path: "/create-admin",
+        element: <CreateAdmin />,
       },
     ],
   },
