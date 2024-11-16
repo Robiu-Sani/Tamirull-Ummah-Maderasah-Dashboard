@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import SiteNavBar from "./RootCommon/SiteNavBar";
 import DashboardHeader from "./RootCommon/DashboardHeader";
 import Footer from "./Footer";
@@ -11,6 +11,7 @@ export default function Root() {
   const handleCallNav = (data) => {
     setCallNav(data);
   };
+
   return (
     <div className="bg-gray-100 shadow-md relative w-full flex h-screen">
       <div

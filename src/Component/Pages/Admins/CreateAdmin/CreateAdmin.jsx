@@ -3,10 +3,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
+import { ImSpinner2 } from "react-icons/im";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 export default function CreateAdmin() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [imageUrl, setImageUrl] = useState();
+  const [isUploading, setIsUploading] = useState(false);
+  const [isSubmiting, setIsSubmitein] = useState(false);
 
   const {
     register,
@@ -16,12 +21,44 @@ export default function CreateAdmin() {
     reset,
   } = useForm();
 
+  const HandleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    setIsUploading(true);
+
+    try {
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "robiussani");
+      data.append("cloud_name", "dyigfnuvy");
+
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dyigfnuvy/image/upload",
+        data
+      );
+
+      if (response.status === 200) {
+        setImageUrl(response.data.url);
+        toast.success("Image uploaded successfully!");
+      }
+    } catch (error) {
+      console.error("Error uploading image:", error.message || error);
+      toast.error("Image upload failed!");
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
   const onSubmit = async (data) => {
     const adminData = {
       ...data,
       accountCreatingTime: new Date().toLocaleString(),
       status: "admin",
+      profile: imageUrl,
     };
+
+    setIsSubmitein(true);
 
     try {
       const response = await axios.post(
@@ -29,11 +66,14 @@ export default function CreateAdmin() {
         adminData
       );
       toast.success(response.data.message || "Admin created successfully!");
-      reset(); // Reset the form on successful submission
+      reset();
+      setImageUrl(null);
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Something went wrong!";
       toast.error(errorMessage);
+    } finally {
+      setIsSubmitein(false);
     }
   };
 
@@ -192,12 +232,40 @@ export default function CreateAdmin() {
           )}
         </div>
 
+        <div className="flex h-[100px] justify-start gap-3 items-start">
+          <div className="w-[100px] relative flex-col cursor-pointer h-[100px] rounded-md overflow-hidden border flex justify-center items-center">
+            <IoCloudUploadOutline className="text-2xl" />
+            <small>Upload Profile</small>
+            <input
+              onChange={HandleImageUpload}
+              type="file"
+              name="image"
+              accept=".jpg, .jpeg, .png"
+              className="absolute top-0 left-0 cursor-pointer w-full h-full opacity-0"
+            />
+          </div>
+          <div className="h-full">
+            {isUploading ? (
+              <div className="flex justify-center items-center w-[100px] border rounded-md h-full">
+                <ImSpinner2 className="text-2xl text-gray-700 animate-spin" />
+              </div>
+            ) : imageUrl ? (
+              <img
+                src={imageUrl}
+                alt="profile"
+                className="h-full rounded-md border"
+              />
+            ) : null}
+          </div>
+        </div>
+
         {/* Submit Button */}
         <div className="sm:col-span-2">
           <button
             type="submit"
-            className="w-full bg-gray-700 font-semibold text-white py-2 px-4 rounded-md hover:bg-gray-800"
+            className="w-full flex justify-center items-center gap-3 bg-gray-700 font-semibold text-white py-2 px-4 rounded-md hover:bg-gray-800"
           >
+            {isSubmiting ? <ImSpinner2 /> : null}
             Create Admin
           </button>
         </div>

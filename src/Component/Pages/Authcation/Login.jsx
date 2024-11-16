@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import useLogedAdmin from "../../customComponent/useLogedAdmin";
 
 export default function Login() {
@@ -39,7 +39,7 @@ export default function Login() {
   };
 
   if (adminEmail) {
-    navigate("/dashboard");
+    return <Navigate to={"/dashboard"} />;
   }
 
   return (

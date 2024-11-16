@@ -14,6 +14,7 @@ import AliaTeachers from "../Pages/AliaTeachers/AliaTeachers";
 import Admins from "../Pages/Admins/Admins";
 import Messages from "../Pages/Messages/Messages";
 import CreateAdmin from "../Pages/Admins/CreateAdmin/CreateAdmin";
+import Private from "./Private";
 
 const router = createBrowserRouter([
   {
@@ -28,51 +29,99 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <Home />,
+        element: (
+          <Private>
+            <Home />
+          </Private>
+        ),
       },
       {
         path: "/students/alia",
-        element: <AliaStudent />,
+        element: (
+          <Private>
+            <AliaStudent />
+          </Private>
+        ),
       },
       {
         path: "/students/hifz",
-        element: <HifzStudent />,
+        element: (
+          <Private>
+            <HifzStudent />
+          </Private>
+        ),
       },
       {
         path: "/students/thacksisi",
-        element: <ThackciciStudent />,
+        element: (
+          <Private>
+            <ThackciciStudent />
+          </Private>
+        ),
       },
       {
         path: "/students/hostel",
-        element: <Hostel />,
+        element: (
+          <Private>
+            <Hostel />
+          </Private>
+        ),
       },
       {
         path: "/teachers/alia",
-        element: <AliaTeachers />,
+        element: (
+          <Private>
+            <AliaTeachers />
+          </Private>
+        ),
       },
       {
         path: "/teachers/hifz",
-        element: <HifzTeachers />,
+        element: (
+          <Private>
+            <HifzTeachers />
+          </Private>
+        ),
       },
       {
         path: "/teachers/thacksisi",
-        element: <ThacksisiTeachers />,
+        element: (
+          <Private>
+            <ThacksisiTeachers />
+          </Private>
+        ),
       },
       {
         path: "/teachers/hostel",
-        element: <HostelTeachers />,
+        element: (
+          <Private>
+            <HostelTeachers />
+          </Private>
+        ),
       },
       {
         path: "/messages",
-        element: <Messages />,
+        element: (
+          <Private>
+            <Messages />
+          </Private>
+        ),
       },
       {
         path: "/admins",
-        element: <Admins />,
+        element: (
+          <Private>
+            <Admins />
+          </Private>
+        ),
       },
       {
         path: "/create-admin",
-        element: <CreateAdmin />,
+        element: (
+          <Private>
+            <CreateAdmin />
+          </Private>
+        ),
       },
     ],
   },
