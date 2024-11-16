@@ -1,3 +1,9 @@
+import MessageBanner from "./MessageBanner";
+
 export default function Messages() {
-  return <div>Messages</div>;
+  return (
+    <div>
+      <MessageBanner />
+    </div>
+  );
 }

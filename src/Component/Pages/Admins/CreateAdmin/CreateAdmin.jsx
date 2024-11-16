@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 export default function CreateAdmin() {
   const [showPassword, setShowPassword] = useState(false);
@@ -12,6 +13,7 @@ export default function CreateAdmin() {
   const [imageUrl, setImageUrl] = useState();
   const [isUploading, setIsUploading] = useState(false);
   const [isSubmiting, setIsSubmitein] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
@@ -68,6 +70,7 @@ export default function CreateAdmin() {
       toast.success(response.data.message || "Admin created successfully!");
       reset();
       setImageUrl(null);
+      navigate("/admins");
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Something went wrong!";

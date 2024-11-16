@@ -1,9 +1,12 @@
 import { FaPlus } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import AdminsBanner from "./AdminsBanner";
+import AllAdmins from "./AllAdmins";
 
 export default function Admins() {
   return (
     <div>
+      <AdminsBanner />
       <div className="w-full flex justify-between items-center">
         <h3 className="font-bold">Admin</h3>
         <Link
@@ -14,7 +17,7 @@ export default function Admins() {
           Create Admin
         </Link>
       </div>
-      Admins
+      <AllAdmins />
     </div>
   );
 }
