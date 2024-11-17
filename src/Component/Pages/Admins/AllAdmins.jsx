@@ -29,7 +29,7 @@ export default function AllAdmins() {
     <div className="mt-3">
       {isLoading ? (
         <div className="w-full h-[300px] flex justify-center items-center">
-          <ImSpinner2 className="text-[80px]" />
+          <ImSpinner2 className="text-[80px] animate-spin" />
         </div>
       ) : (
         <div className="w-full grid grid-cols-1 gap-3 sm:grid-cols-2">
