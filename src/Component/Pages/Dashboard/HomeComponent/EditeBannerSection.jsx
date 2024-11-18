@@ -1,5 +1,6 @@
 import { CgEditExposure } from "react-icons/cg";
 import { FaPenFancy } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function EditeBannerSection() {
   const bannerData = [
@@ -43,9 +44,12 @@ export default function EditeBannerSection() {
         <h3 className="font-semibold flex justify-start items-center gap-2">
           <FaPenFancy /> Edite Aditional Info
         </h3>
-        <button className="flex justify-center text-white bg-gray-800 items-center gap-2 font-semibold px-3 p-1 border outline-0 rounded-md">
+        <Link
+          to={"/update/home"}
+          className="flex justify-center text-white bg-gray-800 items-center gap-2 font-semibold px-3 p-1 border outline-0 rounded-md"
+        >
           <CgEditExposure className="text-xl" /> Update
-        </button>
+        </Link>
       </div>
       {/* Banner Items */}
       <div className="w-full p-2 flex flex-col gap-2">

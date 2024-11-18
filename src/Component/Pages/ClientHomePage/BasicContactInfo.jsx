@@ -16,15 +16,29 @@ import {
   FaLinkedinIn,
   FaFacebookMessenger,
 } from "react-icons/fa";
+import ImageUpload from "../../Default/ImageUpload";
+import { IoCloudUploadOutline } from "react-icons/io5";
 
 export default function BasicContactInfo() {
   const [callItem, setCallItem] = useState(false);
-  const { register, handleSubmit, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm();
+  const [image, setImage] = useState(null);
 
   const onSubmit = (data) => {
-    console.log(data);
+    const newData = { ...data, logo: image };
+    console.log(newData);
     toast.success("Contact information updated successfully!");
-    reset(); // Reset form fields
+    reset();
+    setImage(null);
+  };
+
+  const handleImageUpload = (url) => {
+    setImage(url);
   };
 
   return (
@@ -54,16 +68,19 @@ export default function BasicContactInfo() {
           <h2 className="text-xl font-semibold text-gray-600">
             Update Basic Info
           </h2>
-          <div className=" grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {/* Institution Name (English) */}
             <div className="flex items-center gap-3">
               <MdLocationOn />
               <input
                 type="text"
-                {...register("institutionNameEnglish")}
+                {...register("institutionNameEnglish", { required: false })}
                 placeholder="Institution Name (English)"
                 className="w-full border rounded-md px-3 py-2"
               />
+              {errors.institutionNameEnglish && (
+                <p className="text-red-500 text-sm">This field is required.</p>
+              )}
             </div>
 
             {/* Institution Address (English) */}
@@ -71,10 +88,13 @@ export default function BasicContactInfo() {
               <MdLocationOn />
               <input
                 type="text"
-                {...register("institutionAddressEnglish")}
+                {...register("institutionAddressEnglish", { required: false })}
                 placeholder="Institution Address (English)"
                 className="w-full border rounded-md px-3 py-2"
               />
+              {errors.institutionAddressEnglish && (
+                <p className="text-red-500 text-sm">This field is required.</p>
+              )}
             </div>
 
             {/* Institution Name (Bangla/Arabic) */}
@@ -115,10 +135,13 @@ export default function BasicContactInfo() {
               <MdPhone />
               <input
                 type="text"
-                {...register("contactNumber")}
+                {...register("contactNumber", { required: false })}
                 placeholder="Contact Number"
                 className="w-full border rounded-md px-3 py-2"
               />
+              {errors.contactNumber && (
+                <p className="text-red-500 text-sm">This field is required.</p>
+              )}
             </div>
 
             {/* WhatsApp */}
@@ -182,14 +205,27 @@ export default function BasicContactInfo() {
           </div>
 
           {/* Logo */}
-          <div className="flex items-center gap-3">
-            <RiContactsBookUploadFill />
-            <input
-              type="file"
-              {...register("logo")}
-              accept="image/*"
-              className="w-full border rounded-md px-3 py-2"
-            />
+          <div className="mb-4 max-w-sm">
+            <div className="w-full flex flex-col gap-3">
+              <label className="block text-sm text-gray-600 mb-2">
+                Upload Logo
+              </label>
+              <div className="w-full relative flex-col cursor-pointer h-auto min-h-[150px] rounded-md overflow-hidden border flex justify-center items-center">
+                {image ? (
+                  <img
+                    src={image}
+                    alt="Uploaded Preview"
+                    className="w-full h-auto min-h-[150px] rounded-md border"
+                  />
+                ) : (
+                  <div className="w-full max-h-[200px] min-h-[150px] flex flex-col justify-center items-center h-full">
+                    <IoCloudUploadOutline className="text-2xl" />
+                    <small>Upload Logo Image</small>
+                  </div>
+                )}
+                <ImageUpload onUpload={handleImageUpload} />
+              </div>
+            </div>
           </div>
 
           {/* Submit Button */}

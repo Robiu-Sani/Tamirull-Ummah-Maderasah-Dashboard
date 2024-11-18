@@ -1,6 +1,7 @@
 import { CgEditExposure } from "react-icons/cg";
 import { FaPenFancy, FaTrashAlt } from "react-icons/fa";
 import { MdAnnouncement } from "react-icons/md";
+import { Link } from "react-router-dom";
 
 export default function NoticeSection() {
   const notices = [
@@ -32,9 +33,12 @@ export default function NoticeSection() {
         <h3 className="font-semibold flex justify-start items-center gap-2">
           <CgEditExposure className="text-xl" /> Notice
         </h3>
-        <button className="flex justify-center text-white bg-gray-800 items-center gap-2 font-semibold px-3 p-1 border outline-0 rounded-md">
+        <Link
+          to={"/update/home"}
+          className="flex justify-center text-white bg-gray-800 items-center gap-2 font-semibold px-3 p-1 border outline-0 rounded-md"
+        >
           <FaPenFancy /> Add
-        </button>
+        </Link>
       </div>
 
       {/* Notice Items */}
