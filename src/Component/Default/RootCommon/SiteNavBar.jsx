@@ -25,12 +25,37 @@ import {
 } from "react-icons/ri";
 import { GiTeacher } from "react-icons/gi";
 import { FaDiamond } from "react-icons/fa6";
+import { IoPersonAddSharp } from "react-icons/io5";
+import { PiStudentFill } from "react-icons/pi";
+import { SiStaffbase } from "react-icons/si";
 
 const navItems = [
   {
     name: "Dashboard",
     path: "/dashboard",
     icon: <RiDashboardFill />,
+  },
+  {
+    name: "Add Users",
+    icon: <IoPersonAddSharp />,
+    children: [
+      {
+        name: "Student",
+        path: "/add-student",
+        icon: <PiStudentFill />,
+      },
+      {
+        name: "Teacher",
+        path: "/add-teacher",
+        icon: <GiTeacher />,
+      },
+      {
+        name: "Stafe",
+        path: "/add-stafe",
+        icon: <SiStaffbase />,
+      },
+      // { name: "Hostel", path: "/students/hostel", icon: <FaBed /> },
+    ],
   },
   {
     name: "Students",
