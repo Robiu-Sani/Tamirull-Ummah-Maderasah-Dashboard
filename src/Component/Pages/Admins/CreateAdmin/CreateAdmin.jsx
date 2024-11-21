@@ -53,8 +53,9 @@ export default function CreateAdmin() {
   };
 
   const onSubmit = async (data) => {
+    const { confirmPassword, ...newData } = data;
     const adminData = {
-      ...data,
+      ...newData,
       accountCreatingTime: new Date().toLocaleString(),
       status: "admin",
       profile: imageUrl,
@@ -268,7 +269,7 @@ export default function CreateAdmin() {
             type="submit"
             className="w-full flex justify-center items-center gap-3 bg-gray-700 font-semibold text-white py-2 px-4 rounded-md hover:bg-gray-800"
           >
-            {isSubmiting ? <ImSpinner2 /> : null}
+            {isSubmiting ? <ImSpinner2 className="animate-spin" /> : null}
             Create Admin
           </button>
         </div>

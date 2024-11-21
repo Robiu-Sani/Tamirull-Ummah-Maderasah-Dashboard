@@ -16,6 +16,7 @@ import Messages from "../Pages/Messages/Messages";
 import CreateAdmin from "../Pages/Admins/CreateAdmin/CreateAdmin";
 import Private from "./Private";
 import ClientHomePage from "../Pages/ClientHomePage/ClientHomePage";
+import UpdateAdmin from "../Pages/Admins/UpdateAdmin";
 
 const router = createBrowserRouter([
   {
@@ -129,6 +130,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <ClientHomePage />
+          </Private>
+        ),
+      },
+      {
+        path: "/update-admin/:id",
+        element: (
+          <Private>
+            <UpdateAdmin />
           </Private>
         ),
       },

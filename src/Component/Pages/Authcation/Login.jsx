@@ -5,9 +5,11 @@ import toast, { Toaster } from "react-hot-toast";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { Navigate, useNavigate } from "react-router-dom";
 import useLogedAdmin from "../../customComponent/useLogedAdmin";
+import { ImSpinner2 } from "react-icons/im";
 
 export default function Login() {
   const { adminEmail } = useLogedAdmin();
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
@@ -19,6 +21,7 @@ export default function Login() {
 
   const onSubmit = async (data) => {
     try {
+      setIsLoading(true);
       const response = await axios.post(
         `${import.meta.env.VITE_EXPRESS_API}/admin-login`,
         data
@@ -35,6 +38,8 @@ export default function Login() {
       const errorMessage =
         error.response?.data?.message || "Something went wrong!";
       toast.error(errorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -86,11 +91,13 @@ export default function Login() {
         </div>
 
         {/* Submit Button */}
-        <input
+        <button
           type="submit"
-          value="Login"
-          className="w-full p-2 rounded-md font-semibold cursor-pointer text-white bg-gray-700"
-        />
+          className="w-full p-2 flex justify-center items-center gap-3 rounded-md font-semibold cursor-pointer text-white bg-gray-700"
+        >
+          {" "}
+          {isLoading && <ImSpinner2 className="animate-spin" />} Login
+        </button>
       </form>
     </div>
   );

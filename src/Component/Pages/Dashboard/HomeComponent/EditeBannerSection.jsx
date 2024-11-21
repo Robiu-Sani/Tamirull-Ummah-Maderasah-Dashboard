@@ -69,7 +69,7 @@ export default function EditeBannerSection() {
               <h5 className="font-semibold">{banner.title}</h5>
               <small>{banner.description}</small>
             </div>
-            <FaPenFancy className="cursor-pointer mr-2" />
+            {/* <FaPenFancy className="cursor-pointer mr-2" /> */}
           </div>
         ))}
       </div>
