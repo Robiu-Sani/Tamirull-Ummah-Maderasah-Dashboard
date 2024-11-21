@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { toast } from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import { MdKeyboardArrowDown, MdLocationOn, MdPhone } from "react-icons/md";
 import {
   RiContactsBookUploadFill,
@@ -18,23 +18,42 @@ import {
 } from "react-icons/fa";
 import ImageUpload from "../../Default/ImageUpload";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import axios from "axios";
+import { ImSpinner2 } from "react-icons/im";
 
 export default function BasicContactInfo() {
   const [callItem, setCallItem] = useState(false);
+  const [image, setImage] = useState(null);
+  const [isSubmiting, setIsSubmitein] = useState(false);
+
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const [image, setImage] = useState(null);
 
-  const onSubmit = (data) => {
-    const newData = { ...data, logo: image };
-    console.log(newData);
-    toast.success("Contact information updated successfully!");
-    reset();
-    setImage(null);
+  const onSubmit = async (data) => {
+    const submissionDate = new Date().toLocaleString();
+    const newData = { ...data, submissionDate, logo: image };
+
+    try {
+      setIsSubmitein(true);
+      const response = await axios.post(
+        `${import.meta.env.VITE_EXPRESS_API}/basic_info`,
+        newData
+      );
+      toast.success(
+        response.data.message || "basic_info created successfully!"
+      );
+      reset();
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Something went wrong!";
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitein(false);
+    }
   };
 
   const handleImageUpload = (url) => {
@@ -43,6 +62,7 @@ export default function BasicContactInfo() {
 
   return (
     <div className="w-full bg-white rounded-md shadow-md">
+      <Toaster position="top-center" />
       <div
         onClick={() => setCallItem(!callItem)}
         className={`w-full flex justify-between cursor-pointer p-5 ${
@@ -231,9 +251,10 @@ export default function BasicContactInfo() {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition"
+            className="px-6 flex justify-center items-center gap-3 py-2 w-full bg-gray-500 text-white rounded-md"
           >
-            Update Information
+            {isSubmiting ? <ImSpinner2 className="animate-spin" /> : null}
+            Submit
           </button>
         </form>
       )}

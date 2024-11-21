@@ -1,24 +1,48 @@
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
 import { AiOutlineNotification } from "react-icons/ai";
+import { ImSpinner2 } from "react-icons/im";
 import { MdKeyboardArrowDown } from "react-icons/md";
 
 export default function AddNotice() {
   const [callItem, setCallItem] = useState(false);
+  const [isSubmiting, setIsSubmitein] = useState(false);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const submissionDate = new Date().toLocaleString();
-    console.log("Form Data:", { ...data, submissionDate });
+    const newData = { ...data, submissionDate };
+
+    try {
+      setIsSubmitein(true);
+      const response = await axios.post(
+        `${import.meta.env.VITE_EXPRESS_API}/notifections`,
+        newData
+      );
+      toast.success(
+        response.data.message || "Notifiction created successfully!"
+      );
+      reset();
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Something went wrong!";
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitein(false);
+    }
   };
 
   return (
     <div className="w-full bg-white rounded-md shadow-md">
+      <Toaster position="top-center" />
       <div
         onClick={() => setCallItem(!callItem)}
         className={`w-full flex justify-between cursor-pointer p-5 ${
@@ -141,8 +165,9 @@ export default function AddNotice() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="px-6 py-2 w-full bg-gray-500 text-white rounded-md"
+              className="px-6 flex justify-center items-center gap-3 py-2 w-full bg-gray-500 text-white rounded-md"
             >
+              {isSubmiting ? <ImSpinner2 className="animate-spin" /> : null}
               Submit
             </button>
           </form>

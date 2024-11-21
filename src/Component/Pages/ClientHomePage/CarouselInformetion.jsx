@@ -1,33 +1,73 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { RiCarouselView } from "react-icons/ri";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import ImageUpload from "../../Default/ImageUpload";
+import { ImSpinner2 } from "react-icons/im";
+import toast, { Toaster } from "react-hot-toast";
+import axios from "axios";
 
 export default function CarouselInformetion() {
   const [callItem, setCallItem] = useState(false);
   const [images, setImages] = useState({});
+  const [isSubmiting, setIsSubmitein] = useState(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
+  const [carousel, setCarousel] = useState([]);
+  // ${import.meta.env.VITE_EXPRESS_API}/admins
+
+  useEffect(() => {
+    fetchcarousel();
+  }, []);
+
+  const fetchcarousel = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_EXPRESS_API}/carouseldata`
+      );
+      setCarousel(response.data.data[0]);
+    } catch (error) {
+      console.error("Error fetching admins:", error);
+    }
+  };
 
   const handleImageUpload = (field, url) => {
     setImages((prev) => ({ ...prev, [field]: url }));
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const formData = {
       ...data,
       images,
     };
-    console.log("Form Data:", formData);
+
+    try {
+      setIsSubmitein(true);
+      const response = await axios.patch(
+        `${import.meta.env.VITE_EXPRESS_API}/carouseldata/${carousel._id}`,
+        formData
+      );
+      toast.success(
+        response.data.message || "Notifiction created successfully!"
+      );
+      reset();
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Something went wrong!";
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitein(false);
+    }
   };
 
   return (
     <div className="w-full bg-white rounded-md shadow-md">
+      <Toaster position="top-center" />
       <div
         onClick={() => setCallItem(!callItem)}
         className={`w-full flex justify-between cursor-pointer p-5 ${
@@ -101,8 +141,9 @@ export default function CarouselInformetion() {
             </div>
             <button
               type="submit"
-              className="mt-5 w-full px-6 py-2 bg-gray-500 text-white rounded-md"
+              className="px-6 flex mt-4 justify-center items-center gap-3 py-2 w-full bg-gray-500 text-white rounded-md"
             >
+              {isSubmiting ? <ImSpinner2 className="animate-spin" /> : null}
               Submit
             </button>
           </form>

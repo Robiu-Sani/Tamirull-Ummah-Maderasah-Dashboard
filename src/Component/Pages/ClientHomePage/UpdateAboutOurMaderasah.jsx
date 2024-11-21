@@ -1,23 +1,48 @@
+import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast, { Toaster } from "react-hot-toast";
+import { ImSpinner2 } from "react-icons/im";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { SiGoogledataproc } from "react-icons/si";
 
 export default function UpdateAboutOurMaderasah() {
   const [callItem, setCallItem] = useState(false);
+  const [isSubmiting, setIsSubmitein] = useState(false);
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Form Data:", data);
+  const onSubmit = async (data) => {
+    const submissionDate = new Date().toLocaleString();
+    const newData = { ...data, submissionDate };
+
+    try {
+      setIsSubmitein(true);
+      const response = await axios.post(
+        `${import.meta.env.VITE_EXPRESS_API}/about_text`,
+        newData
+      );
+      toast.success(
+        response.data.message || "about_text created successfully!"
+      );
+      reset();
+    } catch (error) {
+      const errorMessage =
+        error.response?.data?.message || "Something went wrong!";
+      toast.error(errorMessage);
+    } finally {
+      setIsSubmitein(false);
+    }
   };
 
   return (
     <div className="w-full bg-white rounded-md shadow-md">
+      <Toaster position="top-center" />
       <div
         onClick={() => setCallItem(!callItem)}
         className={`w-full flex justify-between cursor-pointer p-5 ${
@@ -71,8 +96,9 @@ export default function UpdateAboutOurMaderasah() {
             {/* Submit Button */}
             <button
               type="submit"
-              className="px-6 py-2 w-full bg-gray-500 text-white rounded-md"
+              className="px-6 flex justify-center items-center gap-3 py-2 w-full bg-gray-500 text-white rounded-md"
             >
+              {isSubmiting ? <ImSpinner2 className="animate-spin" /> : null}
               Submit
             </button>
           </form>
