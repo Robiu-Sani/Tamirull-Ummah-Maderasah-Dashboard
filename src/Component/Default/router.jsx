@@ -25,6 +25,8 @@ import ReportsThackciciSection from "../Pages/ReportsThackciciSection/ReportsTha
 import ReportsHefzSection from "../Pages/ReportsHefzSection/ReportsHefzSection";
 import ReportsAliaSection from "../Pages/ReportsAliaSection/ReportsAliaSection";
 import CommingSoon from "./CommingSoon";
+import AdminProfile from "../Pages/AdminProfile/AdminProfile";
+import OtherAdminProfile from "../Pages/AdminProfile/OtherAdminProfile";
 
 const router = createBrowserRouter([
   {
@@ -226,6 +228,22 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <CommingSoon />
+          </Private>
+        ),
+      },
+      {
+        path: "/admin_profile",
+        element: (
+          <Private>
+            <AdminProfile />
+          </Private>
+        ),
+      },
+      {
+        path: "/admin_profile/:email",
+        element: (
+          <Private>
+            <OtherAdminProfile />
           </Private>
         ),
       },

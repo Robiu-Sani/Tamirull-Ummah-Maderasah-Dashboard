@@ -3,13 +3,14 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import { ImSpinner2 } from "react-icons/im";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 export default function AllAdmins() {
   const [isLoading, setIsLoading] = useState(false);
   const [admins, setAdmins] = useState([]);
   const [isdelete, setIsDelete] = useState(false);
+  const navigate = useNavigate();
   // ${import.meta.env.VITE_EXPRESS_API}/admins
 
   useEffect(() => {
@@ -73,8 +74,9 @@ export default function AllAdmins() {
         <div className="w-full grid grid-cols-1 gap-3 sm:grid-cols-2">
           {admins.reverse().map((admin, index) => (
             <div
+              onClick={() => navigate(`/admin_profile/${admin.email}`)}
               key={index}
-              className="w-full bg-white gap-3 grid grid-cols-1 md:grid-cols-2 p-2 rounded-md border shadow-md"
+              className="w-full bg-white gap-3 cursor-pointer grid grid-cols-1 md:grid-cols-2 p-2 rounded-md border shadow-md"
             >
               <div className="w-full flex justify-center items-center h-auto md:h-full border overflow-hidden rounded-md">
                 <img

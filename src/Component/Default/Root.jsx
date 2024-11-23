@@ -1,9 +1,10 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import SiteNavBar from "./RootCommon/SiteNavBar";
 import DashboardHeader from "./RootCommon/DashboardHeader";
 import Footer from "./Footer";
 import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
+import Logout from "../Pages/Authcation/Logout";
 
 export default function Root() {
   const [callNav, setCallNav] = useState(false);
@@ -32,6 +33,7 @@ export default function Root() {
         <div className="w-full h-[calc(100vh-90px)] overflow-y-auto p-3">
           <Outlet />
         </div>
+        <Logout />
         <Footer />
       </div>
     </div>

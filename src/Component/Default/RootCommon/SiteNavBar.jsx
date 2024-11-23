@@ -244,7 +244,7 @@ export default function SiteNavBar({ handleCallNav }) {
             ) : (
               <FaUserCircle className="text-3xl" />
             )}
-            <h2 className="font-semibold">{logedAdmin?.name || "Guest"}</h2>
+            <h2 className="font-semibold">{logedAdmin?.name || "Loading"}</h2>
           </div>
           <RiLogoutCircleRLine />
         </button>

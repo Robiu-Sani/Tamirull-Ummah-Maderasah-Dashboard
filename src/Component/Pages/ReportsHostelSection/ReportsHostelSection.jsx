@@ -1,3 +1,10 @@
+import ReportBanner from "../../Shaire/ReportBanner";
+
 export default function ReportsHostelSection() {
-  return <div>ReportsHostelSection</div>;
+  return (
+    <div>
+      <ReportBanner />
+      ReportsHostelSection
+    </div>
+  );
 }
