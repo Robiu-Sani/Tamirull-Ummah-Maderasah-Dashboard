@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import logo from "../../../image/logo.png";
 // import { LiaHomeSolid } from "react-icons/lia";
@@ -28,6 +28,7 @@ import { FaDiamond } from "react-icons/fa6";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { PiStudentFill } from "react-icons/pi";
 import { SiStaffbase } from "react-icons/si";
+import useSingleAdmin from "../../customComponent/useSingleAdmin";
 
 const navItems = [
   {
@@ -147,6 +148,8 @@ const navItems = [
 
 export default function SiteNavBar({ handleCallNav }) {
   const [openMenu, setOpenMenu] = useState({});
+  const navigate = useNavigate();
+  const { logedAdmin } = useSingleAdmin();
 
   const toggleMenu = (index) => {
     setOpenMenu((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -227,10 +230,21 @@ export default function SiteNavBar({ handleCallNav }) {
         ))}
       </div>
       <div className="w-full h-[40px] flex justify-center items-center">
-        <button className="w-full px-3 p-2 rounded-md flex border justify-between items-center">
-          <div className="flex justify-start items-center gap-2">
-            <FaUserCircle className="text-3xl" />
-            <h2 className="font-semibold">Admin</h2>
+        <button
+          onClick={() => navigate("/admin_profile")}
+          className="w-full px-3 p-2 rounded-md flex border justify-between items-center"
+        >
+          <div className="flex items-center gap-2">
+            {logedAdmin?.profile ? (
+              <img
+                src={logedAdmin.profile}
+                alt="Admin Profile"
+                className="w-[35px] h-[35px] rounded-full"
+              />
+            ) : (
+              <FaUserCircle className="text-3xl" />
+            )}
+            <h2 className="font-semibold">{logedAdmin?.name || "Guest"}</h2>
           </div>
           <RiLogoutCircleRLine />
         </button>

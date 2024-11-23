@@ -17,6 +17,14 @@ import CreateAdmin from "../Pages/Admins/CreateAdmin/CreateAdmin";
 import Private from "./Private";
 import ClientHomePage from "../Pages/ClientHomePage/ClientHomePage";
 import UpdateAdmin from "../Pages/Admins/UpdateAdmin";
+import AddStudent from "../Pages/AddStudent/AddStudent";
+import AddTeacher from "../Pages/AddTeacher/AddTeacher";
+import AddStafe from "../Pages/AddStafe/AddStafe";
+import ReportsHostelSection from "../Pages/ReportsHostelSection/ReportsHostelSection";
+import ReportsThackciciSection from "../Pages/ReportsThackciciSection/ReportsThackciciSection";
+import ReportsHefzSection from "../Pages/ReportsHefzSection/ReportsHefzSection";
+import ReportsAliaSection from "../Pages/ReportsAliaSection/ReportsAliaSection";
+import CommingSoon from "./CommingSoon";
 
 const router = createBrowserRouter([
   {
@@ -138,6 +146,86 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <UpdateAdmin />
+          </Private>
+        ),
+      },
+      {
+        path: "/add-student",
+        element: (
+          <Private>
+            <AddStudent />
+          </Private>
+        ),
+      },
+      {
+        path: "/add-teacher",
+        element: (
+          <Private>
+            <AddTeacher />
+          </Private>
+        ),
+      },
+      {
+        path: "/add-stafe",
+        element: (
+          <Private>
+            <AddStafe />
+          </Private>
+        ),
+      },
+      {
+        path: "/reports/alia",
+        element: (
+          <Private>
+            <ReportsAliaSection />
+          </Private>
+        ),
+      },
+      {
+        path: "/reports/hifz",
+        element: (
+          <Private>
+            <ReportsHefzSection />
+          </Private>
+        ),
+      },
+      {
+        path: "/reports/thacksisi",
+        element: (
+          <Private>
+            <ReportsThackciciSection />
+          </Private>
+        ),
+      },
+      {
+        path: "/reports/hostel",
+        element: (
+          <Private>
+            <ReportsHostelSection />
+          </Private>
+        ),
+      },
+      {
+        path: "/update/about",
+        element: (
+          <Private>
+            <CommingSoon />
+          </Private>
+        ),
+      },
+      {
+        path: "/update/contact",
+        element: (
+          <Private>
+            <CommingSoon />
+          </Private>
+        ),
+      },
+      {
+        path: "/update/services",
+        element: (
+          <Private>
+            <CommingSoon />
           </Private>
         ),
       },
