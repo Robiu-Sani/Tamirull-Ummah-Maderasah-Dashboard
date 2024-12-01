@@ -1,48 +1,45 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { CgEditExposure } from "react-icons/cg";
 import { FaPenFancy } from "react-icons/fa";
 import { Link } from "react-router-dom";
 
-export default function EditeBannerSection() {
-  const bannerData = [
-    {
-      id: 1,
-      title: "Here will Banner Title",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi...",
-      imageUrl:
-        "https://t3.ftcdn.net/jpg/09/99/40/22/360_F_999402272_X7Xoky6muo5otfzDsYuewrKZEMec3Mle.jpg",
-    },
-    {
-      id: 2,
-      title: "Here will Banner Title",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi...",
-      imageUrl:
-        "https://t3.ftcdn.net/jpg/09/99/40/22/360_F_999402272_X7Xoky6muo5otfzDsYuewrKZEMec3Mle.jpg",
-    },
-    {
-      id: 3,
-      title: "Here will Banner Title",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi...",
-      imageUrl:
-        "https://t3.ftcdn.net/jpg/09/99/40/22/360_F_999402272_X7Xoky6muo5otfzDsYuewrKZEMec3Mle.jpg",
-    },
-    {
-      id: 4,
-      title: "Here will Banner Title",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi...",
-      imageUrl:
-        "https://t3.ftcdn.net/jpg/09/99/40/22/360_F_999402272_X7Xoky6muo5otfzDsYuewrKZEMec3Mle.jpg",
-    },
-  ];
+// Utility function to truncate text based on word limit
+const truncateText = (text, wordLimit) => {
+  if (!text) return "";
+  const words = text.split(" ");
+  return words.length > wordLimit
+    ? words.slice(0, wordLimit).join(" ") + "..."
+    : text;
+};
+
+export default function EditBannerSection() {
+  const [carousel, setCarousel] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchCarousel();
+  }, []);
+
+  const fetchCarousel = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_EXPRESS_API}/carouseldata`
+      );
+      setCarousel(response.data.data[0]);
+    } catch (error) {
+      console.error("Error fetching carousel data:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <div className="w-full rounded-md shadow-md bg-white">
       <div className="w-full flex justify-between items-center p-2 border-b">
         <h3 className="font-semibold flex justify-start items-center gap-2">
-          <FaPenFancy /> Edite Aditional Info
+          <FaPenFancy /> Edit Additional Info
         </h3>
         <Link
           to={"/update/home"}
@@ -51,28 +48,38 @@ export default function EditeBannerSection() {
           <CgEditExposure className="text-xl" /> Update
         </Link>
       </div>
-      {/* Banner Items */}
-      <div className="w-full p-2 flex flex-col gap-2">
-        {bannerData.map((banner) => (
-          <div
-            key={banner.id}
-            className="flex w-full justify-between gap-2 items-center p-1 border"
-          >
-            <div className="h-[50px] w-[100px] rounded-sm overflow-hidden">
-              <img
-                src={banner.imageUrl}
-                alt="banner"
-                className="min-w-full min-h-full"
-              />
-            </div>
-            <div className="w-full">
-              <h5 className="font-semibold">{banner.title}</h5>
-              <small>{banner.description}</small>
-            </div>
-            {/* <FaPenFancy className="cursor-pointer mr-2" /> */}
-          </div>
-        ))}
-      </div>
+      {/* Content */}
+      {isLoading ? (
+        <div className="flex justify-center items-center py-6">
+          <div className="loader border-t-4 border-gray-800 rounded-full w-10 h-10 animate-spin"></div>
+        </div>
+      ) : (
+        <div className="w-full p-2 flex flex-col gap-2">
+          {carousel?.images &&
+            Object.entries(carousel.images).map(([key, img], index) => (
+              <div
+                key={index}
+                className="flex w-full justify-between gap-2 items-center p-1 border"
+              >
+                <div className="h-[50px] w-[100px] rounded-sm overflow-hidden">
+                  <img
+                    src={img}
+                    alt={`banner ${key}`}
+                    className="min-w-full min-h-full"
+                  />
+                </div>
+                <div className="w-full">
+                  <h5 className="font-semibold">
+                    {truncateText(carousel[`slide${index + 1}Title`], 3)}
+                  </h5>
+                  <small>
+                    {truncateText(carousel[`slide${index + 1}Description`], 5)}
+                  </small>
+                </div>
+              </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 }

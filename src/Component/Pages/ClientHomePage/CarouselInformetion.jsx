@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { RiCarouselView } from "react-icons/ri";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import ImageUpload from "../../Default/ImageUpload";
+import ImageUpload from "../../Default/ImageUpload"; // Component for image upload
 import { ImSpinner2 } from "react-icons/im";
 import toast, { Toaster } from "react-hot-toast";
 import axios from "axios";
@@ -11,63 +11,78 @@ import axios from "axios";
 export default function CarouselInformetion() {
   const [callItem, setCallItem] = useState(false);
   const [images, setImages] = useState({});
-  const [isSubmiting, setIsSubmitein] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [carousel, setCarousel] = useState({});
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const [carousel, setCarousel] = useState([]);
-  // ${import.meta.env.VITE_EXPRESS_API}/admins
 
   useEffect(() => {
-    fetchcarousel();
+    fetchCarousel();
   }, []);
 
-  const fetchcarousel = async () => {
+  // Fetch existing carousel data from the API
+  const fetchCarousel = async () => {
     try {
       const response = await axios.get(
         `${import.meta.env.VITE_EXPRESS_API}/carouseldata`
       );
-      setCarousel(response.data.data[0]);
+      setCarousel(response.data.data[0] || {});
     } catch (error) {
-      console.error("Error fetching admins:", error);
+      console.error("Error fetching carousel data:", error);
+      toast.error("Failed to fetch carousel data.");
     }
   };
 
+  // Handle image upload
   const handleImageUpload = (field, url) => {
     setImages((prev) => ({ ...prev, [field]: url }));
   };
 
+  // Handle form submission
   const onSubmit = async (data) => {
     const formData = {
-      ...data,
-      images,
+      slide1Title: data.slide1Title || carousel.slide1Title,
+      slide1Description: data.slide1Description || carousel.slide1Description,
+      slide2Title: data.slide2Title || carousel.slide2Title,
+      slide2Description: data.slide2Description || carousel.slide2Description,
+      slide3Title: data.slide3Title || carousel.slide3Title,
+      slide3Description: data.slide3Description || carousel.slide3Description,
+      slide4Title: data.slide4Title || carousel.slide4Title,
+      slide4Description: data.slide4Description || carousel.slide4Description,
+      images: {
+        slide1: images.slide1 || carousel.images?.slide1,
+        slide2: images.slide2 || carousel.images?.slide2,
+        slide3: images.slide3 || carousel.images?.slide3,
+        slide4: images.slide4 || carousel.images?.slide4,
+      },
     };
 
     try {
-      setIsSubmitein(true);
+      setIsSubmitting(true);
       const response = await axios.patch(
         `${import.meta.env.VITE_EXPRESS_API}/carouseldata/${carousel._id}`,
         formData
       );
-      toast.success(
-        response.data.message || "Notifiction created successfully!"
-      );
+      toast.success(response.data.message || "Carousel updated successfully!");
       reset();
+      fetchCarousel(); // Refresh data after submission
     } catch (error) {
       const errorMessage =
         error.response?.data?.message || "Something went wrong!";
       toast.error(errorMessage);
     } finally {
-      setIsSubmitein(false);
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="w-full bg-white rounded-md shadow-md">
       <Toaster position="top-center" />
+      {/* Header section */}
       <div
         onClick={() => setCallItem(!callItem)}
         className={`w-full flex justify-between cursor-pointer p-5 ${
@@ -83,19 +98,22 @@ export default function CarouselInformetion() {
         />
       </div>
 
+      {/* Form Section */}
       {callItem && (
         <div className="w-full p-5">
           <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid grid-cols-1  md:grid-cols-2 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Loop through slides */}
               {["slide1", "slide2", "slide3", "slide4"].map((slide, index) => (
                 <div key={index} className="w-full flex flex-col gap-3">
+                  {/* Image Upload Section */}
                   <label>Your {slide} Image</label>
                   <div className="w-full relative flex-col cursor-pointer max-h-[200px] min-h-[150px] rounded-md overflow-hidden border flex justify-center items-center">
-                    {images[slide] ? (
+                    {images[slide] || carousel.images?.[slide] ? (
                       <img
-                        src={images[slide]}
+                        src={images[slide] || carousel.images?.[slide]}
                         alt={`${slide} Preview`}
-                        className="w-full max-h-[200px] min-h-[150px] rounded-md border"
+                        className="w-full max-h-[200px] min-h-[150px] rounded-md"
                       />
                     ) : (
                       <div className="w-full max-h-[200px] min-h-[150px] flex flex-col justify-center items-center h-full">
@@ -107,11 +125,8 @@ export default function CarouselInformetion() {
                       onUpload={(url) => handleImageUpload(slide, url)}
                     />
                   </div>
-                  {errors[slide] && (
-                    <p className="text-red-500 text-sm">
-                      {errors[slide].message}
-                    </p>
-                  )}
+
+                  {/* Title Input */}
                   <label>Title</label>
                   <input
                     type="text"
@@ -124,6 +139,8 @@ export default function CarouselInformetion() {
                       {errors[`${slide}Title`].message}
                     </p>
                   )}
+
+                  {/* Description Input */}
                   <label>Description</label>
                   <textarea
                     {...register(`${slide}Description`)}
@@ -139,12 +156,18 @@ export default function CarouselInformetion() {
                 </div>
               ))}
             </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
-              className="px-6 flex mt-4 justify-center items-center gap-3 py-2 w-full bg-gray-500 text-white rounded-md"
+              className="px-6 flex mt-4 justify-center items-center gap-3 py-2 w-full bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+              disabled={isSubmitting}
             >
-              {isSubmiting ? <ImSpinner2 className="animate-spin" /> : null}
-              Submit
+              {isSubmitting ? (
+                <ImSpinner2 className="animate-spin" />
+              ) : (
+                "Submit"
+              )}
             </button>
           </form>
         </div>

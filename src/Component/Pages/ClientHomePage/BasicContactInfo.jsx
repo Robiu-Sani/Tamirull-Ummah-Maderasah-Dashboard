@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast, Toaster } from "react-hot-toast";
 import { MdKeyboardArrowDown, MdLocationOn, MdPhone } from "react-icons/md";
@@ -25,6 +25,7 @@ export default function BasicContactInfo() {
   const [callItem, setCallItem] = useState(false);
   const [image, setImage] = useState(null);
   const [isSubmiting, setIsSubmitein] = useState(false);
+  const [basicInfo, setBasicInfo] = useState();
 
   const {
     register,
@@ -33,14 +34,57 @@ export default function BasicContactInfo() {
     formState: { errors },
   } = useForm();
 
+  useEffect(() => {
+    fetchbasicInfo();
+  }, []);
+
+  const fetchbasicInfo = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_EXPRESS_API}/basic_info`
+      );
+      setBasicInfo(response.data.data[0]);
+    } catch (error) {
+      console.error("Error fetching basic_info:", error);
+    }
+  };
+
   const onSubmit = async (data) => {
     const submissionDate = new Date().toLocaleString();
-    const newData = { ...data, submissionDate, logo: image };
+    const newData = {
+      institutionNameEnglish: data.institutionNameEnglish
+        ? data.institutionNameEnglish
+        : basicInfo.institutionNameEnglish,
+      institutionAddressEnglish: data.institutionAddressEnglish
+        ? data.institutionAddressEnglish
+        : basicInfo.institutionAddressEnglish,
+      institutionNameBanglaArabic: data.institutionNameBanglaArabic
+        ? data.institutionNameBanglaArabic
+        : basicInfo.institutionNameBanglaArabic,
+      institutionAddressBanglaArabic: data.institutionAddressBanglaArabic
+        ? data.institutionAddressBanglaArabic
+        : basicInfo.institutionAddressBanglaArabic,
+      address: data.address ? data.address : basicInfo.address,
+      contactNumber: data.contactNumber
+        ? data.contactNumber
+        : basicInfo.contactNumber,
+      whatsApp: data.whatsApp ? data.whatsApp : basicInfo.whatsApp,
+      telegram: data.telegram ? data.telegram : basicInfo.telegram,
+      facebook: data.facebook ? data.facebook : basicInfo.facebook,
+      twitter: data.twitter ? data.twitter : basicInfo.twitter,
+      instagram: data.instagram ? data.instagram : basicInfo.instagram,
+      youtube: data.youtube ? data.youtube : basicInfo.youtube,
+      discord: data.discord ? data.discord : basicInfo.discord,
+      messenger: data.messenger ? data.messenger : basicInfo.messenger,
+      linkedin: data.linkedin ? data.linkedin : basicInfo.linkedin,
+      submissionDate,
+      logo: image ? image : basicInfo.logo,
+    };
 
     try {
       setIsSubmitein(true);
-      const response = await axios.post(
-        `${import.meta.env.VITE_EXPRESS_API}/basic_info`,
+      const response = await axios.patch(
+        `${import.meta.env.VITE_EXPRESS_API}/basic_info/${basicInfo._id}`,
         newData
       );
       toast.success(

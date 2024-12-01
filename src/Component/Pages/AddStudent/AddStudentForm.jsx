@@ -8,8 +8,12 @@ import {
   FaMale,
   FaSchool,
 } from "react-icons/fa";
+import ImageUpload from "../../Default/ImageUpload";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import { useState } from "react";
 
 export default function AddStudentForm() {
+  const [image, setImage] = useState(null);
   const {
     register,
     handleSubmit,
@@ -17,8 +21,15 @@ export default function AddStudentForm() {
   } = useForm();
 
   const onSubmit = (data) => {
-    console.log("Form Data Submitted:", data);
+    const email =
+      data.studentNameEnglish.toLowerCase().replace(/\s+/g, "") + "@tum.com";
+    const newData = { image, email, ...data };
+    console.log("Form Data Submitted:", newData);
     alert("Student Information Saved Successfully!");
+  };
+
+  const handleImageUpload = (url) => {
+    setImage(url);
   };
 
   return (
@@ -174,7 +185,7 @@ export default function AddStudentForm() {
           <input
             type="text"
             {...register("identityMark", { required: true })}
-            placeholder="Enter any identity mark"
+            placeholder="If don't then N/A"
             className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
           {errors.identityMark && (
@@ -285,6 +296,30 @@ export default function AddStudentForm() {
           {errors.address && (
             <span className="text-red-500 text-sm">This field is required</span>
           )}
+        </div>
+      </div>
+
+      {/* profile  */}
+      <div className="mb-4 max-w-sm">
+        <div className="w-full flex flex-col gap-3">
+          <label className="block text-sm text-gray-600 mb-2">
+            Upload Logo
+          </label>
+          <div className="w-full relative flex-col cursor-pointer h-auto min-h-[150px] rounded-md overflow-hidden border flex justify-center items-center">
+            {image ? (
+              <img
+                src={image}
+                alt="Uploaded Preview"
+                className="w-full h-auto min-h-[150px] rounded-md border"
+              />
+            ) : (
+              <div className="w-full max-h-[100px] min-h-[150px] flex flex-col justify-center items-center h-full">
+                <IoCloudUploadOutline className="text-2xl" />
+                <small>Upload Student Image</small>
+              </div>
+            )}
+            <ImageUpload onUpload={handleImageUpload} />
+          </div>
         </div>
       </div>
 
