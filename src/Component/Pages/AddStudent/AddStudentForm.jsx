@@ -108,6 +108,22 @@ export default function AddStudentForm() {
           )}
         </div>
 
+        {/* Identity Email */}
+        <div className="w-full">
+          <label className="block font-medium text-gray-700 mb-2">
+            Identity Email
+          </label>
+          <input
+            type="email"
+            {...register("identityEmail", { required: true })}
+            placeholder="Enter a active email"
+            className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+          />
+          {errors.identityEmail && (
+            <span className="text-red-500 text-sm">This field is required</span>
+          )}
+        </div>
+
         {/* Date of Birth */}
         <div className="w-full">
           <label className="block font-medium text-gray-700 mb-2">
@@ -184,7 +200,7 @@ export default function AddStudentForm() {
           </label>
           <input
             type="text"
-            {...register("identityMark", { required: true })}
+            {...register("identityMark", { required: false })}
             placeholder="If don't then N/A"
             className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
           />

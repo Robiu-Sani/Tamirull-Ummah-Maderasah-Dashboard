@@ -27,6 +27,7 @@ import ReportsAliaSection from "../Pages/ReportsAliaSection/ReportsAliaSection";
 import CommingSoon from "./CommingSoon";
 import AdminProfile from "../Pages/AdminProfile/AdminProfile";
 import OtherAdminProfile from "../Pages/AdminProfile/OtherAdminProfile";
+import AllPostsData from "../Pages/AllPostsData/AllPostsData";
 
 const router = createBrowserRouter([
   {
@@ -208,10 +209,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/update/about",
+        path: "/update/all-posts-data",
         element: (
           <Private>
-            <CommingSoon />
+            <AllPostsData />
           </Private>
         ),
       },

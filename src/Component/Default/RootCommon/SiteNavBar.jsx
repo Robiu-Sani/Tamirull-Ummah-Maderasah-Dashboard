@@ -129,7 +129,11 @@ const navItems = [
     icon: <MdUpdate />,
     children: [
       { name: "Home Page", path: "/update/home", icon: <MdHome /> },
-      { name: "About Page", path: "/update/about", icon: <MdPeople /> },
+      {
+        name: "All Post Details",
+        path: "/update/all-posts-data",
+        icon: <MdPeople />,
+      },
       { name: "Contact Page", path: "/update/contact", icon: <MdReport /> },
       { name: "Services Page", path: "/update/services", icon: <MdSettings /> },
     ],
