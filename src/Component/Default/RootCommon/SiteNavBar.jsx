@@ -63,6 +63,11 @@ const navItems = [
     icon: <MdPeople />,
     children: [
       {
+        name: "All Students",
+        path: "/students/allStudent",
+        icon: <FaUserGraduate />,
+      },
+      {
         name: "Alia Section",
         path: "/students/alia",
         icon: <FaUserGraduate />,

@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import ChieldNavTopBox from "../../Shaire/ChieldNavTopBox";
-import StudentsTable from "../../Shaire/StudentsTable";
 import fetchOutput from "../../Default/functions/fatchingData";
+import StudentBanner from "./StudentBanner";
+import StudentTable from "./StudentTable";
 
-export default function AliaStudent() {
+export default function AllStudent() {
   const [tableStudent, setTableStudent] = useState([]);
   useEffect(() => {
     fetchOutput(`student/table`)
@@ -17,8 +17,8 @@ export default function AliaStudent() {
 
   return (
     <div>
-      <ChieldNavTopBox />
-      <StudentsTable tableStudent={tableStudent} />
+      <StudentBanner />
+      <StudentTable tableStudent={tableStudent} />
     </div>
   );
 }

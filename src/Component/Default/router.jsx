@@ -28,6 +28,7 @@ import CommingSoon from "./CommingSoon";
 import AdminProfile from "../Pages/AdminProfile/AdminProfile";
 import OtherAdminProfile from "../Pages/AdminProfile/OtherAdminProfile";
 import AllPostsData from "../Pages/AllPostsData/AllPostsData";
+import AllStudent from "../Pages/AllStudent/AllStudent";
 
 const router = createBrowserRouter([
   {
@@ -53,6 +54,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <AliaStudent />
+          </Private>
+        ),
+      },
+      {
+        path: "/students/allStudent",
+        element: (
+          <Private>
+            <AllStudent />
           </Private>
         ),
       },
