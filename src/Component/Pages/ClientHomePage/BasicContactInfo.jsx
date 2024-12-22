@@ -18,8 +18,9 @@ import {
 } from "react-icons/fa";
 import ImageUpload from "../../Default/ImageUpload";
 import { IoCloudUploadOutline } from "react-icons/io5";
-import axios from "axios";
 import { ImSpinner2 } from "react-icons/im";
+import fetchOutput from "../../Default/functions/fatchingData";
+import PatchData from "../../Default/functions/patchData";
 
 export default function BasicContactInfo() {
   const [callItem, setCallItem] = useState(false);
@@ -35,19 +36,14 @@ export default function BasicContactInfo() {
   } = useForm();
 
   useEffect(() => {
-    fetchbasicInfo();
+    fetchOutput(`institution`)
+      .then((response) => {
+        setBasicInfo(response.data[0] || {});
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+      });
   }, []);
-
-  const fetchbasicInfo = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_EXPRESS_API}/basic_info`
-      );
-      setBasicInfo(response.data.data[0]);
-    } catch (error) {
-      console.error("Error fetching basic_info:", error);
-    }
-  };
 
   const onSubmit = async (data) => {
     const submissionDate = new Date().toLocaleString();
@@ -83,18 +79,19 @@ export default function BasicContactInfo() {
 
     try {
       setIsSubmitein(true);
-      const response = await axios.patch(
-        `${import.meta.env.VITE_EXPRESS_API}/basic_info/${basicInfo._id}`,
+      const submittedData = await PatchData(
+        `institution/update-single-institution-by-patch/${basicInfo._id}`,
         newData
       );
-      toast.success(
-        response.data.message || "basic_info created successfully!"
-      );
-      reset();
+      if (submittedData.status === true) {
+        toast.success(submittedData.message);
+        reset();
+      } else {
+        toast.error(submittedData.message);
+      }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || "Something went wrong!";
-      toast.error(errorMessage);
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
     } finally {
       setIsSubmitein(false);
     }

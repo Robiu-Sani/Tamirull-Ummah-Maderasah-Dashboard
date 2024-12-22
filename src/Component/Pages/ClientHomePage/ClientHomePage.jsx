@@ -1,6 +1,7 @@
 import AddNotice from "./AddNotice";
 import BasicContactInfo from "./BasicContactInfo";
 import CarouselInformetion from "./CarouselInformetion";
+import FeeForm from "./FeeForm";
 import UpdateAboutOurMaderasah from "./UpdateAboutOurMaderasah";
 import UpdateingHomePageInfoBanner from "./UpdateingHomePageInfoBanner";
 
@@ -11,6 +12,7 @@ export default function ClientHomePage() {
       <AddNotice />
       <CarouselInformetion />
       <UpdateAboutOurMaderasah />
+      <FeeForm />
       <BasicContactInfo />
     </div>
   );

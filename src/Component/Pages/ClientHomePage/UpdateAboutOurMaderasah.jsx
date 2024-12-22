@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { ImSpinner2 } from "react-icons/im";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { SiGoogledataproc } from "react-icons/si";
+import postOutput from "../../Default/functions/postOutput";
 
 export default function UpdateAboutOurMaderasah() {
   const [callItem, setCallItem] = useState(false);
@@ -23,18 +23,16 @@ export default function UpdateAboutOurMaderasah() {
 
     try {
       setIsSubmitein(true);
-      const response = await axios.post(
-        `${import.meta.env.VITE_EXPRESS_API}/about_text`,
-        newData
-      );
-      toast.success(
-        response.data.message || "about_text created successfully!"
-      );
-      reset();
+      const submittedData = await postOutput("about/create-about", newData);
+      if (submittedData.status === true) {
+        toast.success(submittedData.message);
+        reset();
+      } else {
+        toast.error(submittedData.message);
+      }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || "Something went wrong!";
-      toast.error(errorMessage);
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
     } finally {
       setIsSubmitein(false);
     }
