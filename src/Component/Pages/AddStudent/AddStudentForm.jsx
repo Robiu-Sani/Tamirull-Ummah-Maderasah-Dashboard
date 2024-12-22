@@ -11,21 +11,40 @@ import {
 import ImageUpload from "../../Default/ImageUpload";
 import { IoCloudUploadOutline } from "react-icons/io5";
 import { useState } from "react";
+import postOutput from "../../Default/functions/postOutput";
+import toast, { Toaster } from "react-hot-toast";
+import { ImSpinner2 } from "react-icons/im";
 
 export default function AddStudentForm() {
   const [image, setImage] = useState(null);
+  const [isload, setIsload] = useState(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
     const email =
       data.studentNameEnglish.toLowerCase().replace(/\s+/g, "") + "@tum.com";
     const newData = { image, email, ...data };
-    console.log("Form Data Submitted:", newData);
-    alert("Student Information Saved Successfully!");
+
+    try {
+      setIsload(true);
+      const submittedData = await postOutput("student/create-student", newData);
+      if (submittedData.status === true) {
+        toast.success(submittedData.message);
+        reset();
+      } else {
+        toast.error(submittedData.message);
+      }
+    } catch (error) {
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsload(false);
+    }
   };
 
   const handleImageUpload = (url) => {
@@ -37,6 +56,7 @@ export default function AddStudentForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full  mx-auto bg-white p-8 rounded-md shadow-lg border"
     >
+      <Toaster />
       <h2 className="text-2xl font-bold text-center text-gray-600 mb-6">
         Add Student Information
       </h2>
@@ -109,7 +129,7 @@ export default function AddStudentForm() {
         </div>
 
         {/* Identity Email */}
-        <div className="w-full">
+        {/* <div className="w-full">
           <label className="block font-medium text-gray-700 mb-2">
             Identity Email
           </label>
@@ -122,7 +142,7 @@ export default function AddStudentForm() {
           {errors.identityEmail && (
             <span className="text-red-500 text-sm">This field is required</span>
           )}
-        </div>
+        </div> */}
 
         {/* Date of Birth */}
         <div className="w-full">
@@ -248,12 +268,30 @@ export default function AddStudentForm() {
         {/* Class */}
         <div className="w-full">
           <label className="block font-medium text-gray-700 mb-2">Class</label>
-          <input
-            type="text"
+          <select
             {...register("class", { required: true })}
-            placeholder="Enter class"
             className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-          />
+          >
+            <option value="" disabled selected>
+              Select a class
+            </option>
+            <option value="one">One</option>
+            <option value="two">Two</option>
+            <option value="three">Three</option>
+            <option value="four">Four</option>
+            <option value="five">Five</option>
+            <option value="six">Six</option>
+            <option value="seven">Seven</option>
+            <option value="eight">Eight</option>
+            <option value="nine">Nine</option>
+            <option value="ten">Ten</option>
+            <option value="eleven">Eleven</option>
+            <option value="twelve">Twelve</option>
+            <option value="hifz">Hifz</option>
+            <option value="norani">Norani</option>
+            <option value="fazil">Fazil</option>
+            <option value="kamil">Kamil</option>
+          </select>
           {errors.class && (
             <span className="text-red-500 text-sm">This field is required</span>
           )}
@@ -342,8 +380,9 @@ export default function AddStudentForm() {
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full mt-3 bg-gray-600 text-white p-2 rounded-md hover:bg-gray-700 transition"
+        className="w-full bg-gray-600 mt-3 flex justify-center items-center gap-3 text-white p-2 rounded-md hover:bg-gray-700 transition"
       >
+        {isload ? <ImSpinner2 className="animate-spin" /> : null}
         Save Student Information
       </button>
     </form>

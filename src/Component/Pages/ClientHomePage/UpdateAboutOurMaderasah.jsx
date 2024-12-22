@@ -75,6 +75,20 @@ export default function UpdateAboutOurMaderasah() {
               )}
             </div>
 
+            {/* Title Field */}
+            <div className="w-full flex flex-col gap-2">
+              <label className="font-medium">Speaker</label>
+              <input
+                type="text"
+                {...register("speaker", { required: "Title is required" })}
+                className="w-full p-2 border rounded-md"
+                placeholder="Enter title"
+              />
+              {errors.title && (
+                <p className="text-red-500 text-sm">{errors.title.message}</p>
+              )}
+            </div>
+
             {/* Description Field */}
             <div className="w-full flex flex-col gap-2">
               <label className="font-medium">Description</label>

@@ -6,7 +6,8 @@ import { IoCloudUploadOutline } from "react-icons/io5";
 import ImageUpload from "../../Default/ImageUpload"; // Component for image upload
 import { ImSpinner2 } from "react-icons/im";
 import toast, { Toaster } from "react-hot-toast";
-import axios from "axios";
+import PatchData from "../../Default/functions/patchData";
+import fetchOutput from "../../Default/functions/fatchingData";
 
 export default function CarouselInformetion() {
   const [callItem, setCallItem] = useState(false);
@@ -21,21 +22,14 @@ export default function CarouselInformetion() {
   } = useForm();
 
   useEffect(() => {
-    fetchCarousel();
+    fetchOutput(`slide`)
+      .then((response) => {
+        setCarousel(response.data[0] || {});
+      })
+      .catch((err) => {
+        console.error("Error fetching data:", err);
+      });
   }, []);
-
-  // Fetch existing carousel data from the API
-  const fetchCarousel = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_EXPRESS_API}/carouseldata`
-      );
-      setCarousel(response.data.data[0] || {});
-    } catch (error) {
-      console.error("Error fetching carousel data:", error);
-      toast.error("Failed to fetch carousel data.");
-    }
-  };
 
   // Handle image upload
   const handleImageUpload = (field, url) => {
@@ -63,17 +57,19 @@ export default function CarouselInformetion() {
 
     try {
       setIsSubmitting(true);
-      const response = await axios.patch(
-        `${import.meta.env.VITE_EXPRESS_API}/carouseldata/${carousel._id}`,
+      const submittedData = await PatchData(
+        `slide/update-single-slide-by-patch/${carousel._id}`,
         formData
       );
-      toast.success(response.data.message || "Carousel updated successfully!");
-      reset();
-      fetchCarousel(); // Refresh data after submission
+      if (submittedData.status === true) {
+        toast.success(submittedData.message);
+        reset();
+      } else {
+        toast.error(submittedData.message);
+      }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || "Something went wrong!";
-      toast.error(errorMessage);
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
     } finally {
       setIsSubmitting(false);
     }

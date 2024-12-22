@@ -1,10 +1,10 @@
-import axios from "axios";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import toast, { Toaster } from "react-hot-toast";
 import { AiOutlineNotification } from "react-icons/ai";
 import { ImSpinner2 } from "react-icons/im";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import postOutput from "../../Default/functions/postOutput";
 
 export default function AddNotice() {
   const [callItem, setCallItem] = useState(false);
@@ -23,18 +23,16 @@ export default function AddNotice() {
 
     try {
       setIsSubmitein(true);
-      const response = await axios.post(
-        `${import.meta.env.VITE_EXPRESS_API}/notifections`,
-        newData
-      );
-      toast.success(
-        response.data.message || "Notifiction created successfully!"
-      );
-      reset();
+      const submittedData = await postOutput("notice/create-notice", newData);
+      if (submittedData.status === true) {
+        toast.success(submittedData.message);
+        reset();
+      } else {
+        toast.error(submittedData.message);
+      }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.message || "Something went wrong!";
-      toast.error(errorMessage);
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
     } finally {
       setIsSubmitein(false);
     }

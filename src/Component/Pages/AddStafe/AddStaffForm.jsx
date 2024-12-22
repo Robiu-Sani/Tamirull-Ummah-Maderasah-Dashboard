@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   FaUserTie,
@@ -10,17 +11,46 @@ import {
   FaHome,
   FaMale,
 } from "react-icons/fa";
+import postOutput from "../../Default/functions/postOutput";
+import toast, { Toaster } from "react-hot-toast";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import ImageUpload from "../../Default/ImageUpload";
+import { ImSpinner2 } from "react-icons/im";
 
 export default function AddStaffForm() {
+  const [image, setImage] = useState(null);
+  const [isload, setIsload] = useState(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Staff Data Submitted:", data);
-    alert("Staff Member Information Saved Successfully!");
+  const onSubmit = async (data) => {
+    const email = data.staffName.toLowerCase().replace(/\s+/g, "") + "@tum.com";
+    const newData = { staffImage: image, email, ...data };
+    console.log(newData);
+
+    try {
+      setIsload(true);
+      const submittedData = await postOutput("stafe/create-stafe", newData);
+      if (submittedData.status === true) {
+        toast.success(submittedData.message);
+        reset();
+      } else {
+        toast.error(submittedData.message);
+      }
+    } catch (error) {
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsload(false);
+    }
+  };
+
+  const handleImageUpload = (url) => {
+    setImage(url);
   };
 
   return (
@@ -28,6 +58,7 @@ export default function AddStaffForm() {
       onSubmit={handleSubmit(onSubmit)}
       className="w-full mx-auto bg-white p-8 rounded-md shadow-lg border"
     >
+      <Toaster />
       <h2 className="text-2xl font-bold text-center text-gray-600 mb-6">
         Add Staff Member Information
       </h2>
@@ -37,7 +68,7 @@ export default function AddStaffForm() {
         <div>
           <label className="block font-medium text-gray-700 mb-2">
             <FaUserTie className="inline mr-2" />
-            Staff Member`s Name
+            Staff Member`s Name by english
           </label>
           <input
             type="text"
@@ -66,21 +97,21 @@ export default function AddStaffForm() {
           )}
         </div>
 
-        {/* Email */}
+        {/* nidNumber */}
         <div>
           <label className="block font-medium text-gray-700 mb-2">
             <FaEnvelope className="inline mr-2" />
-            Email
+            Nid Number
           </label>
           <input
-            type="email"
-            {...register("email", { required: true })}
-            placeholder="Enter email address"
+            type="number"
+            {...register("nidNumber", { required: true })}
+            placeholder="Enter nid number"
             className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
           />
-          {errors.email && (
+          {errors.nidNumber && (
             <span className="text-red-500 text-sm">
-              A valid email is required
+              A valid nid number is required
             </span>
           )}
         </div>
@@ -231,11 +262,36 @@ export default function AddStaffForm() {
         </div>
       </div>
 
+      {/* profile  */}
+      <div className="mb-4 max-w-sm">
+        <div className="w-full flex flex-col gap-3">
+          <label className="block text-sm text-gray-600 mb-2">
+            Upload Logo
+          </label>
+          <div className="w-full relative flex-col cursor-pointer h-auto min-h-[150px] rounded-md overflow-hidden border flex justify-center items-center">
+            {image ? (
+              <img
+                src={image}
+                alt="Uploaded Preview"
+                className="w-full h-auto min-h-[150px] rounded-md border"
+              />
+            ) : (
+              <div className="w-full max-h-[100px] min-h-[150px] flex flex-col justify-center items-center h-full">
+                <IoCloudUploadOutline className="text-2xl" />
+                <small>Upload Student Image</small>
+              </div>
+            )}
+            <ImageUpload onUpload={handleImageUpload} />
+          </div>
+        </div>
+      </div>
+
       {/* Submit Button */}
       <button
         type="submit"
-        className="w-full bg-gray-600 mt-3 text-white p-2 rounded-md hover:bg-gray-700 transition"
+        className="w-full bg-gray-600 mt-3 flex justify-center items-center gap-3 text-white p-2 rounded-md hover:bg-gray-700 transition"
       >
+        {isload ? <ImSpinner2 className="animate-spin" /> : null}
         Save Staff Member Information
       </button>
     </form>
