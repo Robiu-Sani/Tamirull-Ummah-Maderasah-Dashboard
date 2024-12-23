@@ -30,6 +30,7 @@ import OtherAdminProfile from "../Pages/AdminProfile/OtherAdminProfile";
 import AllPostsData from "../Pages/AllPostsData/AllPostsData";
 import AllStudent from "../Pages/AllStudent/AllStudent";
 import StudentDetails from "../Pages/AllStudent/studentDetails/StudentDetails";
+import EditStudent from "../Pages/AllStudent/EditStudent/EditStudent";
 
 const router = createBrowserRouter([
   {
@@ -71,6 +72,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <StudentDetails />
+          </Private>
+        ),
+      },
+      {
+        path: "/students/student-edit/:id",
+        element: (
+          <Private>
+            <EditStudent />
           </Private>
         ),
       },

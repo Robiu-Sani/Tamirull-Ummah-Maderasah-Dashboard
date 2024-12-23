@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
-import { ImSpinner9 } from "react-icons/im";
+import { ImBlocked, ImSpinner9 } from "react-icons/im";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import deleteOutput from "../../Default/functions/deleteOutput";
+import toast, { Toaster } from "react-hot-toast";
+import PatchData from "../../Default/functions/patchData";
 
 export default function StudentTable() {
   const [students, setStudents] = useState([]);
@@ -43,8 +47,49 @@ export default function StudentTable() {
     setMenuIndex(menuIndex === index ? null : index);
   };
 
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteOutput(`student/delete-student/${id}`)
+          .then((response) => {
+            toast.success(response.data.message + "Deleted");
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          });
+      }
+    });
+  };
+
+  const handleBlock = async (id, type) => {
+    const data = type;
+    try {
+      const submittedData = await PatchData(
+        `student/update-single-student-by-patch/${id}`,
+        { type: data }
+      );
+      if (submittedData.status === true) {
+        toast.success("now this student type is " + data);
+      } else {
+        toast.error("something worng here!");
+      }
+    } catch (error) {
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
+    }
+  };
+
   return (
     <div className="w-full mx-auto ">
+      <Toaster />
       {/* --------- top section  ------------ */}
       <div className="w-full flex flex-wrap gap-3 py-3 justify-between items-center">
         {/* Dropdown for selecting class */}
@@ -152,10 +197,28 @@ export default function StudentTable() {
                         >
                           <FaEye className="mr-2 text-blue-500" /> Details
                         </Link>
-                        <button className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150">
+                        <Link
+                          to={`/students/student-edit/${student._id}`}
+                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                        >
                           <FaEdit className="mr-2 text-yellow-500" /> Edit
+                        </Link>
+                        <button
+                          onClick={() =>
+                            handleBlock(
+                              student._id,
+                              student.type === "student" ? "blocked" : "student"
+                            )
+                          }
+                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                        >
+                          <ImBlocked className="mr-2 text-black" />{" "}
+                          {student.type === "blocked" ? "Un-Block" : "Block"}
                         </button>
-                        <button className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150">
+                        <button
+                          onClick={() => handleDelete(student._id)}
+                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                        >
                           <FaTrash className="mr-2 text-red-500" /> Delete
                         </button>
                       </div>
