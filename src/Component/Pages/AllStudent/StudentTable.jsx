@@ -165,7 +165,7 @@ export default function StudentTable() {
       )}
 
       {/* Pagination */}
-      <div className="flex justify-end py-3">
+      <div className="flex justify-end py-3 overflow-x-auto">
         {Array.from({ length: totalPages }, (_, index) => (
           <button
             key={index}
