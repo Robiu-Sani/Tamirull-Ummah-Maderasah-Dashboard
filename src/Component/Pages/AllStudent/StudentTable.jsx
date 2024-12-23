@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { ImSpinner9 } from "react-icons/im";
+import { Link } from "react-router-dom";
 
 export default function StudentTable() {
   const [students, setStudents] = useState([]);
@@ -145,9 +146,12 @@ export default function StudentTable() {
                     </button>
                     {menuIndex === index && (
                       <div className="absolute right-0 mt-2 w-48 z-50 bg-white border border-gray-300 shadow-lg rounded-lg">
-                        <button className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150">
+                        <Link
+                          to={`/students/student-details/${student._id}`}
+                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                        >
                           <FaEye className="mr-2 text-blue-500" /> Details
-                        </button>
+                        </Link>
                         <button className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150">
                           <FaEdit className="mr-2 text-yellow-500" /> Edit
                         </button>

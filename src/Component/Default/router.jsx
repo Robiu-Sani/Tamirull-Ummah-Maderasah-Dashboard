@@ -29,6 +29,7 @@ import AdminProfile from "../Pages/AdminProfile/AdminProfile";
 import OtherAdminProfile from "../Pages/AdminProfile/OtherAdminProfile";
 import AllPostsData from "../Pages/AllPostsData/AllPostsData";
 import AllStudent from "../Pages/AllStudent/AllStudent";
+import StudentDetails from "../Pages/AllStudent/studentDetails/StudentDetails";
 
 const router = createBrowserRouter([
   {
@@ -62,6 +63,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <AllStudent />
+          </Private>
+        ),
+      },
+      {
+        path: "/students/student-details/:id",
+        element: (
+          <Private>
+            <StudentDetails />
           </Private>
         ),
       },

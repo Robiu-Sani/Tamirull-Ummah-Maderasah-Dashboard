@@ -14,7 +14,6 @@ export default function AllStudent() {
         console.error("Error fetching data:", err);
       });
   }, []);
-  console.log(tableStudent);
   return (
     <div>
       <StudentBanner tableStudent={tableStudent} />
