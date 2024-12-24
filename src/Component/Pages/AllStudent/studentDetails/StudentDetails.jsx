@@ -43,27 +43,21 @@ export default function StudentDetails() {
         <FatherInfo father={singleStudent.father} />
       ) : (
         <div className="flex justify-center items-center p-5">
-          <h3 className="font-bold text-xl text-red-400">
-            His Father Info; not Save Yet!
-          </h3>
+          <h3 className=" text-red-400">this data not save yet!</h3>
         </div>
       )}
       {singleStudent.mother ? (
         <MotherInfo mother={singleStudent.mother} />
       ) : (
         <div className="flex justify-center items-center p-5">
-          <h3 className="font-bold text-xl text-red-400">
-            His Mother Info; not Save Yet!
-          </h3>
+          <h3 className=" text-red-400">this data not save yet!</h3>
         </div>
       )}
       {singleStudent.gairdean ? (
         <GairdeanInfo gairdean={singleStudent.gairdean} />
       ) : (
         <div className="flex justify-center items-center p-5">
-          <h3 className="font-bold text-xl text-red-400">
-            His Gairdean Info; not Save Yet!
-          </h3>
+          <h3 className=" text-red-400">this data not save yet!</h3>
         </div>
       )}
       {singleStudent.result?.first_tutiral ? (

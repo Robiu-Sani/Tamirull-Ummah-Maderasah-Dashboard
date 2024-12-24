@@ -29,6 +29,7 @@ import { IoPersonAddSharp } from "react-icons/io5";
 import { PiStudentFill } from "react-icons/pi";
 import { SiStaffbase } from "react-icons/si";
 import useSingleAdmin from "../../customComponent/useSingleAdmin";
+import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 
 const navItems = [
   {
@@ -59,7 +60,7 @@ const navItems = [
     ],
   },
   {
-    name: "Students",
+    name: "All User",
     icon: <MdPeople />,
     children: [
       {
@@ -68,21 +69,10 @@ const navItems = [
         icon: <FaUserGraduate />,
       },
       {
-        name: "Alia Section",
-        path: "/students/alia",
-        icon: <FaUserGraduate />,
+        name: "All Teacher",
+        path: "/teacher/all-teacher",
+        icon: <LiaChalkboardTeacherSolid />,
       },
-      {
-        name: "Hifz Section",
-        path: "/students/hifz",
-        icon: <FaChalkboardTeacher />,
-      },
-      {
-        name: "Thacksisi Section",
-        path: "/students/thacksisi",
-        icon: <MdSchool />,
-      },
-      { name: "Hostel", path: "/students/hostel", icon: <FaBed /> },
     ],
   },
   {

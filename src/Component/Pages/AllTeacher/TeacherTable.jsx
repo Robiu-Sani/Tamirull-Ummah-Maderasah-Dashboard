@@ -4,12 +4,11 @@ import { FaEdit, FaEllipsisV, FaEye, FaTrash } from "react-icons/fa";
 import { ImBlocked, ImSpinner9 } from "react-icons/im";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
-import deleteOutput from "../../Default/functions/deleteOutput";
 import toast, { Toaster } from "react-hot-toast";
-import PatchData from "../../Default/functions/patchData";
+import { SiSinaweibo } from "react-icons/si";
 
-export default function StudentTable() {
-  const [students, setStudents] = useState([]);
+export default function TeacherTable() {
+  const [teachers, setTeachers] = useState([]);
   const [uniqueClasses, setUniqueClasses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [menuIndex, setMenuIndex] = useState(null);
@@ -17,21 +16,17 @@ export default function StudentTable() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [erroralert, setErrorAlert] = useState(false);
 
-  const fetchStudents = async () => {
+  const fetchTeachers = async () => {
     setLoading(true);
     try {
       const response = await axios.get(
         `${
           import.meta.env.VITE_SERVER
-        }/student/table?page=${currentPage}&class=${selectedClass}&search=${searchQuery}`
+        }/teacher/table?page=${currentPage}&class=${selectedClass}&search=${searchQuery}`
       );
-      if (response.status == false) {
-        setErrorAlert(true);
-      }
-      const { students, uniqueClasses, totalPages } = response.data.data;
-      setStudents(students);
+      const { teacher, uniqueClasses, totalPages } = response.data.data;
+      setTeachers(teacher);
       setUniqueClasses(uniqueClasses);
       setTotalPages(totalPages);
     } catch (error) {
@@ -42,10 +37,8 @@ export default function StudentTable() {
   };
 
   useEffect(() => {
-    fetchStudents();
+    fetchTeachers();
   }, [currentPage, selectedClass, searchQuery]);
-
-  // console.log(totalPages);
 
   const toggleMenu = (index) => {
     setMenuIndex(menuIndex === index ? null : index);
@@ -62,9 +55,11 @@ export default function StudentTable() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteOutput(`student/delete-student/${id}`)
+        axios
+          .delete(`${import.meta.env.VITE_SERVER}/teacher/delete-teacher/${id}`)
           .then((response) => {
-            toast.success(response.data.message + "Deleted");
+            toast.success(response.data.message + " Deleted");
+            fetchTeachers();
           })
           .catch((err) => {
             toast.error(err.message);
@@ -74,44 +69,36 @@ export default function StudentTable() {
   };
 
   const handleBlock = async (id, type) => {
-    const data = type;
     try {
-      const submittedData = await PatchData(
-        `student/update-single-student-by-patch/${id}`,
-        { type: data }
+      const response = await axios.patch(
+        `${
+          import.meta.env.VITE_SERVER
+        }/teacher/update-single-teacher-by-patch/${id}`,
+        { type }
       );
-      if (submittedData.status === true) {
-        toast.success("now this student type is " + data);
+      if (response.data.status === true) {
+        toast.success("Now this teacher type is " + type);
+        fetchTeachers();
       } else {
-        toast.error("something worng here!");
+        toast.error("Something went wrong!");
       }
     } catch (error) {
-      toast.error("Error submitting form:");
-      console.error("Error submitting form:", error);
+      toast.error("Error updating teacher type.");
+      console.error(error);
     }
   };
 
-  if (erroralert) {
-    return (
-      <div className="w-full h-[600px] flex justify-center items-center">
-        <p>some is worng there! we don`t get any data</p>
-      </div>
-    );
-  }
-
   return (
-    <div className="w-full mx-auto ">
+    <div className="w-full mx-auto">
       <Toaster />
-      {/* --------- top section  ------------ */}
       <div className="w-full flex flex-wrap gap-3 py-3 justify-between items-center">
-        {/* Dropdown for selecting class */}
         <div className="relative w-full sm:w-[170px]">
           <select
             className="block w-full px-2 py-1 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200 focus:outline-none"
             value={selectedClass}
             onChange={(e) => setSelectedClass(e.target.value)}
           >
-            <option value="">All Classes</option>
+            <option value="">All Section</option>
             {uniqueClasses.map((item, idx) => (
               <option key={idx} value={item}>
                 {item}
@@ -120,7 +107,6 @@ export default function StudentTable() {
           </select>
         </div>
 
-        {/* Search Bar */}
         <div className="w-full sm:w-[350px]">
           <input
             type="search"
@@ -132,69 +118,53 @@ export default function StudentTable() {
         </div>
       </div>
 
-      {/* Loader */}
       {loading && (
-        <div className="w-full h-[200px] flex justify-center items-center ">
+        <div className="w-full h-[200px] flex justify-center items-center">
           <ImSpinner9 className="animate-spin" size={50} />
         </div>
       )}
 
-      {/* Table */}
-      {!loading && (
-        <div className="overflow-x-auto border rounded-lg scroll-none shadow-lg">
-          <table className="table-auto w-full border-collapse  border bg-white rounded-lg">
+      {!loading && teachers.length > 0 && (
+        <div className="overflow-x-auto border rounded-lg shadow-lg">
+          <table className="table-auto w-full border-collapse border bg-white rounded-lg">
             <thead>
-              <tr className="bg-xinc-500 text-gray-600">
-                <th className="border border-gray-200 px-4 py-3 font-semibold">
-                  Name
-                </th>
-                <th className="border border-gray-200 px-4 py-3 font-semibold">
-                  Gender
-                </th>
-                <th className="border border-gray-200 px-4 py-3 font-semibold">
-                  Class
-                </th>
-                <th className="border border-gray-200 px-4 py-3 font-semibold">
-                  Section
-                </th>
-                <th className="border border-gray-200 px-4 py-3 font-semibold">
-                  Blood
-                </th>
-                <th className="border border-gray-200 px-4 py-3 font-semibold">
-                  Roll
-                </th>
-                <th className="border border-gray-200 px-4 py-3 font-semibold">
-                  Action
-                </th>
+              <tr className="bg-gray-100 text-gray-600">
+                <th className="border px-4 py-3 font-semibold">Name</th>
+                <th className="border px-4 py-3 font-semibold">Gender</th>
+                <th className="border px-4 py-3 font-semibold">Shift</th>
+                {/* <th className="border px-4 py-3 font-semibold">email</th> */}
+                <th className="border px-4 py-3 font-semibold">Blood</th>
+                <th className="border px-4 py-3 font-semibold">Phone</th>
+                <th className="border px-4 py-3 font-semibold">Action</th>
               </tr>
             </thead>
             <tbody>
-              {students.map((student, index) => (
+              {teachers.map((teacher, index) => (
                 <tr
                   key={index}
-                  className={`transition-colors duration-200 ${
+                  className={`${
                     index % 2 === 0 ? "bg-gray-100" : "bg-white"
                   } hover:bg-gray-200`}
                 >
-                  <td className="border text-center px-4 py-3 text-gray-700">
-                    {student.studentNameEnglish}
+                  <td className="border px-4 py-3 text-center">
+                    {teacher.teacherName}
                   </td>
-                  <td className="border text-center px-4 py-3 text-gray-700">
-                    {student.gender}
+                  <td className="border px-4 py-3 text-center">
+                    {teacher.gender}
                   </td>
-                  <td className="border text-center px-4 py-3 text-gray-700">
-                    {student.class}
+                  <td className="border px-4 py-3 text-center">
+                    {teacher.shift}
                   </td>
-                  <td className="border text-center px-4 py-3 text-gray-700">
-                    {student.section}
+                  {/* <td className="border px-4 py-3 text-center">
+                    {teacher.email}
+                  </td> */}
+                  <td className="border px-4 py-3 text-center">
+                    {teacher.bloodGroup}
                   </td>
-                  <td className="border text-center px-4 py-3 text-gray-700">
-                    {student.bloodGroup}
+                  <td className="border px-4 py-3 text-center">
+                    {teacher.phone}
                   </td>
-                  <td className="border text-center px-4 py-3 text-gray-700">
-                    {student.classRoll}
-                  </td>
-                  <td className="border text-center px-4 py-3 relative text-gray-700">
+                  <td className="border px-4 py-3 text-center relative">
                     <button
                       className="text-gray-600 hover:text-blue-600"
                       onClick={() => toggleMenu(index)}
@@ -204,32 +174,46 @@ export default function StudentTable() {
                     {menuIndex === index && (
                       <div className="absolute right-0 mt-2 w-48 z-50 bg-white border border-gray-300 shadow-lg rounded-lg">
                         <Link
-                          to={`/students/student-details/${student._id}`}
-                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                          to={`/teacher/details/${teacher._id}`}
+                          className="flex items-center px-4 py-3 text-sm hover:bg-gray-100"
                         >
                           <FaEye className="mr-2 text-blue-500" /> Details
                         </Link>
                         <Link
-                          to={`/students/student-edit/${student._id}`}
-                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                          to={`/teacher/edit/${teacher._id}`}
+                          className="flex items-center px-4 py-3 text-sm hover:bg-gray-100"
                         >
                           <FaEdit className="mr-2 text-yellow-500" /> Edit
                         </Link>
                         <button
                           onClick={() =>
                             handleBlock(
-                              student._id,
-                              student.type === "student" ? "blocked" : "student"
+                              teacher._id,
+                              teacher.type === "teacher" ? "blocked" : "teacher"
                             )
                           }
-                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                          className="flex items-center w-full px-4 py-3 text-sm hover:bg-gray-100"
                         >
-                          <ImBlocked className="mr-2 text-black" />{" "}
-                          {student.type === "blocked" ? "Un-Block" : "Block"}
+                          <ImBlocked className="mr-2 text-red-500" />{" "}
+                          {teacher.type === "teacher" ? "Block" : "Unblock"}
                         </button>
                         <button
-                          onClick={() => handleDelete(student._id)}
-                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                          onClick={() =>
+                            handleBlock(
+                              teacher._id,
+                              teacher.type === "teacher" ? "admin" : "teacher"
+                            )
+                          }
+                          className="flex items-center w-full px-4 py-3 text-sm hover:bg-gray-100"
+                        >
+                          <SiSinaweibo className="mr-2 " />{" "}
+                          {teacher.type === "teacher"
+                            ? "Make Admin"
+                            : "Back teacher mode"}
+                        </button>
+                        <button
+                          onClick={() => handleDelete(teacher._id)}
+                          className="flex w-full items-center px-4 py-3 text-sm hover:bg-gray-100"
                         >
                           <FaTrash className="mr-2 text-red-500" /> Delete
                         </button>
@@ -243,7 +227,10 @@ export default function StudentTable() {
         </div>
       )}
 
-      {/* Pagination */}
+      {!loading && teachers.length === 0 && (
+        <div className="text-center text-gray-600">No teachers found.</div>
+      )}
+
       <div className="flex justify-end py-3 overflow-x-auto">
         {Array.from({ length: totalPages }, (_, index) => (
           <button

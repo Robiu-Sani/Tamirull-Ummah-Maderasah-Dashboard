@@ -3,10 +3,6 @@ import Login from "../Pages/Authcation/Login";
 import Root from "./Root";
 import ErrorPage from "./ErrorPage";
 import Home from "../Pages/Dashboard/Home";
-import AliaStudent from "../Pages/AliaStudent/AliaStudent";
-import HifzStudent from "../Pages/HifzStudent/HifzStudent";
-import ThackciciStudent from "../Pages/ThackciciStudent/ThackciciStudent";
-import Hostel from "../Pages/Hostel/Hostel";
 import HostelTeachers from "../Pages/HostelTeachers/HostelTeachers";
 import ThacksisiTeachers from "../Pages/ThacksisiTeachers/ThacksisiTeachers";
 import HifzTeachers from "../Pages/HifzTeachers/HifzTeachers";
@@ -31,6 +27,7 @@ import AllPostsData from "../Pages/AllPostsData/AllPostsData";
 import AllStudent from "../Pages/AllStudent/AllStudent";
 import StudentDetails from "../Pages/AllStudent/studentDetails/StudentDetails";
 import EditStudent from "../Pages/AllStudent/EditStudent/EditStudent";
+import AllTeacher from "../Pages/AllTeacher/AllTeacher";
 
 const router = createBrowserRouter([
   {
@@ -51,19 +48,20 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
-      {
-        path: "/students/alia",
-        element: (
-          <Private>
-            <AliaStudent />
-          </Private>
-        ),
-      },
+
       {
         path: "/students/allStudent",
         element: (
           <Private>
             <AllStudent />
+          </Private>
+        ),
+      },
+      {
+        path: "/teacher/all-teacher",
+        element: (
+          <Private>
+            <AllTeacher />
           </Private>
         ),
       },
@@ -83,30 +81,7 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
-      {
-        path: "/students/hifz",
-        element: (
-          <Private>
-            <HifzStudent />
-          </Private>
-        ),
-      },
-      {
-        path: "/students/thacksisi",
-        element: (
-          <Private>
-            <ThackciciStudent />
-          </Private>
-        ),
-      },
-      {
-        path: "/students/hostel",
-        element: (
-          <Private>
-            <Hostel />
-          </Private>
-        ),
-      },
+
       {
         path: "/teachers/alia",
         element: (
