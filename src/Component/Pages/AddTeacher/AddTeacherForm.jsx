@@ -80,6 +80,23 @@ export default function AddTeacherForm() {
           )}
         </div>
 
+        {/* Teacher Name */}
+        <div>
+          <label className="block font-medium text-gray-700 mb-2">
+            <FaUserTie className="inline mr-2" />
+            Nid Number
+          </label>
+          <input
+            type="number"
+            {...register("nidNumber", { required: true })}
+            placeholder="Enter teacher's Nid number"
+            className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+          />
+          {errors.nidNumber && (
+            <span className="text-red-500 text-sm">This field is required</span>
+          )}
+        </div>
+
         {/* Date of Birth */}
         <div>
           <label className="block font-medium text-gray-700 mb-2">

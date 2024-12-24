@@ -28,6 +28,7 @@ import AllStudent from "../Pages/AllStudent/AllStudent";
 import StudentDetails from "../Pages/AllStudent/studentDetails/StudentDetails";
 import EditStudent from "../Pages/AllStudent/EditStudent/EditStudent";
 import AllTeacher from "../Pages/AllTeacher/AllTeacher";
+import TeacherDetails from "../Pages/AllTeacher/teacherDetails/TeacherDetails";
 
 const router = createBrowserRouter([
   {
@@ -70,6 +71,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <StudentDetails />
+          </Private>
+        ),
+      },
+      {
+        path: "/teacher/teacher-details/:id",
+        element: (
+          <Private>
+            <TeacherDetails />
           </Private>
         ),
       },

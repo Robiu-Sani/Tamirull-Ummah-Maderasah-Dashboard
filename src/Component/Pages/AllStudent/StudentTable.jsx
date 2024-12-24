@@ -21,21 +21,22 @@ export default function StudentTable() {
 
   const fetchStudents = async () => {
     setLoading(true);
+    setErrorAlert(false);
     try {
       const response = await axios.get(
         `${
           import.meta.env.VITE_SERVER
         }/student/table?page=${currentPage}&class=${selectedClass}&search=${searchQuery}`
       );
-      if (response.status == false) {
-        setErrorAlert(true);
-      }
+
+      console.log(response);
       const { students, uniqueClasses, totalPages } = response.data.data;
       setStudents(students);
       setUniqueClasses(uniqueClasses);
       setTotalPages(totalPages);
     } catch (error) {
       console.error("Error fetching data", error);
+      setErrorAlert(true);
     } finally {
       setLoading(false);
     }
@@ -46,6 +47,15 @@ export default function StudentTable() {
   }, [currentPage, selectedClass, searchQuery]);
 
   // console.log(totalPages);
+  if (erroralert) {
+    return (
+      <div className="w-full h-[600px] flex justify-center items-center">
+        <p className="text-red-500">
+          Something went wrong! Unable to fetch data.
+        </p>
+      </div>
+    );
+  }
 
   const toggleMenu = (index) => {
     setMenuIndex(menuIndex === index ? null : index);
@@ -90,14 +100,6 @@ export default function StudentTable() {
       console.error("Error submitting form:", error);
     }
   };
-
-  if (erroralert) {
-    return (
-      <div className="w-full h-[600px] flex justify-center items-center">
-        <p>some is worng there! we don`t get any data</p>
-      </div>
-    );
-  }
 
   return (
     <div className="w-full mx-auto ">

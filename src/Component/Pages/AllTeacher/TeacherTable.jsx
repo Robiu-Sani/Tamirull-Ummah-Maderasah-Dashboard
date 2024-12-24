@@ -16,21 +16,25 @@ export default function TeacherTable() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
+  const [erroralert, setErrorAlert] = useState(false);
 
   const fetchTeachers = async () => {
     setLoading(true);
+    setErrorAlert(false);
     try {
       const response = await axios.get(
         `${
           import.meta.env.VITE_SERVER
         }/teacher/table?page=${currentPage}&class=${selectedClass}&search=${searchQuery}`
       );
+
       const { teacher, uniqueClasses, totalPages } = response.data.data;
       setTeachers(teacher);
       setUniqueClasses(uniqueClasses);
       setTotalPages(totalPages);
     } catch (error) {
       console.error("Error fetching data", error);
+      setErrorAlert(true);
     } finally {
       setLoading(false);
     }
@@ -87,6 +91,14 @@ export default function TeacherTable() {
       console.error(error);
     }
   };
+
+  if (erroralert) {
+    return (
+      <div className="w-full h-[600px] flex justify-center items-center">
+        <p>some is worng there! we don`t get any data</p>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full mx-auto">
@@ -174,7 +186,7 @@ export default function TeacherTable() {
                     {menuIndex === index && (
                       <div className="absolute right-0 mt-2 w-48 z-50 bg-white border border-gray-300 shadow-lg rounded-lg">
                         <Link
-                          to={`/teacher/details/${teacher._id}`}
+                          to={`/teacher/teacher-details/${teacher._id}`}
                           className="flex items-center px-4 py-3 text-sm hover:bg-gray-100"
                         >
                           <FaEye className="mr-2 text-blue-500" /> Details
