@@ -30,6 +30,7 @@ import EditStudent from "../Pages/AllStudent/EditStudent/EditStudent";
 import AllTeacher from "../Pages/AllTeacher/AllTeacher";
 import TeacherDetails from "../Pages/AllTeacher/teacherDetails/TeacherDetails";
 import EditTeacher from "../Pages/AllTeacher/EditTeacher/EditTeacher";
+import AllStaff from "../Pages/AllStaff/AllStaff";
 
 const router = createBrowserRouter([
   {
@@ -50,12 +51,19 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
-
       {
         path: "/students/allStudent",
         element: (
           <Private>
             <AllStudent />
+          </Private>
+        ),
+      },
+      {
+        path: "/staff/all-staff",
+        element: (
+          <Private>
+            <AllStaff />
           </Private>
         ),
       },

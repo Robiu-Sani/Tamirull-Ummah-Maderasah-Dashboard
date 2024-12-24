@@ -73,6 +73,11 @@ const navItems = [
         path: "/teacher/all-teacher",
         icon: <LiaChalkboardTeacherSolid />,
       },
+      {
+        name: "All Staff",
+        path: "/staff/all-staff",
+        icon: <LiaChalkboardTeacherSolid />,
+      },
     ],
   },
   {
