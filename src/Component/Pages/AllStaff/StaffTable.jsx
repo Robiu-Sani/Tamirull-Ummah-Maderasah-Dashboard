@@ -59,7 +59,7 @@ export default function StaffTable() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${import.meta.env.VITE_SERVER}/staff/delete-staff/${id}`)
+          .delete(`${import.meta.env.VITE_SERVER}/stafe/delete-stafe/${id}`)
           .then((response) => {
             toast.success(response.data.message + " Deleted");
             fetchstaffs();

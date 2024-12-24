@@ -31,6 +31,7 @@ import AllTeacher from "../Pages/AllTeacher/AllTeacher";
 import TeacherDetails from "../Pages/AllTeacher/teacherDetails/TeacherDetails";
 import EditTeacher from "../Pages/AllTeacher/EditTeacher/EditTeacher";
 import AllStaff from "../Pages/AllStaff/AllStaff";
+import StafeDetails from "../Pages/AllStaff/StafeDetails/StafeDetails";
 
 const router = createBrowserRouter([
   {
@@ -88,6 +89,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <TeacherDetails />
+          </Private>
+        ),
+      },
+      {
+        path: "/staff/staff-details/:id",
+        element: (
+          <Private>
+            <StafeDetails />
           </Private>
         ),
       },
