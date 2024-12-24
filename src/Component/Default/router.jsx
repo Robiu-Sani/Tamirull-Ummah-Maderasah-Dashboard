@@ -29,6 +29,7 @@ import StudentDetails from "../Pages/AllStudent/studentDetails/StudentDetails";
 import EditStudent from "../Pages/AllStudent/EditStudent/EditStudent";
 import AllTeacher from "../Pages/AllTeacher/AllTeacher";
 import TeacherDetails from "../Pages/AllTeacher/teacherDetails/TeacherDetails";
+import EditTeacher from "../Pages/AllTeacher/EditTeacher/EditTeacher";
 
 const router = createBrowserRouter([
   {
@@ -87,6 +88,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <EditStudent />
+          </Private>
+        ),
+      },
+      {
+        path: "/teacher/teacher-edit/:id",
+        element: (
+          <Private>
+            <EditTeacher />
           </Private>
         ),
       },

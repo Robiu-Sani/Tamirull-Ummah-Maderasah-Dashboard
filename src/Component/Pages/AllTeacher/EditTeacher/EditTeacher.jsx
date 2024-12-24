@@ -1,29 +1,32 @@
-import { useEffect, useState } from "react";
-import {
-  FaCalendarAlt,
-  FaHome,
-  FaMale,
-  FaMapMarkerAlt,
-  FaSchool,
-  FaSpinner,
-  FaTint,
-  FaUser,
-} from "react-icons/fa";
-import fetchOutput from "../../../Default/functions/fatchingData";
 import { ImSpinner2 } from "react-icons/im";
-import PatchData from "../../../Default/functions/patchData";
-import toast, { Toaster } from "react-hot-toast";
-import { useForm } from "react-hook-form";
 import { MdOutlineNewspaper } from "react-icons/md";
 import ImageUpload from "../../../Default/ImageUpload";
 import { IoCloudUploadOutline } from "react-icons/io5";
+import {
+  FaBuilding,
+  FaCalendarAlt,
+  FaClock,
+  FaEnvelope,
+  FaHome,
+  FaMale,
+  FaMapMarkerAlt,
+  FaPhoneAlt,
+  FaSpinner,
+  FaTint,
+  FaUserTie,
+} from "react-icons/fa";
+import toast, { Toaster } from "react-hot-toast";
+import { useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import PatchData from "../../../Default/functions/patchData";
 import { useParams } from "react-router-dom";
+import fetchOutput from "../../../Default/functions/fatchingData";
 
-const EditStudent = () => {
-  const [studentData, setStudentData] = useState({});
-  const [loading, setLoading] = useState(true); // Loading state to manage the loader visibility
+export default function EditTeacher() {
   const [image, setImage] = useState(null);
   const [isload, setIsload] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [teacherData, setTeacherData] = useState();
   const { id } = useParams();
   const {
     register,
@@ -33,9 +36,9 @@ const EditStudent = () => {
   } = useForm();
 
   useEffect(() => {
-    fetchOutput(`student/single-student/${id}`)
+    fetchOutput(`teacher/single-teacher/${id}`)
       .then((response) => {
-        setStudentData(response.data.student);
+        setTeacherData(response.data);
         setLoading(false); // Data has been fetched, set loading to false
       })
       .catch((err) => {
@@ -53,53 +56,42 @@ const EditStudent = () => {
     ); // Show spinner while loading
   }
 
-  // Use react-hook-form for form handling
+  console.log(teacherData);
 
-  // Prepopulate form with student data
-
-  // Handle form submission
   const onSubmit = async (data) => {
-    const newdata = {
-      address: data.address ? data.address : studentData.address,
-      birthCertificate: data.birthCertificate
-        ? data.birthCertificate
-        : studentData.birthCertificate,
-      bloodGroup: data.bloodGroup ? data.bloodGroup : studentData.bloodGroup,
-      class: data.class ? data.class : studentData.class,
-      classRoll: data.classRoll ? data.classRoll : studentData.classRoll,
+    console.log(data);
+    const newData = {
+      address: data.address ? data.address : teacherData.address,
+      bloodGroup: data.bloodGroup ? data.bloodGroup : teacherData.bloodGroup,
       dateOfBirth: data.dateOfBirth
         ? data.dateOfBirth
-        : studentData.dateOfBirth,
-      fathersName: data.fathersName
-        ? data.fathersName
-        : studentData.fathersName,
-      gender: data.gender ? data.gender : studentData.gender,
-      height: data.height ? data.height : studentData.height,
-      identityMark: data.identityMark
-        ? data.identityMark
-        : studentData.identityMark,
-      mothersName: data.mothersName
-        ? data.mothersName
-        : studentData.mothersName,
-      password: data.password ? data.password : studentData.password,
+        : teacherData.dateOfBirth,
+      experience: data.experience ? data.experience : teacherData.experience,
+      gender: data.gender ? data.gender : teacherData.gender,
+      phone: data.phone ? data.phone : teacherData.phone,
+      qualification: data.qualification
+        ? data.qualification
+        : teacherData.qualification,
       residentialStatus: data.residentialStatus
         ? data.residentialStatus
-        : studentData.residentialStatus,
-      section: data.section ? data.section : studentData.section,
-      studentNameBangla: data.studentNameBangla
-        ? data.studentNameBangla
-        : studentData.studentNameBangla,
-      studentNameEnglish: data.studentNameEnglish
-        ? data.studentNameEnglish
-        : studentData.studentNameEnglish,
-      weight: data.weight ? data.weight : studentData.weight,
-      image: image ? image : studentData.weight,
+        : teacherData.residentialStatus,
+      section: data.section ? data.section : teacherData.section,
+      shift: data.shift ? data.shift : teacherData.shift,
+      subject: data.subject ? data.subject : teacherData.subject,
+      teacherName: data.teacherName
+        ? data.teacherName
+        : teacherData.teacherName,
+      teacherPassword: data.teacherPassword
+        ? data.teacherPassword
+        : teacherData.teacherPassword,
+      teacherImage: image ? image : teacherData.teacherImage,
     };
+
     try {
       setIsload(true);
       const submittedData = await PatchData(
-        `student/update-single-student-by-patch/${studentData._id}`,
-        newdata
+        `teacher/update-single-teacher-by-patch/${teacherData._id}`,
+        newData
       );
       if (submittedData.status === true) {
         toast.success(submittedData.message);
@@ -120,113 +112,61 @@ const EditStudent = () => {
   };
 
   return (
-    <div className="w-full">
+    <div>
       <div className="w-full mb-3 p-3 rounded-md bg-white border shadow-md flex justify-start items-center gap-3">
         <MdOutlineNewspaper />
-        <h2 className="font-semibold text-gray-700 ">Edit Student</h2>
+        <h2 className="font-semibold text-gray-700 ">Edit Teacher</h2>
       </div>
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full  mx-auto bg-white p-8 rounded-md shadow-lg border"
+        className="w-full mx-auto bg-white p-8 rounded-md shadow-lg border"
       >
         <Toaster />
         <h2 className="text-2xl font-bold text-center text-gray-600 mb-6">
-          Edit Student Information
+          Edit Teacher Information
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-          {/* Student Name in English */}
-          <div className="w-full">
+          {/* Teacher Name */}
+          <div>
             <label className="block font-medium text-gray-700 mb-2">
-              <FaUser className="inline mr-2" />
-              Student Name (English)
+              <FaUserTie className="inline mr-2" />
+              Teacher`s Name
             </label>
             <input
               type="text"
-              {...register("studentNameEnglish", { required: false })}
-              placeholder="Enter student name in English"
+              {...register("teacherName", { required: false })}
+              placeholder="Enter teacher's name by english"
               className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
-            {errors.studentNameEnglish && (
+            {errors.teacherName && (
               <span className="text-red-500 text-sm">
                 This field is required
               </span>
             )}
           </div>
 
-          {/* Student Name in Bangla */}
-          <div className="w-full">
+          {/* Teacher Name */}
+          <div>
             <label className="block font-medium text-gray-700 mb-2">
-              <FaUser className="inline mr-2" />
-              ছাত্র/ছাত্রীর নাম (বাংলা)
+              <FaUserTie className="inline mr-2" />
+              Nid Number
             </label>
             <input
-              type="text"
-              {...register("studentNameBangla", { required: false })}
-              placeholder="বাংলা নাম লিখুন"
+              type="number"
+              {...register("nidNumber", { required: false })}
+              placeholder="Enter teacher's Nid number"
               className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
-            {errors.studentNameBangla && (
+            {errors.nidNumber && (
               <span className="text-red-500 text-sm">
                 This field is required
               </span>
             )}
           </div>
-
-          {/* Father's Name */}
-          <div className="w-full">
-            <label className="block font-medium text-gray-700 mb-2">
-              Father`s Name
-            </label>
-            <input
-              type="text"
-              {...register("fathersName", { required: false })}
-              placeholder="Enter father's name"
-              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-            />
-            {errors.fathersName && (
-              <span className="text-red-500 text-sm">
-                This field is required
-              </span>
-            )}
-          </div>
-
-          {/* Mother's Name */}
-          <div className="w-full">
-            <label className="block font-medium text-gray-700 mb-2">
-              Mother`s Name
-            </label>
-            <input
-              type="text"
-              {...register("mothersName", { required: false })}
-              placeholder="Enter mother's name"
-              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-            />
-            {errors.mothersName && (
-              <span className="text-red-500 text-sm">
-                This field is required
-              </span>
-            )}
-          </div>
-
-          {/* Identity Email */}
-          {/* <div className="w-full">
-          <label className="block font-medium text-gray-700 mb-2">
-            Identity Email
-          </label>
-          <input
-            type="email"
-            {...register("identityEmail", { required: false })}
-            placeholder="Enter a active email"
-            className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-          />
-          {errors.identityEmail && (
-            <span className="text-red-500 text-sm">This field is required</span>
-          )}
-        </div> */}
 
           {/* Date of Birth */}
-          <div className="w-full">
+          <div>
             <label className="block font-medium text-gray-700 mb-2">
               <FaCalendarAlt className="inline mr-2" />
               Date of Birth
@@ -270,108 +210,38 @@ const EditStudent = () => {
             )}
           </div>
 
-          {/* Height */}
-          <div className="w-full">
+          {/* Email */}
+          <div>
             <label className="block font-medium text-gray-700 mb-2">
-              Height
+              <FaEnvelope className="inline mr-2" />
+              Email
             </label>
             <input
-              type="text"
-              {...register("height", { required: false })}
-              placeholder="Enter height (e.g., 5'6\)"
+              type="email"
+              {...register("email", { required: false })}
+              placeholder="Enter email address"
               className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
-            {errors.height && (
+            {errors.email && (
               <span className="text-red-500 text-sm">
-                This field is required
+                A valid email is required
               </span>
             )}
           </div>
 
-          {/* Height */}
-          <div className="w-full">
+          {/* Phone Number */}
+          <div>
             <label className="block font-medium text-gray-700 mb-2">
-              classRoll
+              <FaPhoneAlt className="inline mr-2" />
+              Phone Number
             </label>
             <input
-              type="number"
-              {...register("classRoll", { required: false })}
-              placeholder="Enter Class roll"
+              type="tel"
+              {...register("phone", { required: false })}
+              placeholder="Enter phone number"
               className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
-            {errors.classRoll && (
-              <span className="text-red-500 text-sm">
-                This field is required
-              </span>
-            )}
-          </div>
-
-          {/* Height */}
-          <div className="w-full">
-            <label className="block font-medium text-gray-700 mb-2">
-              password
-            </label>
-            <input
-              type="text"
-              {...register("password", { required: false })}
-              placeholder="Enter Password"
-              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-            />
-            {errors.password && (
-              <span className="text-red-500 text-sm">
-                This field is required
-              </span>
-            )}
-          </div>
-
-          {/* Weight */}
-          <div className="w-full">
-            <label className="block font-medium text-gray-700 mb-2">
-              Weight
-            </label>
-            <input
-              type="text"
-              {...register("weight", { required: false })}
-              placeholder="Enter weight (e.g., 60kg)"
-              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-            />
-            {errors.weight && (
-              <span className="text-red-500 text-sm">
-                This field is required
-              </span>
-            )}
-          </div>
-
-          {/* Identity Mark */}
-          <div className="w-full">
-            <label className="block font-medium text-gray-700 mb-2">
-              Identity Mark
-            </label>
-            <input
-              type="text"
-              {...register("identityMark", { required: false })}
-              placeholder="If don't then N/A"
-              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-            />
-            {errors.identityMark && (
-              <span className="text-red-500 text-sm">
-                This field is required
-              </span>
-            )}
-          </div>
-
-          {/* Birth Certificate Number */}
-          <div className="w-full">
-            <label className="block font-medium text-gray-700 mb-2">
-              Birth Certificate Number
-            </label>
-            <input
-              type="text"
-              {...register("birthCertificate", { required: false })}
-              placeholder="Enter birth certificate number"
-              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-            />
-            {errors.birthCertificate && (
+            {errors.phone && (
               <span className="text-red-500 text-sm">
                 This field is required
               </span>
@@ -379,20 +249,17 @@ const EditStudent = () => {
           </div>
 
           {/* Section */}
-          <div className="w-full">
+          <div>
             <label className="block font-medium text-gray-700 mb-2">
-              <FaSchool className="inline mr-2" />
+              <FaBuilding className="inline mr-2" />
               Section
             </label>
-            <select
+            <input
+              type="text"
               {...register("section", { required: false })}
+              placeholder="Enter section"
               className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
-            >
-              <option value="">Select section</option>
-              <option value="alia">Alia</option>
-              <option value="hifz">Hifz</option>
-              <option value="thaksisi">Thaksisi</option>
-            </select>
+            />
             {errors.section && (
               <span className="text-red-500 text-sm">
                 This field is required
@@ -400,36 +267,76 @@ const EditStudent = () => {
             )}
           </div>
 
-          {/* Class */}
-          <div className="w-full">
+          {/* Shift */}
+          <div>
             <label className="block font-medium text-gray-700 mb-2">
-              Class
+              <FaClock className="inline mr-2" />
+              Shift
             </label>
             <select
-              {...register("class", { required: false })}
+              {...register("shift", { required: false })}
               className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
             >
-              <option value="" disabled selected>
-                Select a class
-              </option>
-              <option value="one">One</option>
-              <option value="two">Two</option>
-              <option value="three">Three</option>
-              <option value="four">Four</option>
-              <option value="five">Five</option>
-              <option value="six">Six</option>
-              <option value="seven">Seven</option>
-              <option value="eight">Eight</option>
-              <option value="nine">Nine</option>
-              <option value="ten">Ten</option>
-              <option value="eleven">Eleven</option>
-              <option value="twelve">Twelve</option>
-              <option value="hifz">Hifz</option>
-              <option value="norani">Norani</option>
-              <option value="fazil">Fazil</option>
-              <option value="kamil">Kamil</option>
+              <option value="">Select shift</option>
+              <option value="Morning">Morning</option>
+              <option value="Day">Day</option>
+              <option value="Evening">Evening</option>
             </select>
-            {errors.class && (
+            {errors.shift && (
+              <span className="text-red-500 text-sm">
+                This field is required
+              </span>
+            )}
+          </div>
+
+          {/* Highest Qualification */}
+          <div>
+            <label className="block font-medium text-gray-700 mb-2">
+              Highest Qualification
+            </label>
+            <input
+              type="text"
+              {...register("qualification", { required: false })}
+              placeholder="Enter highest qualification"
+              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+            />
+            {errors.qualification && (
+              <span className="text-red-500 text-sm">
+                This field is required
+              </span>
+            )}
+          </div>
+
+          {/* Subject */}
+          <div>
+            <label className="block font-medium text-gray-700 mb-2">
+              Subject
+            </label>
+            <input
+              type="text"
+              {...register("subject", { required: false })}
+              placeholder="Enter subject"
+              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+            />
+            {errors.subject && (
+              <span className="text-red-500 text-sm">
+                This field is required
+              </span>
+            )}
+          </div>
+
+          {/* Experience */}
+          <div>
+            <label className="block font-medium text-gray-700 mb-2">
+              Experience (Years)
+            </label>
+            <input
+              type="number"
+              {...register("experience", { required: false })}
+              placeholder="Enter teaching experience in years"
+              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+            />
+            {errors.experience && (
               <span className="text-red-500 text-sm">
                 This field is required
               </span>
@@ -480,7 +387,7 @@ const EditStudent = () => {
           </div>
 
           {/* Address */}
-          <div className="w-full col-span-1 md:col-span-2">
+          <div className="col-span-1 md:col-span-2">
             <label className="block font-medium text-gray-700 mb-2">
               <FaMapMarkerAlt className="inline mr-2" />
               Address
@@ -497,7 +404,6 @@ const EditStudent = () => {
             )}
           </div>
         </div>
-
         {/* profile  */}
         <div className="mb-4 max-w-sm">
           <div className="w-full flex flex-col gap-3">
@@ -528,11 +434,9 @@ const EditStudent = () => {
           className="w-full bg-gray-600 mt-3 flex justify-center items-center gap-3 text-white p-2 rounded-md hover:bg-gray-700 transition"
         >
           {isload ? <ImSpinner2 className="animate-spin" /> : null}
-          Save Student Information
+          Save Teacher Information
         </button>
       </form>
     </div>
   );
-};
-
-export default EditStudent;
+}

@@ -192,7 +192,7 @@ export default function TeacherTable() {
                           <FaEye className="mr-2 text-blue-500" /> Details
                         </Link>
                         <Link
-                          to={`/teacher/edit/${teacher._id}`}
+                          to={`/teacher/teacher-edit/${teacher._id}`}
                           className="flex items-center px-4 py-3 text-sm hover:bg-gray-100"
                         >
                           <FaEdit className="mr-2 text-yellow-500" /> Edit
