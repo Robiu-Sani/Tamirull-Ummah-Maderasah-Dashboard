@@ -12,6 +12,8 @@ import {
   MdSettings,
   MdMessage,
   MdInfo,
+  MdAddBox,
+  MdInsertChart,
 } from "react-icons/md";
 import {
   FaBed,
@@ -20,6 +22,10 @@ import {
   FaUserCircle,
   FaMortarPestle,
   FaGuitar,
+  FaAudioDescription,
+  FaMoneyBill,
+  FaConnectdevelop,
+  FaRegUserCircle,
 } from "react-icons/fa";
 import {
   RiDashboardFill,
@@ -27,7 +33,13 @@ import {
   RiLogoutCircleRLine,
 } from "react-icons/ri";
 import { GiTeacher } from "react-icons/gi";
-import { FaDiamond, FaFaceTired } from "react-icons/fa6";
+import {
+  FaDiamond,
+  FaExclamation,
+  FaFaceTired,
+  FaNoteSticky,
+  FaSliders,
+} from "react-icons/fa6";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { PiStudentFill } from "react-icons/pi";
 import { SiStaffbase } from "react-icons/si";
@@ -105,25 +117,61 @@ const navItems = [
     ],
   },
   {
-    name: "Teachers",
-    icon: <GiTeacher />,
+    name: "Additional Info",
+    icon: <FaAudioDescription />,
     children: [
       {
-        name: "Alia Section",
-        path: "/teachers/alia",
-        icon: <FaUserGraduate />,
+        name: "All Notices",
+        path: "/additional-information/all-notice",
+        icon: <FaNoteSticky />,
       },
       {
-        name: "Hifz Section",
-        path: "/teachers/hifz",
-        icon: <FaChalkboardTeacher />,
+        name: "Slide Data",
+        path: "/additional-information/carousel-information",
+        icon: <FaSliders />,
       },
       {
-        name: "Thacksisi Section",
-        path: "/teachers/thacksisi",
-        icon: <MdSchool />,
+        name: "Institution Text",
+        path: "/additional-information/about-text",
+        icon: <MdInsertChart />,
       },
-      { name: "Hostel", path: "/teachers/hostel", icon: <FaBed /> },
+      {
+        name: "Institution Fees",
+        path: "/additional-information/fees-information",
+        icon: <FaMoneyBill />,
+      },
+      {
+        name: "Contact Info:",
+        path: "/additional-information/contact-information",
+        icon: <FaConnectdevelop />,
+      },
+    ],
+  },
+
+  {
+    name: "Exam Results",
+    icon: <FaRegUserCircle />,
+    children: [
+      {
+        name: "First Tutiral",
+        path: "/exam-results/first-tutiral",
+        icon: <FaExclamation />,
+      },
+      {
+        name: "Half Yearly",
+        path: "/exam-results/half-yearly",
+        icon: <FaExclamation />,
+      },
+      {
+        name: "Secend Tutiral",
+        path: "/exam-results/secend-tutiral",
+        icon: <FaExclamation />,
+      },
+      {
+        name: "Fainal Exam",
+        path: "/exam-results/fainal-exam",
+        icon: <FaExclamation />,
+      },
     ],
   },
   {
