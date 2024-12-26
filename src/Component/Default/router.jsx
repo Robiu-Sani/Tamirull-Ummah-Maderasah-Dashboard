@@ -4,9 +4,6 @@ import Root from "./Root";
 import ErrorPage from "./ErrorPage";
 import Home from "../Pages/Dashboard/Home";
 import HostelTeachers from "../Pages/HostelTeachers/HostelTeachers";
-import ThacksisiTeachers from "../Pages/ThacksisiTeachers/ThacksisiTeachers";
-import HifzTeachers from "../Pages/HifzTeachers/HifzTeachers";
-import AliaTeachers from "../Pages/AliaTeachers/AliaTeachers";
 import Admins from "../Pages/Admins/Admins";
 import Messages from "../Pages/Messages/Messages";
 import CreateAdmin from "../Pages/Admins/CreateAdmin/CreateAdmin";
@@ -33,6 +30,15 @@ import EditTeacher from "../Pages/AllTeacher/EditTeacher/EditTeacher";
 import AllStaff from "../Pages/AllStaff/AllStaff";
 import StafeDetails from "../Pages/AllStaff/StafeDetails/StafeDetails";
 import EditStaff from "../Pages/AllStaff/EditStaff/EditStaff";
+import AllStudentsFathers from "../Pages/Student-Information/AllStudentsFathers/AllStudentsFathers";
+import FathersDetails from "../Pages/Student-Information/AllStudentsFathers/FathersDetails/FathersDetails";
+import EditFather from "../Pages/Student-Information/AllStudentsFathers/EditFather/EditFather";
+import AllStudentsMothers from "../Pages/Student-Information/AllStudentsMothers/AllStudentsMothers";
+import MotherDetails from "../Pages/Student-Information/AllStudentsMothers/MotherDetails/MotherDetails";
+import EditMother from "../Pages/Student-Information/AllStudentsMothers/EditMother/EditMother";
+import AllStudentsGairdeans from "../Pages/Student-Information/AllStudentsGairdeans/AllStudentsGairdeans";
+import GairdeanDetails from "../Pages/Student-Information/AllStudentsGairdeans/GairdeanDetails/GairdeanDetails";
+import EditGairdean from "../Pages/Student-Information/AllStudentsGairdeans/EditGairdean/EditGairdean";
 
 const router = createBrowserRouter([
   {
@@ -125,36 +131,75 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
-
       {
-        path: "/teachers/alia",
+        path: "/all-student-informetion/stunents-father",
         element: (
           <Private>
-            <AliaTeachers />
+            <AllStudentsFathers />
           </Private>
         ),
       },
       {
-        path: "/teachers/hifz",
+        path: "/all-student-informetion/stunents-father/details/:id",
         element: (
           <Private>
-            <HifzTeachers />
+            <FathersDetails />
           </Private>
         ),
       },
       {
-        path: "/teachers/thacksisi",
+        path: "/all-student-informetion/stunents-father/edit/:id",
         element: (
           <Private>
-            <ThacksisiTeachers />
+            <EditFather />
           </Private>
         ),
       },
       {
-        path: "/teachers/hostel",
+        path: "/all-student-informetion/stunents-mother",
         element: (
           <Private>
-            <HostelTeachers />
+            <AllStudentsMothers />
+          </Private>
+        ),
+      },
+      {
+        path: "/all-student-informetion/stunents-mother/details/:id",
+        element: (
+          <Private>
+            <MotherDetails />
+          </Private>
+        ),
+      },
+      {
+        path: "/all-student-informetion/stunents-mother/edit/:id",
+        element: (
+          <Private>
+            <EditMother />
+          </Private>
+        ),
+      },
+      {
+        path: "/all-student-informetion/stunents-gairdean",
+        element: (
+          <Private>
+            <AllStudentsGairdeans />
+          </Private>
+        ),
+      },
+      {
+        path: "/all-student-informetion/stunents-gairdean/details/:id",
+        element: (
+          <Private>
+            <GairdeanDetails />
+          </Private>
+        ),
+      },
+      {
+        path: "/all-student-informetion/stunents-gairdean/edit/:id",
+        element: (
+          <Private>
+            <EditGairdean />
           </Private>
         ),
       },

@@ -278,7 +278,7 @@ export default function AddStaffForm() {
             ) : (
               <div className="w-full max-h-[100px] min-h-[150px] flex flex-col justify-center items-center h-full">
                 <IoCloudUploadOutline className="text-2xl" />
-                <small>Upload Student Image</small>
+                <small>Upload Staff Image</small>
               </div>
             )}
             <ImageUpload onUpload={handleImageUpload} />

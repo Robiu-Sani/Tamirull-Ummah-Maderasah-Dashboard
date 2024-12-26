@@ -11,12 +11,15 @@ import {
   MdHome,
   MdSettings,
   MdMessage,
+  MdInfo,
 } from "react-icons/md";
 import {
   FaBed,
   FaUserGraduate,
   FaChalkboardTeacher,
   FaUserCircle,
+  FaMortarPestle,
+  FaGuitar,
 } from "react-icons/fa";
 import {
   RiDashboardFill,
@@ -24,7 +27,7 @@ import {
   RiLogoutCircleRLine,
 } from "react-icons/ri";
 import { GiTeacher } from "react-icons/gi";
-import { FaDiamond } from "react-icons/fa6";
+import { FaDiamond, FaFaceTired } from "react-icons/fa6";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { PiStudentFill } from "react-icons/pi";
 import { SiStaffbase } from "react-icons/si";
@@ -77,6 +80,27 @@ const navItems = [
         name: "All Staff",
         path: "/staff/all-staff",
         icon: <LiaChalkboardTeacherSolid />,
+      },
+    ],
+  },
+  {
+    name: "Students Info: ",
+    icon: <MdInfo />,
+    children: [
+      {
+        name: "Students Father",
+        path: "/all-student-informetion/stunents-father",
+        icon: <FaFaceTired />,
+      },
+      {
+        name: "Students Mother",
+        path: "/all-student-informetion/stunents-mother",
+        icon: <FaMortarPestle />,
+      },
+      {
+        name: "Students Gairdean",
+        path: "/all-student-informetion/stunents-gairdean",
+        icon: <FaGuitar />,
       },
     ],
   },
