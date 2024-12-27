@@ -11,30 +11,30 @@ import {
 import { ImSpinner9 } from "react-icons/im";
 import { Link } from "react-router-dom";
 
-export default function StudentMothersTable() {
-  const [mothers, setMother] = useState([]);
+export default function StudentGairdeansTable() {
+  const [gairdeans, setGairdeans] = useState([]);
   const [loading, setLoading] = useState(false);
   const [menuIndex, setMenuIndex] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
-  const [totalMothers, setTotalMothers] = useState(0);
+  const [totalGairdeans, setTotalGairdeans] = useState(0);
   const [errorAlert, setErrorAlert] = useState(false);
 
-  const fetchMothers = async () => {
+  const fetchGairdeans = async () => {
     setLoading(true);
     setErrorAlert(false);
     try {
       const response = await axios.get(
         `${
           import.meta.env.VITE_SERVER
-        }/mother/table?page=${currentPage}&search=${searchQuery}`
+        }/gairdean/table?page=${currentPage}&search=${searchQuery}`
       );
 
-      const { mothers, totalPages, totalMothers } = response.data.data;
-      setMother(mothers);
+      const { gairdeans, totalPages, totalGairdeans } = response.data.data;
+      setGairdeans(gairdeans);
       setTotalPages(totalPages);
-      setTotalMothers(totalMothers);
+      setTotalGairdeans(totalGairdeans);
     } catch (error) {
       console.error("Error fetching data", error);
       setErrorAlert(true);
@@ -44,7 +44,7 @@ export default function StudentMothersTable() {
   };
 
   useEffect(() => {
-    fetchMothers();
+    fetchGairdeans();
   }, [currentPage, searchQuery]);
 
   const toggleMenu = (index) => {
@@ -63,10 +63,12 @@ export default function StudentMothersTable() {
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${import.meta.env.VITE_SERVER}/mother/delete-mother/${id}`)
+          .delete(
+            `${import.meta.env.VITE_SERVER}/gairdean/delete-gairdean/${id}`
+          )
           .then((response) => {
             toast.success(response.data.message + " Deleted");
-            fetchMothers();
+            fetchGairdeans();
           })
           .catch((err) => {
             toast.error(err.message);
@@ -100,7 +102,7 @@ export default function StudentMothersTable() {
       <Toaster />
       <div className="w-full flex flex-wrap gap-3 py-3 justify-between items-center">
         <div className="relative w-full sm:w-[170px]">
-          <span className="p-1 px-3">{`Total Mothers: ${totalMothers}`}</span>
+          <span className="p-1 px-3">{`Total Gairdeans: ${totalGairdeans}`}</span>
         </div>
 
         <div className="w-full sm:w-[350px]">
@@ -120,7 +122,7 @@ export default function StudentMothersTable() {
         </div>
       )}
 
-      {!loading && mothers.length > 0 && (
+      {!loading && gairdeans.length > 0 && (
         <div className="overflow-x-auto bg-white border rounded-lg shadow-lg">
           <table className="table-auto w-full border-collapse border bg-white rounded-lg">
             <thead>
@@ -138,7 +140,7 @@ export default function StudentMothersTable() {
               </tr>
             </thead>
             <tbody>
-              {mothers.map((mother, index) => (
+              {gairdeans.map((gairdean, index) => (
                 <tr
                   key={index}
                   className={`${
@@ -146,19 +148,19 @@ export default function StudentMothersTable() {
                   } hover:bg-gray-200`}
                 >
                   <td className="border px-4 py-3 text-center">
-                    {mother?.motherNameEn}
+                    {gairdean?.gairdeanNameEn}
                   </td>
                   <td className="border px-4 py-3 text-center">
-                    {mother?.bloodGroup}
+                    {gairdean?.bloodGroup}
                   </td>
                   <td className="border px-4 py-3 text-center">
-                    {mother?.mobilenumber}
+                    {gairdean?.mobilenumber}
                   </td>
                   <td className="border px-4 py-3 text-center">
-                    {mother?.monthlyIncome}
+                    {gairdean?.monthlyIncome}
                   </td>
                   <td className="border px-4 py-3 text-center">
-                    {mother?.workLocation}
+                    {gairdean?.workLocation}
                   </td>
                   <td className="border px-4 py-3 text-center relative">
                     <button
@@ -170,19 +172,19 @@ export default function StudentMothersTable() {
                     {menuIndex === index && (
                       <div className="absolute right-0 mt-2 w-48 z-50 bg-white border border-gray-300 shadow-lg rounded-lg">
                         <Link
-                          to={`/all-student-informetion/stunents-mother/details/${mother._id}`}
+                          to={`/all-student-informetion/stunents-gairdean/details/${gairdean._id}`}
                           className="flex w-full items-center px-4 py-3 text-sm hover:bg-gray-100"
                         >
                           <FaDeviantart className="mr-2 " /> Details
                         </Link>
                         <Link
-                          to={`/all-student-informetion/stunents-mother/edit/${mother._id}`}
+                          to={`/all-student-informetion/stunents-gairdean/edit/${gairdean._id}`}
                           className="flex w-full items-center px-4 py-3 text-sm hover:bg-gray-100"
                         >
                           <FaDeviantart className="mr-2 " /> Edit
                         </Link>
                         <button
-                          onClick={() => handleDelete(mother._id)}
+                          onClick={() => handleDelete(gairdean._id)}
                           className="flex w-full items-center px-4 py-3 text-sm hover:bg-gray-100"
                         >
                           <FaTrash className="mr-2 text-red-500" /> Delete
@@ -197,7 +199,7 @@ export default function StudentMothersTable() {
         </div>
       )}
 
-      {!loading && mothers.length === 0 && (
+      {!loading && gairdeans.length === 0 && (
         <div className="text-center text-gray-600">No mothers found.</div>
       )}
 

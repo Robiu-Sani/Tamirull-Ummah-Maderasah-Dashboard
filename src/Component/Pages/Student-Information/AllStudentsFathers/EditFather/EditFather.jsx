@@ -72,9 +72,6 @@ const EditFather = () => {
       fatherImage: image ? image : fatherData.fatherImage,
     };
 
-    console.log(newData);
-    console.log(fatherData);
-
     try {
       setIsload(true);
       const submittedData = await PatchData(
@@ -359,7 +356,7 @@ const EditFather = () => {
               ) : (
                 <div className="w-full max-h-[100px] min-h-[150px] flex flex-col justify-center items-center h-full">
                   <IoCloudUploadOutline className="text-2xl" />
-                  <small>Upload Student Image</small>
+                  <small>Upload Father Image</small>
                 </div>
               )}
               <ImageUpload onUpload={handleImageUpload} />

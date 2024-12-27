@@ -1,3 +1,11 @@
+import GairdeanTableBanner from "./GairdeanTableBanner";
+import StudentGairdeansTable from "./StudentGairdeansTable";
+
 export default function AllStudentsGairdeans() {
-  return <div>AllStudentsGairdeans</div>;
+  return (
+    <div>
+      <GairdeanTableBanner />
+      <StudentGairdeansTable />
+    </div>
+  );
 }

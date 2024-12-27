@@ -6,7 +6,6 @@ const PatchData = async (urlPath, payload) => {
       `${import.meta.env.VITE_SERVER}/${urlPath}`,
       payload
     );
-    console.log(response);
     return response.data;
   } catch (err) {
     return err;

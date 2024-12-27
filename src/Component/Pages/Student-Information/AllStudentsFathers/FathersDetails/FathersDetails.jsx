@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { FaSpinner, FaFacebook, FaWhatsapp, FaEnvelope } from "react-icons/fa";
 
 export default function FathersDetails() {
-  const [singleFather, setSingleFather] = useState(null);
+  const [singleFather, setsingleFather] = useState(null);
   const [loading, setLoading] = useState(true);
   const { id } = useParams();
 
   useEffect(() => {
     fetchOutput(`father/single-father/${id}`)
       .then((response) => {
-        setSingleFather(response.data);
+        setsingleFather(response.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -37,7 +37,7 @@ export default function FathersDetails() {
     );
   }
 
-  // const { data: father } = singleFather;
+  // const { data: father } = singleFather?;
 
   return (
     <div className="w-full mx-auto  bg-gray-100 shadow-md rounded-lg">
@@ -46,46 +46,46 @@ export default function FathersDetails() {
         <div className="flex flex-col sm:flex-row items-center gap-6">
           <img
             src={singleFather?.fatherImage}
-            alt={singleFather.fatherNameEn}
+            alt={singleFather?.fatherNameEn}
             className="w-32 h-32 rounded-full shadow-lg"
           />
           <div>
             <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
-              {singleFather.fatherNameBn} ({singleFather.fatherNameEn})
+              {singleFather?.fatherNameBn} ({singleFather?.fatherNameEn})
             </h1>
             <p className="text-lg text-gray-600 mb-2">
-              {singleFather.occupation}
+              {singleFather?.occupation}
             </p>
             <p className="text-lg text-gray-600">
-              <strong>Work Location:</strong> {singleFather.workLocation}
+              <strong>Work Location:</strong> {singleFather?.workLocation}
             </p>
           </div>
         </div>
         <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
           <p>
-            <strong>Mobile Number:</strong> {singleFather.mobilenumber}
+            <strong>Mobile Number:</strong> {singleFather?.mobilenumber}
           </p>
           <p>
-            <strong>WhatsApp:</strong> {singleFather.whatsapp}
+            <strong>WhatsApp:</strong> {singleFather?.whatsapp}
           </p>
           <p>
-            <strong>Email:</strong> {singleFather.email}
+            <strong>Email:</strong> {singleFather?.email}
           </p>
           <p>
-            <strong>Monthly Income:</strong> {singleFather.monthlyIncome} BDT
+            <strong>Monthly Income:</strong> {singleFather?.monthlyIncome} BDT
           </p>
           <p>
-            <strong>Blood Group:</strong> {singleFather.bloodGroup}
+            <strong>Blood Group:</strong> {singleFather?.bloodGroup}
           </p>
           <p>
-            <strong>NID Number:</strong> {singleFather.nidNumber}
+            <strong>NID Number:</strong> {singleFather?.nidNumber}
           </p>
         </div>
         {/* Social Links */}
         <div className="flex gap-4 mt-4">
-          {singleFather.facebook && (
+          {singleFather?.facebook && (
             <a
-              href={singleFather.facebook}
+              href={singleFather?.facebook}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
@@ -94,13 +94,13 @@ export default function FathersDetails() {
             </a>
           )}
           <a
-            href={`mailto:${singleFather.email}`}
+            href={`mailto:${singleFather?.email}`}
             className="flex items-center gap-2 bg-red-500 text-white px-4 py-2 rounded-md shadow hover:bg-red-600 transition"
           >
             <FaEnvelope /> Email
           </a>
           <a
-            href={`https://wa.me/${singleFather.whatsapp}`}
+            href={`https://wa.me/${singleFather?.whatsapp}`}
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 bg-green-500 text-white px-4 py-2 rounded-md shadow hover:bg-green-600 transition"
@@ -116,34 +116,34 @@ export default function FathersDetails() {
         <h2 className="text-2xl font-bold text-gray-800 mb-4">
           Student Information
         </h2>
-        {singleFather.studentId ? (
+        {singleFather?.studentId ? (
           <>
             <div className="flex items-center gap-6">
               <img
                 src={
-                  singleFather.studentId.image || "/default-student-image.jpg"
+                  singleFather?.studentId.image || "/default-student-image.jpg"
                 } // Add a default image fallback
-                alt={singleFather.studentId.studentNameEnglish || "Student"}
+                alt={singleFather?.studentId.studentNameEnglish || "Student"}
                 className="w-32 h-32 rounded-full shadow-lg"
               />
               <div>
                 <p>
                   <strong>Name (English):</strong>{" "}
-                  {singleFather.studentId.studentNameEnglish || "N/A"}
+                  {singleFather?.studentId.studentNameEnglish || "N/A"}
                 </p>
                 <p>
                   <strong>Name (Bangla):</strong>{" "}
-                  {singleFather.studentId.studentNameBangla || "N/A"}
+                  {singleFather?.studentId.studentNameBangla || "N/A"}
                 </p>
                 <p>
                   <strong>Class:</strong>{" "}
-                  {singleFather.studentId.class || "N/A"}
+                  {singleFather?.studentId.class || "N/A"}
                 </p>
                 <p>
                   <strong>Date of Birth:</strong>{" "}
-                  {singleFather.studentId.dateOfBirth
+                  {singleFather?.studentId.dateOfBirth
                     ? new Date(
-                        singleFather.studentId.dateOfBirth
+                        singleFather?.studentId.dateOfBirth
                       ).toLocaleDateString()
                     : "N/A"}
                 </p>
@@ -152,19 +152,19 @@ export default function FathersDetails() {
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
               <p>
                 <strong>Blood Group:</strong>{" "}
-                {singleFather.studentId.bloodGroup || "N/A"}
+                {singleFather?.studentId.bloodGroup || "N/A"}
               </p>
               <p>
                 <strong>Residential Status:</strong>{" "}
-                {singleFather.studentId.residentialStatus || "N/A"}
+                {singleFather?.studentId.residentialStatus || "N/A"}
               </p>
               <p>
                 <strong>Identity Email:</strong>{" "}
-                {singleFather.studentId.identityEmail || "N/A"}
+                {singleFather?.studentId.identityEmail || "N/A"}
               </p>
               <p>
                 <strong>Address:</strong>{" "}
-                {singleFather.studentId.address || "N/A"}
+                {singleFather?.studentId.address || "N/A"}
               </p>
             </div>
           </>
