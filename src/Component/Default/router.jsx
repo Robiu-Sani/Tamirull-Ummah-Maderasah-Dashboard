@@ -58,6 +58,7 @@ import SecendTutiralEdit from "../Pages/ExamResult/SecendTutiral/SecendTutiralEd
 import HalfYear from "../Pages/ExamResult/HalfYear/HalfYear";
 import HalfYearDetails from "../Pages/ExamResult/HalfYear/HalfYearDetails/HalfYearDetails";
 import HalfYearEdit from "../Pages/ExamResult/HalfYear/HalfYearEdit/HalfYearEdit";
+import TeachersProfile from "../Pages/TeachersProfile/TeachersProfile";
 
 const router = createBrowserRouter([
   {
@@ -507,6 +508,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <AdminProfile />
+          </Private>
+        ),
+      },
+      {
+        path: "/teachers-profile",
+        element: (
+          <Private>
+            <TeachersProfile />
           </Private>
         ),
       },

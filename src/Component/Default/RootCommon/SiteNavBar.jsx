@@ -5,48 +5,37 @@ import logo from "../../../image/logo.png";
 import {
   MdArrowForwardIos,
   MdPeople,
-  MdSchool,
   MdUpdate,
   MdReport,
   MdHome,
   MdSettings,
   MdMessage,
-  MdInfo,
-  MdAddBox,
-  MdInsertChart,
+  MdAutoAwesome,
+  MdOutlineJoinFull,
 } from "react-icons/md";
 import {
-  FaBed,
   FaUserGraduate,
-  FaChalkboardTeacher,
   FaUserCircle,
-  FaMortarPestle,
-  FaGuitar,
   FaAudioDescription,
-  FaMoneyBill,
-  FaConnectdevelop,
   FaRegUserCircle,
+  FaArtstation,
 } from "react-icons/fa";
 import {
   RiDashboardFill,
   RiFileList3Line,
   RiLogoutCircleRLine,
+  RiProfileLine,
 } from "react-icons/ri";
-import { GiTeacher } from "react-icons/gi";
-import {
-  FaDiamond,
-  FaExclamation,
-  FaFaceTired,
-  FaNoteSticky,
-  FaSliders,
-} from "react-icons/fa6";
+import { GiNestedHexagons, GiTeacher } from "react-icons/gi";
+import { FaDiamond } from "react-icons/fa6";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { PiStudentFill } from "react-icons/pi";
 import { SiStaffbase } from "react-icons/si";
 import useSingleAdmin from "../../customComponent/useSingleAdmin";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
+import { TbHexagonalPrism } from "react-icons/tb";
 
-const navItems = [
+const adminNavItems = [
   {
     name: "Dashboard",
     path: "/dashboard",
@@ -91,28 +80,28 @@ const navItems = [
       {
         name: "All Staff",
         path: "/staff/all-staff",
-        icon: <LiaChalkboardTeacherSolid />,
+        icon: <FaArtstation />,
       },
     ],
   },
   {
     name: "Students Info: ",
-    icon: <MdInfo />,
+    icon: <MdOutlineJoinFull />,
     children: [
       {
         name: "Students Father",
         path: "/all-student-informetion/stunents-father",
-        icon: <FaFaceTired />,
+        icon: <MdAutoAwesome />,
       },
       {
         name: "Students Mother",
         path: "/all-student-informetion/stunents-mother",
-        icon: <FaMortarPestle />,
+        icon: <MdAutoAwesome />,
       },
       {
         name: "Students Gairdean",
         path: "/all-student-informetion/stunents-gairdean",
-        icon: <FaGuitar />,
+        icon: <MdAutoAwesome />,
       },
     ],
   },
@@ -123,27 +112,27 @@ const navItems = [
       {
         name: "All Notices",
         path: "/additional-information/all-notice",
-        icon: <FaNoteSticky />,
+        icon: <TbHexagonalPrism />,
       },
       {
         name: "Slide Data",
         path: "/additional-information/carousel-information",
-        icon: <FaSliders />,
+        icon: <TbHexagonalPrism />,
       },
       {
         name: "Institution Text",
         path: "/additional-information/about-text",
-        icon: <MdInsertChart />,
+        icon: <TbHexagonalPrism />,
       },
       {
         name: "Institution Fees",
         path: "/additional-information/fees-information",
-        icon: <FaMoneyBill />,
+        icon: <TbHexagonalPrism />,
       },
       {
         name: "Contact Info:",
         path: "/additional-information/contact-information",
-        icon: <FaConnectdevelop />,
+        icon: <TbHexagonalPrism />,
       },
     ],
   },
@@ -155,22 +144,22 @@ const navItems = [
       {
         name: "First Tutiral",
         path: "/exam-results/first-tutiral",
-        icon: <FaExclamation />,
+        icon: <GiNestedHexagons />,
       },
       {
         name: "Half Yearly",
         path: "/exam-results/half-yearly",
-        icon: <FaExclamation />,
+        icon: <GiNestedHexagons />,
       },
       {
         name: "Secend Tutiral",
         path: "/exam-results/secend-tutiral",
-        icon: <FaExclamation />,
+        icon: <GiNestedHexagons />,
       },
       {
         name: "Fainal Exam",
         path: "/exam-results/fainal-exam",
-        icon: <FaExclamation />,
+        icon: <GiNestedHexagons />,
       },
     ],
   },
@@ -222,6 +211,14 @@ const navItems = [
   },
 ];
 
+const TeachersNavItems = [
+  {
+    name: "Profile",
+    path: "/teachers-profile",
+    icon: <RiProfileLine />,
+  },
+];
+
 export default function SiteNavBar({ handleCallNav }) {
   const [openMenu, setOpenMenu] = useState({});
   const navigate = useNavigate();
@@ -241,7 +238,75 @@ export default function SiteNavBar({ handleCallNav }) {
         />
       </div>
       <div className="w-full dashboard h-[calc(100vh-230px)] scroll-none overflow-y-scroll">
-        {navItems.map((item, index) => (
+        {adminNavItems.map((item, index) => (
+          <div key={index} className="w-full">
+            {item.children ? (
+              <div
+                className={`w-full gap-2 p-1 rounded-md px-3 my-1 cursor-pointer ${
+                  openMenu[index]
+                    ? "bg-[rgba(0,10,27,0.74)] text-white"
+                    : "text-gray-700"
+                }`}
+                onClick={() => toggleMenu(index)}
+              >
+                <div className="w-full flex justify-between  items-center">
+                  <div className="flex gap-3  items-center">
+                    {item.icon}
+                    {item.name}
+                  </div>
+                  <MdArrowForwardIos
+                    className={`transition-transform ${
+                      openMenu[index] ? "rotate-90" : ""
+                    }`}
+                  />
+                </div>
+                {openMenu[index] && (
+                  <div className="w-full flex flex-col gap-1 mt-2">
+                    {item.children.map((child, idx) => (
+                      <NavLink
+                        key={idx}
+                        to={child.path}
+                        onClick={() => handleCallNav(false)}
+                        className={({ isActive }) =>
+                          `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
+                            isActive
+                              ? "bg-white !text-gray-900"
+                              : "hover:!text-gray-900 text-gray-200 hover:bg-gray-100"
+                          }`
+                        }
+                        style={{ color: openMenu[index] ? "white" : "" }}
+                      >
+                        {child.icon}
+                        {child.name}
+                      </NavLink>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <NavLink
+                to={item.path}
+                onClick={() => handleCallNav(false)}
+                className={({ isActive }) =>
+                  `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
+                    isActive
+                      ? "bg-[rgba(0,10,27,0.74)] text-white"
+                      : "text-gray-700 hover:bg-gray-100"
+                  }`
+                }
+              >
+                {item.icon}
+                {item.name}
+              </NavLink>
+            )}
+          </div>
+        ))}{" "}
+        <br />
+        <hr />
+        <h3 className="font-semibold text-center my-3 text-gray-600">
+          Teachers Part
+        </h3>
+        {TeachersNavItems.map((item, index) => (
           <div key={index} className="w-full">
             {item.children ? (
               <div
