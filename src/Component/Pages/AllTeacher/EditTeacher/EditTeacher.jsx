@@ -56,8 +56,6 @@ export default function EditTeacher() {
     ); // Show spinner while loading
   }
 
-  console.log(teacherData);
-
   const onSubmit = async (data) => {
     console.log(data);
     const newData = {
@@ -408,7 +406,7 @@ export default function EditTeacher() {
         <div className="mb-4 max-w-sm">
           <div className="w-full flex flex-col gap-3">
             <label className="block text-sm text-gray-600 mb-2">
-              Upload Logo
+              Upload Profile
             </label>
             <div className="w-full relative flex-col cursor-pointer h-auto min-h-[150px] rounded-md overflow-hidden border flex justify-center items-center">
               {image ? (
