@@ -33,7 +33,7 @@ export default function CarouselData() {
   };
 
   return (
-    <div className="w-full max-w-[calc(100vw-300px)] text-white mx-auto  ">
+    <div className="w-full md:w-[calc(100vw-300px)] text-white mx-auto  ">
       <h1 className="text-3xl text-black font-bold text-center mb-6">
         Madrasah Carousel
       </h1>
@@ -97,7 +97,7 @@ export default function CarouselData() {
           </div>
         </SwiperSlide>
       </Swiper>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mt-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-3">
         {Object.keys(data.images).map((key, index) => (
           <div
             key={index}

@@ -59,6 +59,7 @@ import HalfYear from "../Pages/ExamResult/HalfYear/HalfYear";
 import HalfYearDetails from "../Pages/ExamResult/HalfYear/HalfYearDetails/HalfYearDetails";
 import HalfYearEdit from "../Pages/ExamResult/HalfYear/HalfYearEdit/HalfYearEdit";
 import TeachersProfile from "../Pages/TeachersProfile/TeachersProfile";
+import AboutTextDetails from "../Pages/Additional-Information/AboutText/AboutTextDetails/AboutTextDetails";
 
 const router = createBrowserRouter([
   {
@@ -268,6 +269,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <EditAboutText />
+          </Private>
+        ),
+      },
+      {
+        path: "/additional-information/about-text/details/:id",
+        element: (
+          <Private>
+            <AboutTextDetails />
           </Private>
         ),
       },

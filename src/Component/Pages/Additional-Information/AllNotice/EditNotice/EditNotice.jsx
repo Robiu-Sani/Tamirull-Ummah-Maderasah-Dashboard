@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { ImSpinner2 } from "react-icons/im";
 import PatchData from "../../../../Default/functions/patchData";
 import { useParams } from "react-router-dom";
@@ -63,6 +63,7 @@ export default function EditNotice() {
 
   return (
     <div className="w-full p-5">
+      <Toaster />
       <h3 className="text-center text-xl my-2">Update Notice</h3>
       <form className="w-full space-y-5" onSubmit={handleSubmit(onSubmit)}>
         <div className=" grid grid-cols-1 sm:grid-cols-2 gap-5">
