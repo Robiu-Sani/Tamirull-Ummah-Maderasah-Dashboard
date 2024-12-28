@@ -35,14 +35,14 @@ export default function Logout() {
       <Toaster position="top-center" />
       {/* Tooltip */}
       {isHovered && (
-        <span className="absolute bottom-[40px] border right-3  px-5 bg-gray-700 text-white text-xs font-medium  py-2 rounded-md shadow-lg">
+        <span className="absolute bottom-[45px] border -right-4  px-5 bg-gray-700 text-white text-xs font-medium  py-2 rounded-md shadow-lg">
           Logout
         </span>
       )}
 
       {/* Logout Button */}
       <div
-        className="cursor-pointer fixed bottom-7 h-[40px] w-[40px] rounded-full right-2 text-white bg-gray-500 hover:bg-gray-600 flex justify-center items-center shadow-md"
+        className="cursor-pointer  h-[40px] w-[40px] rounded-full  text-white bg-gray-500 hover:bg-gray-600 flex justify-center items-center shadow-md"
         onClick={handleLogout}
       >
         <MdLogout className="text-xl" />

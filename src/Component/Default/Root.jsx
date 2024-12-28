@@ -5,9 +5,12 @@ import Footer from "./Footer";
 import { RxCross2 } from "react-icons/rx";
 import { useState } from "react";
 import Logout from "../Pages/Authcation/Logout";
+import { FaPlus } from "react-icons/fa";
+import Navigate from "./RootCommon/Navigate";
 
 export default function Root() {
   const [callNav, setCallNav] = useState(false);
+  const [callButton, setCallButton] = useState(false);
 
   const handleCallNav = (data) => {
     setCallNav(data);
@@ -33,7 +36,21 @@ export default function Root() {
         <div className="w-full h-[calc(100vh-90px)] overflow-y-auto p-3">
           <Outlet />
         </div>
-        <Logout />
+        <div
+          onClick={() => setCallButton(!callButton)}
+          className={`fixed flex cursor-pointer right-2  transition bottom-7 justify-center items-center gap-2`}
+        >
+          {callButton && <Navigate />}
+          {callButton && <Logout />}
+          <span
+            className={`h-[40px] w-[40px] rounded-full ${
+              callButton ? "rotate-90" : "rotate-0"
+            }  text-white bg-gray-500 hover:bg-gray-600 flex justify-center items-center shadow-md`}
+          >
+            <FaPlus />
+          </span>
+        </div>
+
         <Footer />
       </div>
     </div>
