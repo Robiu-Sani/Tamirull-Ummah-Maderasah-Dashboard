@@ -1,3 +1,9 @@
+import ExamResultTable from "./ExamResultTable";
+
 export default function FirstTutiral() {
-  return <div>FirstTutiral</div>;
+  return (
+    <div>
+      <ExamResultTable />
+    </div>
+  );
 }

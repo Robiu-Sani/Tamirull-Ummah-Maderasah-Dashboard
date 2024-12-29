@@ -330,7 +330,7 @@ export default function AddTeacherForm() {
             ) : (
               <div className="w-full max-h-[100px] min-h-[150px] flex flex-col justify-center items-center h-full">
                 <IoCloudUploadOutline className="text-2xl" />
-                <small>Upload Student Image</small>
+                <small>Upload Teacher Image</small>
               </div>
             )}
             <ImageUpload onUpload={handleImageUpload} />
