@@ -61,6 +61,7 @@ import HalfYearEdit from "../Pages/ExamResult/HalfYear/HalfYearEdit/HalfYearEdit
 import TeachersProfile from "../Pages/TeachersProfile/TeachersProfile";
 import AboutTextDetails from "../Pages/Additional-Information/AboutText/AboutTextDetails/AboutTextDetails";
 import AddResult from "../Pages/AddResult/AddResult";
+import AddResultForm from "../Pages/AddResult/AddResultForm";
 
 const router = createBrowserRouter([
   {
@@ -534,6 +535,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <AddResult />
+          </Private>
+        ),
+      },
+      {
+        path: "/add-exam-result/result-form",
+        element: (
+          <Private>
+            <AddResultForm />
           </Private>
         ),
       },

@@ -108,15 +108,30 @@ export default function AddResultForm() {
           )}
 
           {[
+            { name: "Bangla First", key: "banglaFirst" },
+            { name: "Bangla Second", key: "banglaSecend" },
             { name: "Math", key: "math" },
+            { name: "Higher Math", key: "heigherMath" },
             { name: "Science", key: "science" },
             { name: "Physics", key: "physics" },
             { name: "Chemistry", key: "chemistry" },
             { name: "Biology", key: "biology" },
+            { name: "Fiquah", key: "fiquah" },
+            { name: "Fiquah First", key: "fiquahFirst" },
+            { name: "Fiquah Second", key: "fiquahSecend" },
+            { name: "Balagat & Manthiq", key: "balagatAndManthiq" },
+            { name: "Agriculture", key: "agreculture" },
+            { name: "Sociology", key: "socialogy" },
+            { name: "Pouro-Nithy First", key: "pouroNithyFirst" },
+            { name: "Pouro-Nithy Second", key: "pouroNithySecend" },
             { name: "History", key: "history" },
             { name: "ICT", key: "ict" },
             { name: "Physical Education", key: "physicalEducation" },
-            { name: "Behaviour", key: "behaviour" },
+            { name: "General Knowledge", key: "commomKnowladge" },
+            { name: "Career Study", key: "carrierStudy" },
+            { name: "Behavior", key: "behaviour" },
+            { name: "Drawing", key: "drowing" },
+            { name: "Piyer & Character", key: "piyerAndCarecter" }, // Fixed spelling mistake here
           ].map((subject) => (
             <div key={subject.key} className="mb-4">
               <label className="block text-gray-700 font-medium mb-2">

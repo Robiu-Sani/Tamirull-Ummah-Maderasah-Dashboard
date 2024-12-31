@@ -1,5 +1,5 @@
 import AddDefaultValue from "./AddDefaultValue";
-import AddResultForm from "./AddResultForm";
+// import AddResultForm from "./AddResultForm";
 
 export default function AddResult() {
   return (
@@ -8,7 +8,7 @@ export default function AddResult() {
         <h3 className="font-semibold text-gray-700">Add Exam Result</h3>
       </div>
       <AddDefaultValue />
-      <AddResultForm />
+      {/* <AddResultForm /> */}
     </div>
   );
 }
