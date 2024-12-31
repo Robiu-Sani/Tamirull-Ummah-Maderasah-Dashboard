@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+// import fetchOutput from "../../Default/functions/fatchingData";
+import axios from "axios";
+import { ImSpinner9 } from "react-icons/im";
 
 export default function AddResultForm() {
   const {
@@ -10,9 +14,22 @@ export default function AddResultForm() {
     formState: { errors },
   } = useForm();
   const [total, setTotal] = useState(0);
+  const [savedExamInfo, setSavedExamInfo] = useState(null);
+  const [student, setStudent] = useState();
+  const [loading, setLoading] = useState();
+  const [selectedStudent, setSelectedStudent] = useState();
+  const navigate = useNavigate();
 
   // Watch all fields to dynamically calculate the total
   const watchedFields = watch();
+
+  // Load data from localStorage on component mount
+  useEffect(() => {
+    const storedData = localStorage.getItem("examInfo");
+    if (storedData) {
+      setSavedExamInfo(JSON.parse(storedData));
+    }
+  }, []);
 
   // Calculate the total dynamically whenever input values change
   useEffect(() => {
@@ -28,18 +45,91 @@ export default function AddResultForm() {
     setTotal(sum);
   }, [watchedFields]);
 
+  useEffect(() => {
+    if (savedExamInfo) {
+      setLoading(true);
+      axios
+        .get(
+          `${import.meta.env.VITE_SERVER}/student/get-by-class/${
+            savedExamInfo.className
+          }?gender=${savedExamInfo.gender}`
+        )
+        .then((response) => {
+          setStudent(response.data.data);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.error("Error fetching data:", err);
+          setLoading(false); // If an error occurs, set loading to false as well
+        });
+    }
+  }, [savedExamInfo]);
+
   // Handle form submission
   const onSubmit = (data) => {
-    const resultData = { ...data, total };
-    console.log("Submitted Data:", resultData);
+    // Remove fields with NaN values or empty strings
+    const cleanedData = Object.fromEntries(
+      Object.entries(data).filter(
+        ([key, value]) => value !== "" && !isNaN(value)
+      )
+    );
+    cleanedData.total = total;
+    cleanedData.examName = savedExamInfo.examName;
+    cleanedData.studentId = selectedStudent._id;
+    cleanedData.teacherId = 132654;
+    cleanedData.studentClass = savedExamInfo.className;
+    cleanedData.studentName = selectedStudent.studentNameEnglish;
+    cleanedData.studentGender = savedExamInfo.gender;
+    console.log("Submitted Data:", cleanedData);
     reset();
     alert("Result submitted successfully!");
   };
 
+  if (!savedExamInfo) {
+    navigate("/add-exam-result");
+  }
+
   return (
     <div className="w-full p-5 flex flex-col justify-center items-center bg-white rounded-lg shadow-md">
+      {loading && (
+        <div className="w-full h-[200px] flex justify-center items-center ">
+          <ImSpinner9 className="animate-spin" size={50} />
+        </div>
+      )}
       <h2 className="text-xl font-semibold mb-4">Add Student Result</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <div className="mb-4">
+          <label className="block font-medium text-gray-700 mb-2">
+            Select Student
+          </label>
+          <select
+            {...register("examName", { required: "This field is required" })}
+            onChange={(e) => {
+              const selected = student.find(
+                (s) => s.studentNameEnglish === e.target.value
+              );
+              setSelectedStudent(selected);
+            }}
+            className="w-full p-2 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+          >
+            <option value="" disabled>
+              Select Student
+            </option>
+            {student?.map((item, idx) => (
+              <option key={idx} value={item.studentNameEnglish}>
+                <span>{item.studentNameEnglish}</span> |{" "}
+                <span>Roll {item.classRoll}</span>
+              </option>
+            ))}
+          </select>
+
+          {errors.examName && (
+            <span className="text-red-500 text-sm">
+              {errors.examName.message}
+            </span>
+          )}
+        </div>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-4">
           <div className="mb-4">
             <label className="block text-gray-700 font-medium mb-2">

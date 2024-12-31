@@ -102,23 +102,23 @@ export default function AddDefaultValue() {
               <option value="" disabled selected>
                 Select a class
               </option>
-              <option value="One">One</option>
-              <option value="Two">Two</option>
-              <option value="Three">Three</option>
-              <option value="Four">Four</option>
-              <option value="Five">Five</option>
-              <option value="Six">Six</option>
-              <option value="Seven">Seven</option>
-              <option value="Eight">Eight</option>
-              <option value="Nine">Nine</option>
-              <option value="Ten">Ten</option>
-              <option value="Eleven">Eleven</option>
-              <option value="Twelve">Twelve</option>
-              <option value="Hifz">Hifz</option>
-              <option value="Norani">Norani</option>
-              <option value="Thaksisi">Thaksisi</option>
-              <option value="Fazil">Fazil</option>
-              <option value="Kamil">Kamil</option>
+              <option value="one">One</option>
+              <option value="two">Two</option>
+              <option value="three">Three</option>
+              <option value="four">Four</option>
+              <option value="five">Five</option>
+              <option value="six">Six</option>
+              <option value="seven">Seven</option>
+              <option value="eight">Eight</option>
+              <option value="nine">Nine</option>
+              <option value="ten">Ten</option>
+              <option value="eleven">Eleven</option>
+              <option value="twelve">Twelve</option>
+              <option value="hifz">Hifz</option>
+              <option value="norani">Norani</option>
+              <option value="thaksisi">Thaksisi</option>
+              <option value="fazil">Fazil</option>
+              <option value="kamil">Kamil</option>
             </select>
             {errors.className && (
               <span className="text-red-500 text-sm">

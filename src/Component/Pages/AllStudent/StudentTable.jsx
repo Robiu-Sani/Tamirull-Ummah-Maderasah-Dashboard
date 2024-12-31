@@ -29,7 +29,6 @@ export default function StudentTable() {
         }/student/table?page=${currentPage}&class=${selectedClass}&search=${searchQuery}`
       );
 
-      console.log(response);
       const { students, uniqueClasses, totalPages } = response.data.data;
       setStudents(students);
       setUniqueClasses(uniqueClasses);
