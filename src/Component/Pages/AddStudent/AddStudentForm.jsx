@@ -290,6 +290,7 @@ export default function AddStudentForm() {
             <option value="hifz">Hifz</option>
             <option value="norani">Norani</option>
             <option value="fazil">Fazil</option>
+            <option value="Thaksisi">Thaksisi</option>
             <option value="kamil">Kamil</option>
           </select>
           {errors.class && (

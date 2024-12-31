@@ -9,17 +9,29 @@ export default function ExamResultTable() {
   const [isLoading, setIsLoading] = useState(false);
   const [search, setSearch] = useState("");
   const [classFilter, setClassFilter] = useState("");
+  const [availableClasses, setAvailableClasses] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
-  // Fetch data function
+  const fetchClasses = async () => {
+    try {
+      const response = await axios.get(
+        `${import.meta.env.VITE_SERVER}/classes`
+      );
+      setAvailableClasses(response.data.classes); // Assume the backend sends an array of classes
+    } catch (error) {
+      console.error("Error fetching classes:", error);
+    }
+  };
+
   const fetchData = async () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${
-          import.meta.env.VITE_SERVER
-        }/first-tutiral/table?page=${page}?classFilter=${classFilter}?search=${search}`
+        `${import.meta.env.VITE_SERVER}/first-tutiral/table`,
+        {
+          params: { search, classFilter, page },
+        }
       );
       const { data } = response.data;
       setTableStudent(data.exams);
@@ -32,10 +44,10 @@ export default function ExamResultTable() {
   };
 
   useEffect(() => {
+    fetchClasses();
     fetchData();
   }, [search, classFilter, page]);
 
-  // Action box handler
   const handleAction = (action, studentId) => {
     switch (action) {
       case "details":
@@ -68,14 +80,12 @@ export default function ExamResultTable() {
 
   return (
     <div className="w-full">
-      {/* Loader */}
       {isLoading && (
         <div className="flex justify-center items-center">
           <AiOutlineLoading3Quarters className="text-4xl animate-spin text-blue-500" />
         </div>
       )}
 
-      {/* Cards Section */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-5">
         <div className="bg-blue-500 text-white p-4 rounded shadow-md">
           <h2 className="text-xl font-bold">Total Exams</h2>
@@ -103,15 +113,18 @@ export default function ExamResultTable() {
         </div>
       </div>
 
-      {/* Filter and Search */}
       <div className="flex flex-wrap justify-between items-center mb-5">
         <select
           className="border p-2 rounded w-48"
+          value={classFilter}
           onChange={(e) => setClassFilter(e.target.value)}
         >
           <option value="">All Classes</option>
-          <option value="fazil">Fazil</option>
-          {/* Add more options dynamically if needed */}
+          {availableClasses.map((cls) => (
+            <option key={cls} value={cls}>
+              {cls}
+            </option>
+          ))}
         </select>
         <div className="relative">
           <input
@@ -124,7 +137,6 @@ export default function ExamResultTable() {
         </div>
       </div>
 
-      {/* Table */}
       <div className="overflow-x-auto">
         <table className="table-auto w-full border-collapse border border-gray-200">
           <thead>
@@ -171,7 +183,6 @@ export default function ExamResultTable() {
         </table>
       </div>
 
-      {/* Pagination */}
       <div className="flex justify-center mt-5">
         <button
           className="px-4 py-2 mx-1 bg-gray-200 rounded disabled:opacity-50"

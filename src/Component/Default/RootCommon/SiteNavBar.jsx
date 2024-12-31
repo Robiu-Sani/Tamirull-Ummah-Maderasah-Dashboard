@@ -217,6 +217,11 @@ const TeachersNavItems = [
     path: "/teachers-profile",
     icon: <RiProfileLine />,
   },
+  {
+    name: "Add Result",
+    path: "/add-exam-result",
+    icon: <RiProfileLine />,
+  },
 ];
 
 export default function SiteNavBar({ handleCallNav }) {
@@ -307,10 +312,10 @@ export default function SiteNavBar({ handleCallNav }) {
           Teachers Part
         </h3>
         {TeachersNavItems.map((item, index) => (
-          <div key={index} className="w-full">
+          <div key={index} className="w-full flex flex-col gap-1">
             {item.children ? (
               <div
-                className={`w-full gap-2 p-1 rounded-md px-3 my-1 cursor-pointer ${
+                className={`w-full gap-2 p-1 rounded-md px-3 !my-1 cursor-pointer ${
                   openMenu[index]
                     ? "bg-[rgba(0,10,27,0.74)] text-white"
                     : "text-gray-700"
