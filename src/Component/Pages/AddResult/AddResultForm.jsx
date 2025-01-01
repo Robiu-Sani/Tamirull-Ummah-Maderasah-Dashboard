@@ -82,7 +82,6 @@ export default function AddResultForm() {
     cleanedData.studentGender = savedExamInfo.gender;
     console.log("Submitted Data:", cleanedData);
     reset();
-    alert("Result submitted successfully!");
   };
 
   if (!savedExamInfo) {
