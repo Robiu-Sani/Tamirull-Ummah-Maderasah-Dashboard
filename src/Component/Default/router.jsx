@@ -62,6 +62,9 @@ import TeachersProfile from "../Pages/TeachersProfile/TeachersProfile";
 import AboutTextDetails from "../Pages/Additional-Information/AboutText/AboutTextDetails/AboutTextDetails";
 import AddResult from "../Pages/AddResult/AddResult";
 import AddResultForm from "../Pages/AddResult/AddResultForm";
+import AllResult from "../Pages/ExamResult/AllResult/AllResult";
+import ModelTest from "../Pages/ExamResult/ModelTest/ModelTest";
+import Test from "../Pages/ExamResult/Test/Test";
 
 const router = createBrowserRouter([
   {
@@ -298,6 +301,31 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
+      //   result route is here
+      {
+        path: "/exam-results/all-exam-result",
+        element: (
+          <Private>
+            <AllResult />
+          </Private>
+        ),
+      },
+      {
+        path: "/exam-results/model-test-exam-result",
+        element: (
+          <Private>
+            <ModelTest />
+          </Private>
+        ),
+      },
+      {
+        path: "/exam-results/test-exam-result",
+        element: (
+          <Private>
+            <Test />
+          </Private>
+        ),
+      },
       {
         path: "/exam-results/first-tutiral",
         element: (
@@ -394,6 +422,7 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
+      // -------------
       {
         path: "/messages",
         element: (
