@@ -46,18 +46,10 @@ import EditAboutText from "../Pages/Additional-Information/AboutText/EditAboutTe
 import AllFees from "../Pages/Additional-Information/AllFees/AllFees";
 import ContactInformation from "../Pages/Additional-Information/ContactInformation/ContactInformation";
 import NoticeDetails from "../Pages/Additional-Information/AllNotice/NoticeDetails/NoticeDetails";
-import FirstTutiralEdit from "../Pages/ExamResult/FirstTutiral/FirstTutiralEdit/FirstTutiralEdit";
-import FirstTutiralDetails from "../Pages/ExamResult/FirstTutiral/FirstTutiralDetails/FirstTutiralDetails";
 import FirstTutiral from "../Pages/ExamResult/FirstTutiral/FirstTutiral";
 import FainalExam from "../Pages/ExamResult/FainalExam/FainalExam";
-import FainalExamDetails from "../Pages/ExamResult/FainalExam/FainalExamDetails/FainalExamDetails";
-import FainalExamEdit from "../Pages/ExamResult/FainalExam/FainalExamEdit/FainalExamEdit";
 import SecendTutiral from "../Pages/ExamResult/SecendTutiral/SecendTutiral";
-import SecendTutiralDetails from "../Pages/ExamResult/SecendTutiral/SecendTutiralDetails/SecendTutiralDetails";
-import SecendTutiralEdit from "../Pages/ExamResult/SecendTutiral/SecendTutiralEdit/SecendTutiralEdit";
 import HalfYear from "../Pages/ExamResult/HalfYear/HalfYear";
-import HalfYearDetails from "../Pages/ExamResult/HalfYear/HalfYearDetails/HalfYearDetails";
-import HalfYearEdit from "../Pages/ExamResult/HalfYear/HalfYearEdit/HalfYearEdit";
 import TeachersProfile from "../Pages/TeachersProfile/TeachersProfile";
 import AboutTextDetails from "../Pages/Additional-Information/AboutText/AboutTextDetails/AboutTextDetails";
 import AddResult from "../Pages/AddResult/AddResult";
@@ -335,42 +327,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/exam-results/first-tutiral/details/:id",
-        element: (
-          <Private>
-            <FirstTutiralDetails />
-          </Private>
-        ),
-      },
-      {
-        path: "/exam-results/first-tutiral/edit/:id",
-        element: (
-          <Private>
-            <FirstTutiralEdit />
-          </Private>
-        ),
-      },
-      {
         path: "/exam-results/fainal-exam",
         element: (
           <Private>
             <FainalExam />
-          </Private>
-        ),
-      },
-      {
-        path: "/exam-results/fainal-exam/details/:id",
-        element: (
-          <Private>
-            <FainalExamDetails />
-          </Private>
-        ),
-      },
-      {
-        path: "/exam-results/fainal-exam/edit/:id",
-        element: (
-          <Private>
-            <FainalExamEdit />
           </Private>
         ),
       },
@@ -383,22 +343,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/exam-results/secend-tutiral/details/:id",
-        element: (
-          <Private>
-            <SecendTutiralDetails />
-          </Private>
-        ),
-      },
-      {
-        path: "/exam-results/secend-tutiral/edit/:id",
-        element: (
-          <Private>
-            <SecendTutiralEdit />
-          </Private>
-        ),
-      },
-      {
         path: "/exam-results/half-yearly",
         element: (
           <Private>
@@ -406,22 +350,7 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
-      {
-        path: "/exam-results/half-yearly/details/:id",
-        element: (
-          <Private>
-            <HalfYearDetails />
-          </Private>
-        ),
-      },
-      {
-        path: "/exam-results/half-yearly/edit/:id",
-        element: (
-          <Private>
-            <HalfYearEdit />
-          </Private>
-        ),
-      },
+
       // -------------
       {
         path: "/messages",
