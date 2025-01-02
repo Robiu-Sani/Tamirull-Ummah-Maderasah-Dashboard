@@ -142,6 +142,11 @@ const adminNavItems = [
     icon: <FaRegUserCircle />,
     children: [
       {
+        name: "All Results",
+        path: "/exam-results/all-exam-result",
+        icon: <GiNestedHexagons />,
+      },
+      {
         name: "First Tutiral",
         path: "/exam-results/first-tutiral",
         icon: <GiNestedHexagons />,
@@ -159,6 +164,16 @@ const adminNavItems = [
       {
         name: "Fainal Exam",
         path: "/exam-results/fainal-exam",
+        icon: <GiNestedHexagons />,
+      },
+      {
+        name: "Model Test",
+        path: "/exam-results/model-test-exam-result",
+        icon: <GiNestedHexagons />,
+      },
+      {
+        name: "Test",
+        path: "/exam-results/test-exam-result",
         icon: <GiNestedHexagons />,
       },
     ],
