@@ -87,8 +87,6 @@ export default function AddResultForm() {
       cleanedData.studentGender =
         selectedStudent.gender || savedExamInfo.gender;
 
-      console.log("Submitted Data:", cleanedData);
-
       // Make the API call to submit the data
       const response = await postOutput(
         "result/create-exam-result",
