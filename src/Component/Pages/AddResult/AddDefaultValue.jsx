@@ -82,6 +82,8 @@ export default function AddDefaultValue() {
               <option value="Half Yearly Exam">Half Yearly Exam</option>
               <option value="Second Tutorial">Second Tutorial</option>
               <option value="Final Exam">Final Exam</option>
+              <option value="Model Test">Model Test</option>
+              <option value="Test">Test</option>
             </select>
             {errors.examName && (
               <span className="text-red-500 text-sm">

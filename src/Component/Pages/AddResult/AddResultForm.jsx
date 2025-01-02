@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 // import fetchOutput from "../../Default/functions/fatchingData";
 import axios from "axios";
 import { ImSpinner9 } from "react-icons/im";
+import postOutput from "../../Default/functions/postOutput";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AddResultForm() {
   const {
@@ -66,22 +68,46 @@ export default function AddResultForm() {
   }, [savedExamInfo]);
 
   // Handle form submission
-  const onSubmit = (data) => {
-    // Remove fields with NaN values or empty strings
-    const cleanedData = Object.fromEntries(
-      Object.entries(data).filter(
-        ([key, value]) => value !== "" && !isNaN(value)
-      )
-    );
-    cleanedData.total = total;
-    cleanedData.examName = savedExamInfo.examName;
-    cleanedData.studentId = selectedStudent._id;
-    cleanedData.teacherId = 132654;
-    cleanedData.studentClass = savedExamInfo.className;
-    cleanedData.studentName = selectedStudent.studentNameEnglish;
-    cleanedData.studentGender = savedExamInfo.gender;
-    console.log("Submitted Data:", cleanedData);
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      // Remove fields with NaN values or empty strings
+      const cleanedData = Object.fromEntries(
+        Object.entries(data).filter(
+          ([key, value]) => value !== "" && !isNaN(value)
+        )
+      );
+
+      // Add additional fields to the cleaned data
+      cleanedData.total = total;
+      cleanedData.examName = savedExamInfo.examName;
+      cleanedData.studentId = selectedStudent._id;
+      cleanedData.teacherId = "6767f30f439df9b583b4d4fc";
+      cleanedData.studentClass = savedExamInfo.className;
+      cleanedData.studentName = selectedStudent.studentNameEnglish;
+      cleanedData.studentGender =
+        selectedStudent.gender || savedExamInfo.gender;
+
+      console.log("Submitted Data:", cleanedData);
+
+      // Make the API call to submit the data
+      const response = await postOutput(
+        "result/create-exam-result",
+        cleanedData
+      );
+
+      // Handle API response
+      if (response?.status === true) {
+        toast.success(response.message);
+      } else {
+        toast.error(response.message);
+      }
+
+      // Reset the form after submission
+      reset();
+    } catch (error) {
+      console.error("An error occurred during submission:", error);
+      alert("An unexpected error occurred. Please try again.");
+    }
   };
 
   if (!savedExamInfo) {
@@ -95,6 +121,7 @@ export default function AddResultForm() {
           <ImSpinner9 className="animate-spin" size={50} />
         </div>
       )}
+      <Toaster />
       <h2 className="text-xl font-semibold mb-4">Add Student Result</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="w-full">
         <div className="mb-4">
@@ -102,7 +129,9 @@ export default function AddResultForm() {
             Select Student
           </label>
           <select
-            {...register("examName", { required: "This field is required" })}
+            {...register("testSelector", {
+              required: "This field is required",
+            })}
             onChange={(e) => {
               const selected = student.find(
                 (s) => s.studentNameEnglish === e.target.value
@@ -111,7 +140,7 @@ export default function AddResultForm() {
             }}
             className="w-full p-2 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
           >
-            <option value="" disabled>
+            <option value="" disabled selected>
               Select Student
             </option>
             {student?.map((item, idx) => (
