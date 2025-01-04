@@ -237,11 +237,20 @@ export default function AllResultTable() {
                           <FaEdit /> Edit
                         </Link>
                         <Link
-                          to={`/exam-results/exam-result-details/${item._id}`}
-                          className=" w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-100"
+                          to={
+                            item.examName === "Half Yearly Exam" ||
+                            item.examName === "Final Exam"
+                              ? `/exam-results/exam-result-details/${item._id}`
+                              : item.examName === "First Tutorial" ||
+                                item.examName === "Second Tutorial"
+                              ? `/exam-results/exam-result-tutiral-details/${item._id}`
+                              : `/exam-results/exam-result/${item._id}`
+                          }
+                          className="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-100"
                         >
                           <GiLevelThreeAdvanced /> Details
                         </Link>
+
                         <button
                           onClick={() => handleDelete(item._id)}
                           className=" w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-100"

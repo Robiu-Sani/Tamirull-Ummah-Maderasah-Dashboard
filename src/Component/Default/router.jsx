@@ -59,13 +59,16 @@ import ModelTest from "../Pages/ExamResult/ModelTest/ModelTest";
 import Test from "../Pages/ExamResult/Test/Test";
 import ResultEdit from "../Pages/ExamResult/ResultEdit/ResultEdit";
 import ResultDetails from "../Pages/ExamResult/ResultDetails/ResultDetails";
+import TutiralDetails from "../Pages/ExamResult/ResultDetails/TutiralDetails";
 
 const router = createBrowserRouter([
+  // login main path
   {
     path: "/",
     element: <Login />,
     errorElement: <ErrorPage />,
   },
+  //dashboard path
   {
     path: "/",
     element: <Root />,
@@ -79,6 +82,7 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
+      // all users
       {
         path: "/students/allStudent",
         element: (
@@ -151,6 +155,7 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
+      // student informations
       {
         path: "/all-student-informetion/stunents-father",
         element: (
@@ -223,6 +228,7 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
+      //additional informations
       {
         path: "/additional-information/all-notice",
         element: (
@@ -317,6 +323,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <ResultDetails />
+          </Private>
+        ),
+      },
+      {
+        path: "/exam-results/exam-result-tutiral-details/:id",
+        element: (
+          <Private>
+            <TutiralDetails />
           </Private>
         ),
       },
