@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import fetchOutput from "../../../Default/functions/fatchingData";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function TutiralDetails() {
   const [resultData, setResultData] = useState(null);
@@ -122,6 +122,15 @@ export default function TutiralDetails() {
       {/* Total Marks */}
       <div className="text-lg font-semibold">
         <p>Total Marks: {total}</p>
+      </div>
+      <div className="w-full flex justify-end">
+        <Link
+          to={`/exam-results/exam-result-edit/${resultData._id}`}
+          className="p-2 px-10 mt-7 bg-gray-700 text-white rounded-md m-3 border shadow-md"
+        >
+          {" "}
+          Edit{" "}
+        </Link>
       </div>
     </div>
   );

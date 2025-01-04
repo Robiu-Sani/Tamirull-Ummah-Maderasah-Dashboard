@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaSpinner } from "react-icons/fa";
 import fetchOutput from "../../../Default/functions/fatchingData";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export default function ResultDetails() {
   const [resultData, setResultData] = useState(null);
@@ -55,7 +55,7 @@ export default function ResultDetails() {
   return (
     <div className="max-w-5xl mx-auto p-8 bg-white shadow-md rounded-lg">
       {/* Exam Header */}
-      <div className="mb-6 text-center">
+      <div className=" text-center">
         <h1 className="text-2xl font-semibold text-gray-800">
           {data.examName}
         </h1>
@@ -120,7 +120,7 @@ export default function ResultDetails() {
 
       {/* Result Table */}
       <div className="overflow-x-auto">
-        <table className="w-full text-left border-collapse border border-gray-300">
+        <table className="w-full mb-4 text-left border-collapse border border-gray-300">
           <thead>
             <tr className="bg-gray-100">
               <th className="border border-gray-300 p-2">Subject</th>
@@ -163,6 +163,15 @@ export default function ResultDetails() {
             })}
           </tbody>
         </table>
+      </div>
+      <div className="w-full flex justify-end">
+        <Link
+          to={`/exam-results/exam-result-edit/${data._id}`}
+          className="p-2 px-10 bg-gray-700 text-white rounded-md m-3 border shadow-md"
+        >
+          {" "}
+          Edit{" "}
+        </Link>
       </div>
     </div>
   );

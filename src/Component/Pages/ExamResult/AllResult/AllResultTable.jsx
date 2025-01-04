@@ -5,6 +5,8 @@ import Swal from "sweetalert2";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { GiLevelThreeAdvanced } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import deleteOutput from "../../../Default/functions/deleteOutput";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AllResultTable() {
   const [data, setData] = useState([]);
@@ -43,7 +45,6 @@ export default function AllResultTable() {
   };
 
   const handleDelete = (id) => {
-    console.log(id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -54,8 +55,14 @@ export default function AllResultTable() {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "The record has been deleted.", "success");
-        // Optionally call delete API and refresh data
+        deleteOutput(`result/delete-single-result/${id}`)
+          .then((response) => {
+            toast.success(response.data.message + "Deleted");
+            fetchData();
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          });
       }
     });
   };
@@ -65,6 +72,7 @@ export default function AllResultTable() {
   return (
     <div className="w-full mx-auto">
       {/* Cards */}
+      <Toaster />
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-5">
         <div className="bg-white text-gray-800 p-6 rounded-lg shadow-md flex items-center gap-4">
           <div className="p-4 bg-blue-100 text-blue-500 rounded-full">
