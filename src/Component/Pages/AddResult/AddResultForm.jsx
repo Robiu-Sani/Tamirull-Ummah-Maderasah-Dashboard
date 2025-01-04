@@ -78,29 +78,32 @@ export default function AddResultForm() {
       );
 
       // Add additional fields to the cleaned data
-      cleanedData.total = total;
-      cleanedData.examName = savedExamInfo.examName;
-      cleanedData.studentId = selectedStudent._id;
-      cleanedData.teacherId = "6767f30f439df9b583b4d4fc";
-      cleanedData.studentClass = savedExamInfo.className;
-      cleanedData.studentName = selectedStudent.studentNameEnglish;
-      cleanedData.studentGender =
-        selectedStudent.gender || savedExamInfo.gender;
+      const SubmitedData = {
+        total: total,
+        examName: savedExamInfo.examName,
+        studentId: selectedStudent._id,
+        teacherId: "6767f30f439df9b583b4d4fc",
+        studentClass: savedExamInfo.className,
+        studentName: selectedStudent.studentNameEnglish,
+        studentGender: selectedStudent.gender || savedExamInfo.gender,
+        subjects: cleanedData,
+      };
 
       // Make the API call to submit the data
       const response = await postOutput(
         "result/create-exam-result",
-        cleanedData
+        SubmitedData
       );
 
       console.log(response);
 
       // Handle API response
       if (response?.status === true) {
-        if (response.data[0].status === false) {
-          toast.error("Result for this student already exists.");
-        } else {
+        if (response.data.status === true) {
           toast.success(response.message);
+        }
+        if (response.data.status === false) {
+          toast.error("Result for this student already exists.");
         }
       } else {
         toast.error(response.message);
