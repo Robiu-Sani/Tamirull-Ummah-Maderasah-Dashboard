@@ -219,7 +219,7 @@ export default function AllResultTable() {
                   <td className="border px-4 py-2">{item.studentClass}</td>
                   <td className="border px-4 py-2">{item.studentGender}</td>
                   <td className="border px-4 py-2">{item.total}</td>
-                  <td className="border px-4 py-2">
+                  <td className="border px-4 relative py-2">
                     <button
                       onClick={() =>
                         setMenuIndex(menuIndex === idx ? null : idx)
@@ -229,7 +229,7 @@ export default function AllResultTable() {
                       <BsThreeDotsVertical />
                     </button>
                     {menuIndex === idx && (
-                      <div className="absolute w-[150px] bg-white right-8 shadow-lg border flex flex-col rounded-md">
+                      <div className="absolute w-[150px] bg-white right-4 top-8 z-50 shadow-lg border flex flex-col rounded-md">
                         <Link
                           to={`/exam-results/exam-result-edit/${item._id}`}
                           className=" w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-100"
