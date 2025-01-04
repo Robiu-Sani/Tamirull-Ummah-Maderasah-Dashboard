@@ -93,9 +93,15 @@ export default function AddResultForm() {
         cleanedData
       );
 
+      console.log(response);
+
       // Handle API response
       if (response?.status === true) {
-        toast.success(response.message);
+        if (response.data[0].status === false) {
+          toast.error("Result for this student already exists.");
+        } else {
+          toast.success(response.message);
+        }
       } else {
         toast.error(response.message);
       }
@@ -104,7 +110,6 @@ export default function AddResultForm() {
       reset();
     } catch (error) {
       console.error("An error occurred during submission:", error);
-      alert("An unexpected error occurred. Please try again.");
     }
   };
 

@@ -57,6 +57,8 @@ import AddResultForm from "../Pages/AddResult/AddResultForm";
 import AllResult from "../Pages/ExamResult/AllResult/AllResult";
 import ModelTest from "../Pages/ExamResult/ModelTest/ModelTest";
 import Test from "../Pages/ExamResult/Test/Test";
+import ResultEdit from "../Pages/ExamResult/ResultEdit/ResultEdit";
+import ResultDetails from "../Pages/ExamResult/ResultDetails/ResultDetails";
 
 const router = createBrowserRouter([
   {
@@ -299,6 +301,22 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <AllResult />
+          </Private>
+        ),
+      },
+      {
+        path: "/exam-results/exam-result-edit/:id",
+        element: (
+          <Private>
+            <ResultEdit />
+          </Private>
+        ),
+      },
+      {
+        path: "/exam-results/exam-result-details/:id",
+        element: (
+          <Private>
+            <ResultDetails />
           </Private>
         ),
       },

@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { GiLevelThreeAdvanced } from "react-icons/gi";
+import { Link } from "react-router-dom";
 
 export default function AllResultTable() {
   const [data, setData] = useState([]);
@@ -221,18 +224,27 @@ export default function AllResultTable() {
                       onClick={() =>
                         setMenuIndex(menuIndex === idx ? null : idx)
                       }
-                      className="text-gray-600 hover:text-blue-600"
+                      className="text-gray-600 flex  justify-center items-center w-full hover:text-blue-600"
                     >
-                      <FaEye />
+                      <BsThreeDotsVertical />
                     </button>
                     {menuIndex === idx && (
-                      <div className="absolute bg-white shadow-lg border rounded-md">
-                        <button className="block px-4 py-2 hover:bg-gray-100">
+                      <div className="absolute w-[150px] bg-white right-8 shadow-lg border flex flex-col rounded-md">
+                        <Link
+                          to={`/exam-results/exam-result-edit/${item._id}`}
+                          className=" w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-100"
+                        >
                           <FaEdit /> Edit
-                        </button>
+                        </Link>
+                        <Link
+                          to={`/exam-results/exam-result-details/${item._id}`}
+                          className=" w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-100"
+                        >
+                          <GiLevelThreeAdvanced /> Details
+                        </Link>
                         <button
                           onClick={() => handleDelete(item._id)}
-                          className="block px-4 py-2 hover:bg-gray-100"
+                          className=" w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-100"
                         >
                           <FaTrash /> Delete
                         </button>
