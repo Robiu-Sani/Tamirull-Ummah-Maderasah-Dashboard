@@ -46,13 +46,18 @@ export default function ResultEdit() {
         )
       );
 
-      console.log(cleanedData);
+      const submitData = {
+        total: total,
+        subjects: cleanedData,
+      };
+      cleanedData.total = total;
 
       const response = await PatchData(
         `result/update-single-result/${id}`,
-        cleanedData
+        submitData
       );
 
+      console.log(response);
       // Handle API response
       if (response?.status === true) {
         if (response.data.status === true) {
