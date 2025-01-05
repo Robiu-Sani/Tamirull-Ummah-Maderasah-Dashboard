@@ -31,6 +31,11 @@ export default function TutiralDetails() {
 
   const { subjects, examName, total } = resultData;
 
+  // Calculate total 50% marks
+  const totalPercentageMarks = Object.values(subjects)
+    .map((mark) => calculatePercentage(mark))
+    .reduce((acc, curr) => acc + curr, 0);
+
   return (
     <div className="p-6 shadow-md bg-white text-gray-800 rounded-md">
       <h2 className="text-2xl font-semibold mb-4">
@@ -39,7 +44,7 @@ export default function TutiralDetails() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
         {/* Student Info */}
-        <div className="p-4  rounded-md">
+        <div className="p-4 rounded-md">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
             Student Information
           </h2>
@@ -66,7 +71,7 @@ export default function TutiralDetails() {
         </div>
 
         {/* Teacher Info */}
-        <div className="p-4  rounded-md">
+        <div className="p-4 rounded-md">
           <h2 className="text-lg font-semibold text-gray-800 mb-4">
             Teacher Information
           </h2>
@@ -121,15 +126,15 @@ export default function TutiralDetails() {
 
       {/* Total Marks */}
       <div className="text-lg font-semibold">
-        <p>Total Marks: {total}</p>
+        <p>Total : {total}</p>
+        <p>Total 50% Marks: {totalPercentageMarks.toFixed(2)}</p>
       </div>
       <div className="w-full flex justify-end">
         <Link
           to={`/exam-results/exam-result-edit/${resultData._id}`}
           className="p-2 px-10 mt-7 bg-gray-700 text-white rounded-md m-3 border shadow-md"
         >
-          {" "}
-          Edit{" "}
+          Edit
         </Link>
       </div>
     </div>

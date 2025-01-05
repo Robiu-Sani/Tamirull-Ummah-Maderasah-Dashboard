@@ -61,6 +61,7 @@ import ResultEdit from "../Pages/ExamResult/ResultEdit/ResultEdit";
 import ResultDetails from "../Pages/ExamResult/ResultDetails/ResultDetails";
 import TutiralDetails from "../Pages/ExamResult/ResultDetails/TutiralDetails";
 import ModeltestDetails from "../Pages/ExamResult/ResultDetails/ModeltestDetails";
+import FinalExamDetails from "../Pages/ExamResult/ResultDetails/FinalExamDetails";
 
 const router = createBrowserRouter([
   // login main path
@@ -332,6 +333,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <TutiralDetails />
+          </Private>
+        ),
+      },
+      {
+        path: "/exam-results/exam-result-final-exam-details/:id",
+        element: (
+          <Private>
+            <FinalExamDetails />
           </Private>
         ),
       },

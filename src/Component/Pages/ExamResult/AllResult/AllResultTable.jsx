@@ -246,9 +246,10 @@ export default function AllResultTable() {
                         </Link>
                         <Link
                           to={
-                            item.examName === "Half Yearly Exam" ||
-                            item.examName === "Final Exam"
+                            item.examName === "Half Yearly Exam"
                               ? `/exam-results/exam-result-details/${item._id}`
+                              : item.examName === "Final Exam"
+                              ? `/exam-results/exam-result-final-exam-details/${item._id}`
                               : item.examName === "First Tutorial" ||
                                 item.examName === "Second Tutorial"
                               ? `/exam-results/exam-result-tutiral-details/${item._id}`
