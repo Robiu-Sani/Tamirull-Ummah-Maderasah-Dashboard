@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
-// import fetchOutput from "../../Default/functions/fatchingData";
+import { useParams } from "react-router-dom";
 import { ImSpinner9 } from "react-icons/im";
 import toast, { Toaster } from "react-hot-toast";
+// import updateDataByPut from "../../../Default/functions/updateDataByPut";
+import PatchData from "../../../Default/functions/patchData";
 
 export default function ResultEdit() {
   const {
@@ -15,7 +16,7 @@ export default function ResultEdit() {
   } = useForm();
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState();
-  const navigate = useNavigate();
+  const { id } = useParams();
 
   // Watch all fields to dynamically calculate the total
   const watchedFields = watch();
@@ -36,6 +37,7 @@ export default function ResultEdit() {
 
   // Handle form submission
   const onSubmit = async (data) => {
+    setLoading(true);
     try {
       // Remove fields with NaN values or empty strings
       const cleanedData = Object.fromEntries(
@@ -46,27 +48,29 @@ export default function ResultEdit() {
 
       console.log(cleanedData);
 
-      // const response = await postOutput(
-      //   "result/create-exam-result",
-      //   SubmitedData
-      // );
+      const response = await PatchData(
+        `result/update-single-result/${id}`,
+        cleanedData
+      );
 
-      // // Handle API response
-      // if (response?.status === true) {
-      //   if (response.data.status === true) {
-      //     toast.success(response.message);
-      //   }
-      //   if (response.data.status === false) {
-      //     toast.error("Result for this student already exists.");
-      //   }
-      // } else {
-      //   toast.error(response.message);
-      // }
+      // Handle API response
+      if (response?.status === true) {
+        if (response.data.status === true) {
+          toast.success(response.message || "result update successfully");
+        }
+        if (response.data.status === false) {
+          toast.error("Result for this student already exists.");
+        }
+      } else {
+        toast.error(response.message);
+      }
 
-      // // Reset the form after submission
-      // reset();
+      // Reset the form after submission
+      reset();
     } catch (error) {
       console.error("An error occurred during submission:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
