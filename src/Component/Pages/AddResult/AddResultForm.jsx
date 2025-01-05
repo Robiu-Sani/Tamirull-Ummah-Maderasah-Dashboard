@@ -95,8 +95,6 @@ export default function AddResultForm() {
         SubmitedData
       );
 
-      console.log(response);
-
       // Handle API response
       if (response?.status === true) {
         if (response.data.status === true) {

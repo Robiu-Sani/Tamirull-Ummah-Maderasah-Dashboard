@@ -1,205 +1,282 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { FaSearch, FaEdit, FaTrash, FaEye } from "react-icons/fa";
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import Swal from "sweetalert2";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { GiLevelThreeAdvanced } from "react-icons/gi";
+import { Link } from "react-router-dom";
+import deleteOutput from "../../../Default/functions/deleteOutput";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function ExamResultTable() {
-  const [tableStudent, setTableStudent] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [search, setSearch] = useState("");
-  const [classFilter, setClassFilter] = useState("");
-  const [availableClasses, setAvailableClasses] = useState([]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedClass, setSelectedClass] = useState("");
+  const [uniqueClasses, setUniqueClasses] = useState([]);
+  const [menuIndex, setMenuIndex] = useState(null);
 
-  const fetchClasses = async () => {
-    try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_SERVER}/classes`
-      );
-      setAvailableClasses(response.data.classes); // Assume the backend sends an array of classes
-    } catch (error) {
-      console.error("Error fetching classes:", error);
-    }
-  };
+  useEffect(() => {
+    fetchData();
+  }, [searchQuery, selectedClass]); // Fetch data whenever search query or class changes
 
   const fetchData = async () => {
-    setIsLoading(true);
+    setLoading(true);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER}/first-tutiral/table`,
+        `${
+          import.meta.env.VITE_SERVER
+        }/result/get-result-by-exam-name/First Tutorial`,
         {
-          params: { search, classFilter, page },
+          params: {
+            search: searchQuery,
+            studentClass: selectedClass,
+          },
         }
       );
-      const { data } = response.data;
-      setTableStudent(data.exams);
-      setTotalPages(data.totalPages);
+      const result = response.data;
+      if (result.status) {
+        setData(result.data);
+        setUniqueClasses(result.data.uniqueClasses || []);
+      }
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      setIsLoading(false);
+      setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchClasses();
-    fetchData();
-  }, [search, classFilter, page]);
-
-  const handleAction = (action, studentId) => {
-    switch (action) {
-      case "details":
-        Swal.fire("Details", `Details for student ID: ${studentId}`, "info");
-        break;
-      case "edit":
-        Swal.fire("Edit", `Edit student ID: ${studentId}`, "warning");
-        break;
-      case "delete":
-        Swal.fire({
-          title: "Are you sure?",
-          text: "You won't be able to revert this!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonText: "Yes, delete it!",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire(
-              "Deleted!",
-              "The student record has been deleted.",
-              "success"
-            );
-          }
-        });
-        break;
-      default:
-        break;
-    }
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteOutput(`result/delete-single-result/${id}`)
+          .then((response) => {
+            toast.success(response.data.message + "Deleted");
+            fetchData();
+          })
+          .catch((err) => {
+            toast.error(err.message);
+          });
+      }
+    });
   };
+
+  const filteredData = data.data || [];
 
   return (
-    <div className="w-full">
-      {isLoading && (
-        <div className="flex justify-center items-center">
-          <AiOutlineLoading3Quarters className="text-4xl animate-spin text-blue-500" />
+    <div className="w-full mx-auto">
+      {/* Cards */}
+      <Toaster />
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 py-5">
+        <div className="bg-white text-gray-800 p-6 rounded-lg shadow-md flex items-center gap-4">
+          <div className="p-4 bg-blue-100 text-blue-500 rounded-full">
+            <i className="text-3xl">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15.75 6.75a3 3 0 11-6 0 3 3 0 016 0zm-3 4.5c2.5 0 7.5 1.25 7.5 3.75v2.25H5.25V15c0-2.5 5-3.75 7.5-3.75z"
+                />
+              </svg>
+            </i>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">Total Males</h3>
+            <p className="text-2xl font-bold">{data.totalMale || 0}</p>
+          </div>
         </div>
-      )}
 
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 my-5">
-        <div className="bg-blue-500 text-white p-4 rounded shadow-md">
-          <h2 className="text-xl font-bold">Total Exams</h2>
-          <p>{tableStudent.length}</p>
+        <div className="bg-white text-gray-800 p-6 rounded-lg shadow-md flex items-center gap-4">
+          <div className="p-4 bg-green-100 text-green-500 rounded-full">
+            <i className="text-3xl">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 14.25a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5zM6.75 18A7.25 7.25 0 0112 10.75a7.25 7.25 0 015.25 7.25v.75H6.75v-.75z"
+                />
+              </svg>
+            </i>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">Total Females</h3>
+            <p className="text-2xl font-bold">{data.totalFemale || 0}</p>
+          </div>
         </div>
-        <div className="bg-green-500 text-white p-4 rounded shadow-md">
-          <h2 className="text-xl font-bold">Total Male</h2>
-          <p>
-            {tableStudent.filter((s) => s.studentId.gender === "male").length}
-          </p>
+
+        <div className="bg-white text-gray-800 p-6 rounded-lg shadow-md flex items-center gap-4">
+          <div className="p-4 bg-purple-100 text-purple-500 rounded-full">
+            <i className="text-3xl">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M10.75 13.25a3.75 3.75 0 117.5 0M17.25 16.5c0 1.5-3.25 2.25-3.25 2.25s-3.25-.75-3.25-2.25m5.75 0a5.75 5.75 0 10-11.5 0"
+                />
+              </svg>
+            </i>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">Total Students</h3>
+            <p className="text-2xl font-bold">{data.totalStudents || 0}</p>
+          </div>
         </div>
-        <div className="bg-pink-500 text-white p-4 rounded shadow-md">
-          <h2 className="text-xl font-bold">Total Female</h2>
-          <p>
-            {tableStudent.filter((s) => s.studentId.gender === "female").length}
-          </p>
-        </div>
-        <div className="bg-yellow-500 text-white p-4 rounded shadow-md">
-          <h2 className="text-xl font-bold">Total Classes</h2>
-          <p>
-            {tableStudent.length > 0
-              ? new Set(tableStudent.map((s) => s.studentId.class)).size
-              : 0}
-          </p>
+
+        <div className="bg-white text-gray-800 p-6 rounded-lg shadow-md flex items-center gap-4">
+          <div className="p-4 bg-yellow-100 text-yellow-500 rounded-full">
+            <i className="text-3xl">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M7.5 9.75V15m0 0L9 16.5M7.5 15L6 16.5m9-6.75v5.25m1.5 1.5L15 16.5m0 0L16.5 15m-1.5 0v-5.25"
+                />
+              </svg>
+            </i>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold">Total Classes</h3>
+            <p className="text-2xl font-bold">{data.totalClass || 0}</p>
+          </div>
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-between items-center mb-5">
+      {/* Top Section */}
+      <div className="flex flex-wrap gap-3 py-3 justify-between items-center">
         <select
-          className="border p-2 rounded w-48"
-          value={classFilter}
-          onChange={(e) => setClassFilter(e.target.value)}
+          className="block w-full sm:w-[170px] px-2 py-1 border rounded-md"
+          value={selectedClass}
+          onChange={(e) => setSelectedClass(e.target.value)}
         >
           <option value="">All Classes</option>
-          {availableClasses.map((cls) => (
-            <option key={cls} value={cls}>
-              {cls}
+          {uniqueClasses.map((item, idx) => (
+            <option key={idx} value={item}>
+              {item}
             </option>
           ))}
         </select>
-        <div className="relative">
-          <input
-            type="text"
-            className="border p-2 rounded w-64"
-            placeholder="Search by student name"
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <FaSearch className="absolute top-3 right-3 text-gray-400" />
+        <input
+          type="search"
+          className="w-full sm:w-[350px] p-2 border rounded-md"
+          placeholder="Search here"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
+
+      {/* Loader */}
+      {loading && (
+        <div className="flex justify-center items-center h-20">
+          <span>Loading...</span>
         </div>
-      </div>
+      )}
 
-      <div className="overflow-x-auto">
-        <table className="table-auto w-full border-collapse border border-gray-200">
-          <thead>
-            <tr className="bg-gray-100 text-left">
-              <th className="p-2 border">Student Name</th>
-              <th className="p-2 border">Class</th>
-              <th className="p-2 border">Roll</th>
-              <th className="p-2 border">Teacher Name</th>
-              <th className="p-2 border">Total Marks</th>
-              <th className="p-2 border">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableStudent.map((exam) => (
-              <tr key={exam._id}>
-                <td className="p-2 border">
-                  {exam.studentId.studentNameEnglish}
-                </td>
-                <td className="p-2 border">{exam.studentId.class}</td>
-                <td className="p-2 border">{exam.studentId.classRoll}</td>
-                <td className="p-2 border">{exam.teacherId.teacherName}</td>
-                <td className="p-2 border">{exam.total}</td>
-                <td className="p-2 border">
-                  <div className="flex gap-2">
-                    <FaEye
-                      className="text-blue-500 cursor-pointer"
-                      onClick={() =>
-                        handleAction("details", exam.studentId._id)
-                      }
-                    />
-                    <FaEdit
-                      className="text-yellow-500 cursor-pointer"
-                      onClick={() => handleAction("edit", exam.studentId._id)}
-                    />
-                    <FaTrash
-                      className="text-red-500 cursor-pointer"
-                      onClick={() => handleAction("delete", exam.studentId._id)}
-                    />
-                  </div>
-                </td>
+      {/* Table */}
+      {!loading && filteredData.length > 0 && (
+        <div className="overflow-x-auto border rounded-lg shadow-lg">
+          <table className="table-auto w-full border-collapse bg-white">
+            <thead>
+              <tr className="bg-gray-200">
+                <th className="border px-4 py-2">Student Name</th>
+                <th className="border px-4 py-2">Exam Name</th>
+                <th className="border px-4 py-2">Class</th>
+                <th className="border px-4 py-2">Gender</th>
+                <th className="border px-4 py-2">Total</th>
+                <th className="border px-4 py-2">Actions</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {filteredData.map((item, idx) => (
+                <tr key={idx} className="hover:bg-gray-100">
+                  <td className="border px-4 py-2">{item.studentName}</td>
+                  <td className="border px-4 py-2">{item.examName}</td>
+                  <td className="border px-4 py-2">{item.studentClass}</td>
+                  <td className="border px-4 py-2">{item.studentGender}</td>
+                  <td className="border px-4 py-2">{item.total}</td>
+                  <td className="border px-4 relative py-2">
+                    <button
+                      onClick={() =>
+                        setMenuIndex(menuIndex === idx ? null : idx)
+                      }
+                      className="text-gray-600 flex  justify-center items-center w-full hover:text-blue-600"
+                    >
+                      <BsThreeDotsVertical />
+                    </button>
+                    {menuIndex === idx && (
+                      <div className="absolute w-[150px] bg-white right-4 top-8 z-50 shadow-lg border flex flex-col rounded-md">
+                        <Link
+                          to={`/exam-results/exam-result-edit/${item._id}`}
+                          className=" w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-100"
+                        >
+                          <FaEdit /> Edit
+                        </Link>
+                        <Link
+                          to={
+                            item.examName === "Half Yearly Exam"
+                              ? `/exam-results/exam-result-details/${item._id}`
+                              : item.examName === "Final Exam"
+                              ? `/exam-results/exam-result-final-exam-details/${item._id}`
+                              : item.examName === "First Tutorial" ||
+                                item.examName === "Second Tutorial"
+                              ? `/exam-results/exam-result-tutiral-details/${item._id}`
+                              : `/exam-results/exam-result/${item._id}`
+                          }
+                          className="w-full flex items-center gap-3 px-4 py-2 hover:bg-gray-100"
+                        >
+                          <GiLevelThreeAdvanced /> Details
+                        </Link>
 
-      <div className="flex justify-center mt-5">
-        <button
-          className="px-4 py-2 mx-1 bg-gray-200 rounded disabled:opacity-50"
-          disabled={page === 1}
-          onClick={() => setPage((prev) => prev - 1)}
-        >
-          Previous
-        </button>
-        <span className="px-4 py-2">{`Page ${page} of ${totalPages}`}</span>
-        <button
-          className="px-4 py-2 mx-1 bg-gray-200 rounded disabled:opacity-50"
-          disabled={page === totalPages}
-          onClick={() => setPage((prev) => prev + 1)}
-        >
-          Next
-        </button>
-      </div>
+                        <button
+                          onClick={() => handleDelete(item._id)}
+                          className=" w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-100"
+                        >
+                          <FaTrash /> Delete
+                        </button>
+                      </div>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 }
