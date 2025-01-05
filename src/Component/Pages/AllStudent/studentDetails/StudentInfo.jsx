@@ -7,6 +7,7 @@ import {
   FaTint,
   FaPassport,
 } from "react-icons/fa";
+import { Fa42Group } from "react-icons/fa6";
 
 const StudentInfo = ({ student }) => {
   return (
@@ -66,7 +67,11 @@ const StudentInfo = ({ student }) => {
             <div className="space-y-2">
               <p className="flex items-center text-gray-600">
                 <FaWeight className="mr-2 text-blue-500" />
-                <span>Weight: {student?.weight} kg</span>
+                <span>Weight: {student?.weight} kg</span> <br />
+              </p>
+              <p className="flex items-center text-gray-600">
+                <Fa42Group className="mr-2 text-blue-500" />
+                <span>Currently: {student?.isRunning} </span>
               </p>
               <p className="flex items-center text-gray-600">
                 <FaTint className="mr-2 text-blue-500" />

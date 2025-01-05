@@ -63,6 +63,7 @@ import TutiralDetails from "../Pages/ExamResult/ResultDetails/TutiralDetails";
 import ModeltestDetails from "../Pages/ExamResult/ResultDetails/ModeltestDetails";
 import FinalExamDetails from "../Pages/ExamResult/ResultDetails/FinalExamDetails";
 import TeachersIdTable from "../Pages/ExamResult/TeachersIdTable/TeachersIdTable";
+import AddAditionalInfo from "../Pages/AllStudent/AddAditionalInfo/AddAditionalInfo";
 
 const router = createBrowserRouter([
   // login main path
@@ -159,6 +160,14 @@ const router = createBrowserRouter([
         ),
       },
       // student informations
+      {
+        path: "/students/add-students-additional-info/:id",
+        element: (
+          <Private>
+            <AddAditionalInfo />
+          </Private>
+        ),
+      },
       {
         path: "/all-student-informetion/stunents-father",
         element: (

@@ -7,6 +7,7 @@ import Swal from "sweetalert2";
 import deleteOutput from "../../Default/functions/deleteOutput";
 import toast, { Toaster } from "react-hot-toast";
 import PatchData from "../../Default/functions/patchData";
+import { MdOutlineAutoAwesome } from "react-icons/md";
 
 export default function StudentTable() {
   const [students, setStudents] = useState([]);
@@ -74,6 +75,7 @@ export default function StudentTable() {
         deleteOutput(`student/delete-student/${id}`)
           .then((response) => {
             toast.success(response.data.message + "Deleted");
+            fetchStudents();
           })
           .catch((err) => {
             toast.error(err.message);
@@ -91,8 +93,29 @@ export default function StudentTable() {
       );
       if (submittedData.status === true) {
         toast.success("now this student type is " + data);
+        fetchStudents();
       } else {
         toast.error("something worng here!");
+      }
+    } catch (error) {
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
+    }
+  };
+
+  const handleIRunning = async (id, inRunning) => {
+    try {
+      const submittedData = await PatchData(
+        `student/update-single-student-by-patch/${id}`,
+        { isRunning: !inRunning }
+      );
+      if (submittedData.status === true) {
+        toast.success("Now this student's type is " + inRunning);
+
+        // Fetch the latest students to ensure the state is updated
+        fetchStudents();
+      } else {
+        toast.error("Something went wrong here!");
       }
     } catch (error) {
       toast.error("Error submitting form:");
@@ -228,6 +251,22 @@ export default function StudentTable() {
                           <ImBlocked className="mr-2 text-black" />{" "}
                           {student.type === "blocked" ? "Un-Block" : "Block"}
                         </button>
+                        <button
+                          onClick={() =>
+                            handleIRunning(student._id, student.isRunning)
+                          }
+                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                        >
+                          <MdOutlineAutoAwesome className="mr-2 text-black" />{" "}
+                          {student?.isRunning == true ? "Running" : "Finished"}
+                        </button>
+                        <Link
+                          to={`/students/add-students-additional-info/${student._id}`}
+                          className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
+                        >
+                          <FaEdit className="mr-2 text-yellow-500" /> Add
+                          Aditional info
+                        </Link>
                         <button
                           onClick={() => handleDelete(student._id)}
                           className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
