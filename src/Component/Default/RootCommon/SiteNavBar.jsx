@@ -12,6 +12,8 @@ import {
   MdMessage,
   MdAutoAwesome,
   MdOutlineJoinFull,
+  MdAddchart,
+  MdOutlineTableView,
 } from "react-icons/md";
 import {
   FaUserGraduate,
@@ -235,7 +237,12 @@ const TeachersNavItems = [
   {
     name: "Add Result",
     path: "/add-exam-result",
-    icon: <RiProfileLine />,
+    icon: <MdAddchart />,
+  },
+  {
+    name: "Added Result",
+    path: "/exam-results/result-by-single-teachers-id",
+    icon: <MdOutlineTableView />,
   },
 ];
 

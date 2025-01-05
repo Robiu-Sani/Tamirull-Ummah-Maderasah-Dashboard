@@ -62,6 +62,7 @@ import ResultDetails from "../Pages/ExamResult/ResultDetails/ResultDetails";
 import TutiralDetails from "../Pages/ExamResult/ResultDetails/TutiralDetails";
 import ModeltestDetails from "../Pages/ExamResult/ResultDetails/ModeltestDetails";
 import FinalExamDetails from "../Pages/ExamResult/ResultDetails/FinalExamDetails";
+import TeachersIdTable from "../Pages/ExamResult/TeachersIdTable/TeachersIdTable";
 
 const router = createBrowserRouter([
   // login main path
@@ -349,6 +350,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <ModeltestDetails />
+          </Private>
+        ),
+      },
+      {
+        path: "/exam-results/result-by-single-teachers-id",
+        element: (
+          <Private>
+            <TeachersIdTable />
           </Private>
         ),
       },
