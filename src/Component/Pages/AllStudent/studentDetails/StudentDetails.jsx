@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import fetchOutput from "../../../Default/functions/fatchingData";
 import StudentInfo from "./StudentInfo";
 import FatherInfo from "./FatherInfo";
@@ -42,22 +42,43 @@ export default function StudentDetails() {
       {singleStudent.father ? (
         <FatherInfo father={singleStudent.father} />
       ) : (
-        <div className="flex justify-center items-center p-5">
+        <div className="flex flex-col gap-3 justify-center items-center p-5">
           <h3 className=" text-red-400">this data not save yet!</h3>
+          <Link
+            to={`/students/add-students-additional-info/${id}`}
+            className="px-6 p-1 rounded-md bg-gray-600 text-white"
+          >
+            {" "}
+            Add this information
+          </Link>
         </div>
       )}
       {singleStudent.mother ? (
         <MotherInfo mother={singleStudent.mother} />
       ) : (
-        <div className="flex justify-center items-center p-5">
+        <div className="flex flex-col gap-3 justify-center items-center p-5">
           <h3 className=" text-red-400">this data not save yet!</h3>
+          <Link
+            to={`/students/add-students-additional-info/${id}`}
+            className="px-6 p-1 rounded-md bg-gray-600 text-white"
+          >
+            {" "}
+            Add this information
+          </Link>
         </div>
       )}
       {singleStudent.gairdean ? (
         <GairdeanInfo gairdean={singleStudent.gairdean} />
       ) : (
-        <div className="flex justify-center items-center p-5">
+        <div className="flex flex-col gap-3 justify-center items-center p-5">
           <h3 className=" text-red-400">this data not save yet!</h3>
+          <Link
+            to={`/students/add-students-additional-info/${id}`}
+            className="px-6 p-1 rounded-md bg-gray-600 text-white"
+          >
+            {" "}
+            Add this information
+          </Link>
         </div>
       )}
       {singleStudent.result?.first_tutiral ? (

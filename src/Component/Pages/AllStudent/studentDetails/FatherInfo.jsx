@@ -35,7 +35,7 @@ const FatherInfo = ({ father }) => {
         <div className="p-6">
           {/* Personal Information */}
           <h2 className="text-lg font-semibold text-gray-700 mb-4">
-            Personal Information
+            Father Information
           </h2>
           <div className="grid grid-cols-2 gap-4">
             <p className="flex items-center text-gray-600">
