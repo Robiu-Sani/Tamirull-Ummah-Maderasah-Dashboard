@@ -2,12 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { ImSpinner9 } from "react-icons/im";
 import { RxCrossCircled } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 
 export default function SearchBox({ handleCallSearchBox }) {
   const [searchData, setSearchData] = useState();
   const [students, setStudents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [errorAlert, setErrorAlert] = useState(false);
+  const navigate = useNavigate();
 
   const fetchStudents = async () => {
     setLoading(true);
@@ -32,6 +34,11 @@ export default function SearchBox({ handleCallSearchBox }) {
       setStudents([]); // Clear students list when search is empty
     }
   }, [searchData]);
+
+  const goToStudentDetails = (id) => {
+    navigate(`/students/student-details/${id}`);
+    handleCallSearchBox();
+  };
 
   return (
     <div className="w-full fixed top-0 left-0 z-[1000000000] min-h-screen flex justify-center items-center bg-[#0000007e]">
@@ -80,7 +87,8 @@ export default function SearchBox({ handleCallSearchBox }) {
               {students.map((student) => (
                 <li
                   key={student._id}
-                  className="flex items-center p-1 px-4 border-b "
+                  onClick={() => goToStudentDetails(student._id)}
+                  className="flex items-center cursor-pointer p-1 px-4 border-b "
                 >
                   <img
                     src={student.image || "https://via.placeholder.com/50"}
