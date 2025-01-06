@@ -3,10 +3,15 @@ import { FiSearch } from "react-icons/fi";
 import { IoReorderFourSharp } from "react-icons/io5";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { RxCrossCircled } from "react-icons/rx";
+import SearchBox from "../../Shaire/SearchBox";
 
 export default function DashboardHeader({ handleCallNav }) {
   const [callNotifiction, setCallNotifiction] = useState(false);
   const [callSearchBox, setSearchBox] = useState(false);
+
+  const handleCallSearchBox = () => {
+    setSearchBox(!callSearchBox);
+  };
 
   return (
     <div className="w-full h-[60px] relative p-3 px-5 flex shadow-md justify-between items-center border-b bg-white">
@@ -52,26 +57,7 @@ export default function DashboardHeader({ handleCallNav }) {
         <div className="p-3"></div>
       </div>
 
-      {callSearchBox && (
-        <div className="w-full fixed top-0 left-0 z-[1000000000] min-h-screen flex justify-center items-center bg-[#0000007e]">
-          <div
-            onClick={() => setSearchBox(!callSearchBox)}
-            className="absolute top-0 left-0 w-full h-full cursor-pointer"
-          ></div>
-          <div className="max-w-[550px] relative z-[1000000001] flex flex-col justify-between overflow-hidden sm:w-[600px] h-full sm:max-h-[650px] sm:min-h-[500px] bg-white rounded-md shadow-md">
-            <input
-              type="Search"
-              placeholder="Search here"
-              className="w-full p-4 outline-0 pr-10 border-b"
-            />
-            <RxCrossCircled
-              onClick={() => setSearchBox(!callSearchBox)}
-              className="absolute top-5 cursor-pointer right-3 text-xl font-bold"
-            />
-            <div className="w-full h-full"></div>
-          </div>
-        </div>
-      )}
+      {callSearchBox && <SearchBox handleCallSearchBox={handleCallSearchBox} />}
     </div>
   );
 }
