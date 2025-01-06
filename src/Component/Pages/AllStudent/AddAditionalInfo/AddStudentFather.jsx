@@ -16,6 +16,7 @@ import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import postOutput from "../../../Default/functions/postOutput";
 import toast, { Toaster } from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 export default function AddStudentFather() {
   const [image, setImage] = useState(null);
@@ -26,12 +27,14 @@ export default function AddStudentFather() {
     reset,
     formState: { errors },
   } = useForm();
+  const { id } = useParams();
 
   const onSubmit = async (data) => {
-    const restData = { fatherImage: image, ...data };
+    const restData = { studentId: id, fatherImage: image, ...data };
     try {
       setIsload(true);
       const submittedData = await postOutput("father/create-father", restData);
+      console.log(submittedData);
       if (submittedData.status === true) {
         toast.success(submittedData.message);
         reset();

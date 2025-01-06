@@ -16,6 +16,7 @@ import { useState } from "react";
 import { ImSpinner2 } from "react-icons/im";
 import postOutput from "../../../Default/functions/postOutput";
 import toast, { Toaster } from "react-hot-toast";
+import { useParams } from "react-router-dom";
 
 export default function AddStudentGairdean() {
   const [image, setImage] = useState(null);
@@ -26,9 +27,10 @@ export default function AddStudentGairdean() {
     reset,
     formState: { errors },
   } = useForm();
+  const { id } = useParams();
 
   const onSubmit = async (data) => {
-    const restData = { gairdeanImage: image, ...data };
+    const restData = { studentId: id, gairdeanImage: image, ...data };
     try {
       setIsload(true);
       const submittedData = await postOutput(
