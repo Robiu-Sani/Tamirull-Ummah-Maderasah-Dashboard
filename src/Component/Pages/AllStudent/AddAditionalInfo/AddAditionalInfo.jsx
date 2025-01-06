@@ -13,7 +13,7 @@ export default function AddAditionalInfo() {
 
   return (
     <div className="w-full flex flex-col justify-center items-center gap-3">
-      <div className="w-full bg-white rounded-md p-5 flex justify-start items-center gap-4 border shadow-md">
+      <div className="w-full bg-white rounded-md p-3 flex justify-center items-center gap-4 border shadow-md">
         <GiMartyrMemorial /> <span>Add Student Additional Information</span>
       </div>
 

@@ -9,23 +9,50 @@ import {
   FaMapMarkerAlt,
   FaIdCard,
   FaMoneyBillWave,
-  FaImage,
 } from "react-icons/fa";
+import { IoCloudUploadOutline } from "react-icons/io5";
+import ImageUpload from "../../../Default/ImageUpload";
+import { useState } from "react";
+import { ImSpinner2 } from "react-icons/im";
+import postOutput from "../../../Default/functions/postOutput";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function AddStudentMother() {
+  const [image, setImage] = useState(null);
+  const [isload, setIsload] = useState(false);
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    // Handle form submission logic here
+  const onSubmit = async (data) => {
+    const restData = { motherImage: image, ...data };
+    try {
+      setIsload(true);
+      const submittedData = await postOutput("mother/create-mother", restData);
+      if (submittedData.status === true) {
+        toast.success(submittedData.message);
+        reset();
+      } else {
+        toast.error(submittedData.message);
+      }
+    } catch (error) {
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsload(false);
+    }
+  };
+
+  const handleImageUpload = (url) => {
+    setImage(url);
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-6 bg-white  rounded-lg">
+    <div className="w-full mx-auto p-6 bg-white  rounded-lg">
+      <Toaster />
       <h2 className="text-2xl font-bold text-center mb-6">
         Add Mother Information
       </h2>
@@ -243,25 +270,38 @@ export default function AddStudentMother() {
           </div>
         </div>
 
-        {/* mother image  */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            <FaImage className="inline mr-2" /> mother`s Image (optional)
-          </label>
-          <input
-            type="file"
-            {...register("motherImage")}
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-          />
+        {/* profile  */}
+        <div className="mb-4 max-w-sm">
+          <div className="w-full flex flex-col gap-3">
+            <label className="block text-sm text-gray-600 mb-2">
+              Upload Mother Image
+            </label>
+            <div className="w-full relative flex-col cursor-pointer h-auto min-h-[150px] rounded-md overflow-hidden border flex justify-center items-center">
+              {image ? (
+                <img
+                  src={image}
+                  alt="Uploaded Preview"
+                  className="w-full h-auto min-h-[150px] rounded-md border"
+                />
+              ) : (
+                <div className="w-full max-h-[100px] min-h-[150px] flex flex-col justify-center items-center h-full">
+                  <IoCloudUploadOutline className="text-2xl" />
+                  <small>Upload Mother Image</small>
+                </div>
+              )}
+              <ImageUpload onUpload={handleImageUpload} />
+            </div>
+          </div>
         </div>
 
         {/* Submit Button */}
         <div>
           <button
             type="submit"
-            className="w-full py-3 bg-blue-600 text-white font-bold rounded-md hover:bg-blue-700 transition duration-200"
+            className="w-full bg-gray-600 mt-3 flex justify-center items-center gap-3 text-white p-2 rounded-md hover:bg-gray-700 transition"
           >
-            Submit
+            {isload ? <ImSpinner2 className="animate-spin" /> : null}
+            Save Information
           </button>
         </div>
       </form>
