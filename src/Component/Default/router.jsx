@@ -14,7 +14,6 @@ import AddTeacher from "../Pages/AddTeacher/AddTeacher";
 import AddStafe from "../Pages/AddStafe/AddStafe";
 import ReportsHostelSection from "../Pages/ReportsHostelSection/ReportsHostelSection";
 import ReportsThackciciSection from "../Pages/ReportsThackciciSection/ReportsThackciciSection";
-import ReportsHefzSection from "../Pages/ReportsHefzSection/ReportsHefzSection";
 import ReportsAliaSection from "../Pages/ReportsAliaSection/ReportsAliaSection";
 import CommingSoon from "./CommingSoon";
 import AdminProfile from "../Pages/AdminProfile/AdminProfile";
@@ -64,6 +63,7 @@ import ModeltestDetails from "../Pages/ExamResult/ResultDetails/ModeltestDetails
 import FinalExamDetails from "../Pages/ExamResult/ResultDetails/FinalExamDetails";
 import TeachersIdTable from "../Pages/ExamResult/TeachersIdTable/TeachersIdTable";
 import AddAditionalInfo from "../Pages/AllStudent/AddAditionalInfo/AddAditionalInfo";
+import ApplyedAdmition from "../Pages/ReportsHefzSection/ApplyedAdmition";
 
 const router = createBrowserRouter([
   // login main path
@@ -493,10 +493,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/reports/hifz",
+        path: "/notifictions/admition-Student",
         element: (
           <Private>
-            <ReportsHefzSection />
+            <ApplyedAdmition />
           </Private>
         ),
       },

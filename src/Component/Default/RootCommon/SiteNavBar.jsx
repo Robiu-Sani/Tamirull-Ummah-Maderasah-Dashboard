@@ -190,8 +190,8 @@ const adminNavItems = [
         icon: <RiFileList3Line />,
       },
       {
-        name: "Hifz Section",
-        path: "/reports/hifz",
+        name: "Admition Notice",
+        path: "/notifictions/admition-Student",
         icon: <RiFileList3Line />,
       },
       {

@@ -5,7 +5,7 @@ import { FaRegTrashAlt } from "react-icons/fa";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
-export default function NoticfectionBox() {
+export default function NoticfectionBox({ getCount }) {
   const [loading, setLoading] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const navigate = useNavigate();
@@ -58,12 +58,12 @@ export default function NoticfectionBox() {
         { isClick: false }
       );
       const result = response.data;
+      getCount(result.data.count);
       if (result.status == true) {
-        toast.success(result.message);
         fetchNotifications();
       }
     } catch (error) {
-      toast.error(error.message);
+      console.log(error.message);
     }
   };
 
@@ -96,7 +96,7 @@ export default function NoticfectionBox() {
               onClick={() => updateNotifection(notification)}
               className="w-full"
             >
-              <div className="flex justify-center items-center gap-3">
+              <div className="flex justify-start items-center gap-3">
                 <div className="flex items-center justify-center p-1 bg-blue-100 text-blue-600 rounded-full">
                   <MdOutlineNotificationsActive />
                 </div>

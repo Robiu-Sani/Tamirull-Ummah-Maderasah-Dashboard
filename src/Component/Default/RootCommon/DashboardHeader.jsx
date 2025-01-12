@@ -39,6 +39,10 @@ export default function DashboardHeader({ handleCallNav }) {
     }
   };
 
+  const getCount = (number) => {
+    setNotificationCount(number);
+  };
+
   return (
     <div className="w-full h-[60px] relative p-3 px-5 flex shadow-md justify-between items-center border-b bg-white">
       <div className="flex justify-start items-center">
@@ -84,7 +88,7 @@ export default function DashboardHeader({ handleCallNav }) {
           </span>
         </div>
       </div>
-      {callNotification ? <NoticfectionBox /> : null}
+      {callNotification ? <NoticfectionBox getCount={getCount} /> : null}
 
       {callSearchBox && <SearchBox handleCallSearchBox={handleCallSearchBox} />}
     </div>
