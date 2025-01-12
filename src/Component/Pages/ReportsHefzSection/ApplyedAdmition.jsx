@@ -6,14 +6,18 @@ import {
   FaMale,
   FaFemale,
   FaMapMarkerAlt,
+  FaSpinner,
 } from "react-icons/fa";
 import { MdBloodtype, MdClass } from "react-icons/md";
+import postOutput from "../../Default/functions/postOutput";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function ApplyedAdmition() {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredNotifications, setFilteredNotifications] = useState([]);
+  const [isload, setIsload] = useState(false);
 
   useEffect(() => {
     fetchNotifications();
@@ -34,7 +38,7 @@ export default function ApplyedAdmition() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${import.meta.env.VITE_SERVER}/notifection/admition`
+        `${import.meta.env.VITE_SERVER}/notifection/cetagory/Admition Notice`
       );
       const result = response.data;
 
@@ -46,6 +50,39 @@ export default function ApplyedAdmition() {
       console.error("Error fetching notifications:", error);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const AcceptingStudent = async (data, id) => {
+    try {
+      setIsload(true);
+      const submittedData = await postOutput("student/create-student", data);
+      if (submittedData.status === true) {
+        toast.success(submittedData.message);
+        deletNotifection(id);
+      } else {
+        toast.error(submittedData.message);
+      }
+    } catch (error) {
+      toast.error("Error submitting form:");
+      console.error("Error submitting form:", error);
+    } finally {
+      setIsload(false);
+    }
+  };
+
+  const deletNotifection = async (id) => {
+    try {
+      const response = await axios.delete(
+        `${import.meta.env.VITE_SERVER}/notifection/delete-notifection/${id}`
+      );
+      const result = response.data;
+      if (result.status == true) {
+        toast.success(result.message);
+        fetchNotifications();
+      }
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 
@@ -61,8 +98,8 @@ export default function ApplyedAdmition() {
     <div className="w-full">
       <h1 className="text-3xl font-bold text-center text-gray-700 mb-6">
         Applied Admissions
-      </h1>
-
+      </h1>{" "}
+      <Toaster />
       <div className="mb-3">
         <input
           type="text"
@@ -72,7 +109,6 @@ export default function ApplyedAdmition() {
           onChange={(e) => setSearchTerm(e.target.value)}
         />
       </div>
-
       <div className="space-y-6">
         {filteredNotifications.map((notification) => (
           <div
@@ -114,7 +150,7 @@ export default function ApplyedAdmition() {
               </div>
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 grid grid-cols-1 sm:grid-cols-2">
               <p className="font-semibold">Student Name (English):</p>
               <p>{notification.info.studentNameEnglish}</p>
 
@@ -126,6 +162,24 @@ export default function ApplyedAdmition() {
 
               <p className="font-semibold mt-2">Mother`s Name:</p>
               <p>{notification.info.mothersName}</p>
+            </div>
+            <div className="w-full pt-3 border-t flex justify-around items-center">
+              <button
+                onClick={() =>
+                  AcceptingStudent(notification.info, notification._id)
+                }
+                className="px-5 flex gap-3 justify-center items-center p-1 rounded-md bg-gray-600 hover:bg-gray-700 text-white"
+              >
+                {isload ? <FaSpinner className="animate-spin" /> : null}
+                Accept{" "}
+              </button>
+              <button
+                onClick={() => deletNotifection(notification._id)}
+                className="px-5 rounded-md p-1 bg-yellow-600 hover:bg-yellow-700 text-white"
+              >
+                {" "}
+                Cancel{" "}
+              </button>
             </div>
           </div>
         ))}

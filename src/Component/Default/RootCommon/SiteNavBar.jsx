@@ -21,6 +21,7 @@ import {
   FaAudioDescription,
   FaRegUserCircle,
   FaArtstation,
+  FaTransgenderAlt,
 } from "react-icons/fa";
 import {
   RiDashboardFill,
@@ -181,12 +182,12 @@ const adminNavItems = [
     ],
   },
   {
-    name: "Reports",
-    icon: <MdReport />,
+    name: "Notifections",
+    icon: <FaTransgenderAlt />,
     children: [
       {
-        name: "Alia Section",
-        path: "/reports/alia",
+        name: "Contact Messages",
+        path: "/notifections/messages",
         icon: <RiFileList3Line />,
       },
       {
