@@ -45,6 +45,9 @@ export default function TeachersIdTable() {
       setLoading(false);
     }
   };
+
+  console.log(data);
+
   const handleDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
