@@ -196,8 +196,8 @@ const adminNavItems = [
         icon: <RiFileList3Line />,
       },
       {
-        name: "Thacksisi Section",
-        path: "/reports/thacksisi",
+        name: "Consulting",
+        path: "/notifictions/consulting",
         icon: <RiFileList3Line />,
       },
       { name: "Hostel", path: "/reports/hostel", icon: <RiFileList3Line /> },

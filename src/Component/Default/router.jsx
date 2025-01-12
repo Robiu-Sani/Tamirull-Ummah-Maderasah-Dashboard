@@ -13,8 +13,6 @@ import AddStudent from "../Pages/AddStudent/AddStudent";
 import AddTeacher from "../Pages/AddTeacher/AddTeacher";
 import AddStafe from "../Pages/AddStafe/AddStafe";
 import ReportsHostelSection from "../Pages/ReportsHostelSection/ReportsHostelSection";
-import ReportsThackciciSection from "../Pages/ReportsThackciciSection/ReportsThackciciSection";
-import ReportsAliaSection from "../Pages/ReportsAliaSection/ReportsAliaSection";
 import CommingSoon from "./CommingSoon";
 import AdminProfile from "../Pages/AdminProfile/AdminProfile";
 import OtherAdminProfile from "../Pages/AdminProfile/OtherAdminProfile";
@@ -64,6 +62,8 @@ import FinalExamDetails from "../Pages/ExamResult/ResultDetails/FinalExamDetails
 import TeachersIdTable from "../Pages/ExamResult/TeachersIdTable/TeachersIdTable";
 import AddAditionalInfo from "../Pages/AllStudent/AddAditionalInfo/AddAditionalInfo";
 import ApplyedAdmition from "../Pages/ReportsHefzSection/ApplyedAdmition";
+import ContactMessage from "../Pages/ReportsAliaSection/ContactMessage";
+import ConsultingMessage from "../Pages/ReportsThackciciSection/ConsultingMessage";
 
 const router = createBrowserRouter([
   // login main path
@@ -485,10 +485,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/reports/alia",
+        path: "/notifections/messages",
         element: (
           <Private>
-            <ReportsAliaSection />
+            <ContactMessage />
           </Private>
         ),
       },
@@ -501,10 +501,10 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/reports/thacksisi",
+        path: "/notifictions/consulting",
         element: (
           <Private>
-            <ReportsThackciciSection />
+            <ConsultingMessage />
           </Private>
         ),
       },

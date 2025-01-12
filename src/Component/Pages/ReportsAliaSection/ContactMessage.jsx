@@ -1,6 +1,6 @@
 import ReportBanner from "../../Shaire/ReportBanner";
 
-export default function ReportsAliaSection() {
+export default function ContactMessage() {
   return (
     <div>
       <ReportBanner />

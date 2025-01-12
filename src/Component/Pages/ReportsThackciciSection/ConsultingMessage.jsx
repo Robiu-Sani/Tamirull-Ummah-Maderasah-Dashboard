@@ -1,6 +1,6 @@
 import ReportBanner from "../../Shaire/ReportBanner";
 
-export default function ReportsThackciciSection() {
+export default function ConsultingMessage() {
   return (
     <div>
       <ReportBanner />
