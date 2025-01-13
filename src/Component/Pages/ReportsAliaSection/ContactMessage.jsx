@@ -49,8 +49,8 @@ export default function ContactMessage() {
           const data = response.data;
 
           if (data.status === true) {
-            toast.success(data.message); // Show success message
-            fetchContacts(); // Refresh the list after deletion
+            toast.success(data.message);
+            fetchContacts();
           } else {
             toast.error("Failed to delete the contact.");
           }
