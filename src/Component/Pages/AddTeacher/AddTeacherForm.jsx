@@ -292,6 +292,8 @@ export default function AddTeacherForm() {
             <option value="abashik">Abashik</option>
             <option value="onabashik">Onabashik</option>
             <option value="daycare">Daycare</option>
+            <option value="hostel">Hostel</option>
+            <option value="coaching">Coaching</option>
           </select>
           {errors.residentialStatus && (
             <span className="text-red-500 text-sm">This field is required</span>
@@ -318,7 +320,7 @@ export default function AddTeacherForm() {
       <div className="mb-4 max-w-sm">
         <div className="w-full flex flex-col gap-3">
           <label className="block text-sm text-gray-600 mb-2">
-            Upload Logo
+            Upload Image
           </label>
           <div className="w-full relative flex-col cursor-pointer h-auto min-h-[150px] rounded-md overflow-hidden border flex justify-center items-center">
             {image ? (

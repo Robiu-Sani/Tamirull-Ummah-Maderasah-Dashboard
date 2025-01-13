@@ -24,9 +24,7 @@ export default function EditBannerSection() {
   const fetchCarousel = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get(
-        `${import.meta.env.VITE_EXPRESS_API}/carouseldata`
-      );
+      const response = await axios.get(`${import.meta.env.VITE_SERVER}/slide`);
       setCarousel(response.data.data[0]);
     } catch (error) {
       console.error("Error fetching carousel data:", error);
@@ -59,7 +57,7 @@ export default function EditBannerSection() {
             Object.entries(carousel.images).map(([key, img], index) => (
               <div
                 key={index}
-                className="flex w-full justify-between gap-2 items-center p-1 border"
+                className="flex w-full justify-between gap-2 items-center p-1 border rounded-md"
               >
                 <div className="h-[50px] w-[100px] rounded-sm overflow-hidden">
                   <img

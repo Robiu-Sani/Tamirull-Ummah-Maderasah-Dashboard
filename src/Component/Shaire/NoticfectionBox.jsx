@@ -89,7 +89,7 @@ export default function NoticfectionBox({ getCount }) {
           <div
             key={idx}
             className={`w-full p-4 mb-1 cursor-pointer border flex flex-col items-start gap-1 border-b shadow-sm rounded-lg ${
-              notification.isClick ? "bg-gray-100" : "bg-white"
+              notification.isClick ? "bg-gray-200" : "bg-white"
             } hover:shadow-md transition-all duration-200`}
           >
             <div
