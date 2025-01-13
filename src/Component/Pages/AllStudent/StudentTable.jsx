@@ -249,7 +249,7 @@ export default function StudentTable() {
                           className="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 w-full transition-colors duration-150"
                         >
                           <ImBlocked className="mr-2 text-black" />{" "}
-                          {student.type === "blocked" ? "Un-Block" : "Block"}
+                          {student.type === "blocked" ? "Blocked" : "Not Block"}
                         </button>
                         <button
                           onClick={() =>

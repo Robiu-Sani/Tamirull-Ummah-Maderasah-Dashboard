@@ -5,32 +5,33 @@ import {
   //   FaBook,
 } from "react-icons/fa";
 
-export default function TopCards() {
+export default function TopCards({ total }) {
   const CardData = [
     {
+      name: "All Users",
+      quantity: total.totalUser,
+      description: "Total number of users using the platform.",
+      icon: <FaUsers size={24} />,
+      color: "bg-green-100 text-green-500",
+    },
+    {
       name: "All Students",
-      quantity: 2351,
+      quantity: total.totalStudent,
       description: "Total number of registered students .",
       icon: <FaUsers size={24} />,
       color: "bg-indigo-100 text-indigo-500",
     },
     {
       name: "All Teachers",
-      quantity: 2351,
+      quantity: total.totalTeacher,
       description: "Total number of active teachers .",
       icon: <FaChalkboardTeacher size={24} />,
       color: "bg-purple-100 text-purple-500",
     },
-    {
-      name: "All Users",
-      quantity: 2351,
-      description: "Total number of users using the platform.",
-      icon: <FaUsers size={24} />,
-      color: "bg-green-100 text-green-500",
-    },
+
     {
       name: "All Messages",
-      quantity: 2351,
+      quantity: total.totalMessage,
       description: "Total number of messages on the platform.",
       icon: <FaEnvelope size={24} />,
       color: "bg-blue-100 text-blue-500",

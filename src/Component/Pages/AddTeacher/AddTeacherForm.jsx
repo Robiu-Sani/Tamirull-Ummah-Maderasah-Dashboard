@@ -205,6 +205,8 @@ export default function AddTeacherForm() {
             <option value="Morning">Morning</option>
             <option value="Day">Day</option>
             <option value="Evening">Evening</option>
+            <option value="Evening">All Time</option>
+            <option value="Evening">Day and Evening</option>
           </select>
           {errors.shift && (
             <span className="text-red-500 text-sm">This field is required</span>
