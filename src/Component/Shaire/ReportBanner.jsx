@@ -20,7 +20,7 @@ export default function ReportBanner() {
         <div className="flex justify-center items-center space-x-3">
           <FaChartBar className="text-4xl sm:text-5xl" />
           <h1 className="text-2xl sm:text-3xl font-bold uppercase tracking-wide">
-            Reports
+            Notifections
           </h1>
         </div>
         <p className="mt-2 text-sm sm:text-base font-medium">
