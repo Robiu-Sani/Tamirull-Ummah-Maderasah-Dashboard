@@ -13,11 +13,11 @@ export default function ImageUpload({ onUpload }) {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", "zdy07ggv");
-      formData.append("cloud_name", "duegkjfvf"); //
+      formData.append("upload_preset", "tamirul-ummah");
+      formData.append("cloud_name", "dhteypkku"); //
 
       const response = await axios.post(
-        "https://api.cloudinary.com/v1_1/duegkjfvf/image/upload",
+        "https://api.cloudinary.com/v1_1/dhteypkku/image/upload",
         formData
       );
 

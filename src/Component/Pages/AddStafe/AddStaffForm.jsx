@@ -266,7 +266,7 @@ export default function AddStaffForm() {
       <div className="mb-4 max-w-sm">
         <div className="w-full flex flex-col gap-3">
           <label className="block text-sm text-gray-600 mb-2">
-            Upload Logo
+            Upload Image
           </label>
           <div className="w-full relative flex-col cursor-pointer h-auto min-h-[150px] rounded-md overflow-hidden border flex justify-center items-center">
             {image ? (
