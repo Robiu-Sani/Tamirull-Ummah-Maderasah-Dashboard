@@ -21,46 +21,36 @@ ChartJS.register(
   Legend
 );
 
-export default function SmoothLineChart() {
-  // Dummy data for boys and girls in class 0 to 12
-  const data = {
-    labels: [
-      "0",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "10",
-      "11",
-      "12",
-    ],
+export default function SmoothLineChart({ data }) {
+  // Prepare labels (class names) and datasets (boys and girls data)
+  const labels = data.map((item) => item.className);
+  const boysData = data.map((item) => item.boys);
+  const girlsData = data.map((item) => item.girls);
+
+  const chartData = {
+    labels, // Class names for x-axis
     datasets: [
       {
         label: "Boys",
-        data: [50, 70, 60, 80, 85, 90, 95, 100, 110, 115, 120, 125, 140],
-        fill: true,
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        borderColor: "rgb(75, 192, 192)",
+        data: boysData,
+        borderColor: "rgba(54, 162, 235, 1)", // Blue
+        backgroundColor: "rgba(54, 162, 235, 0.2)", // Light blue fill
         borderWidth: 2,
-        tension: 0.4,
-        pointBackgroundColor: "rgb(75, 192, 192)",
-        pointHoverRadius: 7,
+        tension: 0.4, // Smooth line effect
+        pointStyle: "circle",
+        pointRadius: 5,
+        pointBackgroundColor: "rgba(54, 162, 235, 1)",
       },
       {
         label: "Girls",
-        data: [0, 55, 65, 75, 80, 85, 120, 95, 105, 120, 105, 120, 130],
-        fill: true,
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgb(255, 99, 132)",
+        data: girlsData,
+        borderColor: "rgba(255, 99, 132, 1)", // Red
+        backgroundColor: "rgba(255, 99, 132, 0.2)", // Light red fill
         borderWidth: 2,
-        tension: 0.4,
-        pointBackgroundColor: "rgb(255, 99, 132)",
-        pointHoverRadius: 7,
+        tension: 0.4, // Smooth line effect
+        pointStyle: "circle",
+        pointRadius: 5,
+        pointBackgroundColor: "rgba(255, 99, 132, 1)",
       },
     ],
   };
@@ -93,6 +83,9 @@ export default function SmoothLineChart() {
         grid: {
           color: "rgba(200, 200, 200, 0.2)",
         },
+        ticks: {
+          stepSize: 1,
+        },
       },
       x: {
         grid: {
@@ -105,9 +98,9 @@ export default function SmoothLineChart() {
   return (
     <div className="w-full p-4 rounded-md shadow-md bg-white col-span-1 sm:col-span-2">
       <h2 className="text-left -mb-2 text-sm font-semibold">
-        Boys and Girls (Class 0-12)
+        Boys and Girls in All Classes
       </h2>
-      <Line data={data} options={options} />
+      <Line data={chartData} options={options} />
     </div>
   );
 }

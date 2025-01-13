@@ -10,27 +10,26 @@ import {
 // Register necessary components
 ChartJS.register(RadialLinearScale, ArcElement, Tooltip, Legend);
 
-export default function PieChart() {
-  // Dummy data for the PolarArea chart
-  const data = {
-    labels: ["Category ", "Category ", "Category ", "Category ", "Category "],
+export default function PieChart({ data }) {
+  // Prepare data for the PolarArea chart
+  const labels = data.map((item) => item.shiftName); // Extract shift names
+  const totalTeachers = data.map((item) => item.totalTeachers); // Extract total teachers count
+
+  const chartData = {
+    labels, // Shift names for the chart
     datasets: [
       {
-        label: "Sample Data",
-        data: [12, 19, 7, 15, 10],
+        label: "Teachers per Shift",
+        data: totalTeachers, // Number of teachers in each shift
         backgroundColor: [
-          "rgba(255, 99, 132, 0.6)",
-          "rgba(54, 162, 235, 0.6)",
-          "rgba(255, 206, 86, 0.6)",
-          "rgba(75, 192, 192, 0.6)",
-          "rgba(153, 102, 255, 0.6)",
+          "rgba(255, 99, 132, 0.5)", // Red
+          "rgba(54, 162, 235, 0.5)", // Blue
+          "rgba(255, 206, 86, 0.5)", // Yellow
         ],
         borderColor: [
-          "rgba(255, 99, 132, 1)",
-          "rgba(54, 162, 235, 1)",
-          "rgba(255, 206, 86, 1)",
-          "rgba(75, 192, 192, 1)",
-          "rgba(153, 102, 255, 1)",
+          "rgba(255, 99, 132, 1)", // Red border
+          "rgba(54, 162, 235, 1)", // Blue border
+          "rgba(255, 206, 86, 1)", // Yellow border
         ],
         borderWidth: 1,
       },
@@ -42,7 +41,11 @@ export default function PieChart() {
     responsive: true,
     plugins: {
       legend: {
-        display: false,
+        display: true,
+        position: "top",
+        labels: {
+          usePointStyle: true,
+        },
       },
       tooltip: {
         callbacks: {
@@ -50,19 +53,25 @@ export default function PieChart() {
             return `${tooltipItem.label}: ${tooltipItem.raw}`;
           },
         },
+        backgroundColor: "rgba(0, 0, 0, 0.7)",
       },
     },
     scales: {
       r: {
         beginAtZero: true,
+        grid: {
+          color: "rgba(200, 200, 200, 0.2)",
+        },
       },
     },
   };
 
   return (
-    <div className="w-full p-4 rounded-md shadow-lg bg-white col-span-1 ">
-      <h2 className="text-left mb-2 text-sm font-semibold">Polar Area Chart</h2>
-      <PolarArea data={data} options={options} />
+    <div className="w-full p-4 rounded-md shadow-lg bg-white col-span-1">
+      <h2 className="text-left mb-2 text-sm font-semibold">
+        Shift-wise Teachers
+      </h2>
+      <PolarArea data={chartData} options={options} />
     </div>
   );
 }
