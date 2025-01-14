@@ -64,6 +64,7 @@ import AddAditionalInfo from "../Pages/AllStudent/AddAditionalInfo/AddAditionalI
 import ApplyedAdmition from "../Pages/ReportsHefzSection/ApplyedAdmition";
 import ContactMessage from "../Pages/ReportsAliaSection/ContactMessage";
 import ConsultingMessage from "../Pages/ReportsThackciciSection/ConsultingMessage";
+import PostDetails from "../Pages/AllPostsData/PostDetails";
 
 const router = createBrowserRouter([
   // login main path
@@ -522,6 +523,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <AllPostsData />
+          </Private>
+        ),
+      },
+      {
+        path: "/update/single-posts-data/:id",
+        element: (
+          <Private>
+            <PostDetails />
           </Private>
         ),
       },

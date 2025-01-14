@@ -3,6 +3,7 @@ import axios from "axios";
 import { FaEllipsisV } from "react-icons/fa";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export default function PostsTable({ getTotal }) {
   const [posts, setPosts] = useState([]);
@@ -188,9 +189,12 @@ export default function PostsTable({ getTotal }) {
                       />
                       {activeRow === row._id && (
                         <div className="absolute z-10 -right-20 -translate-x-1/2 mt-2 bg-gray-100 shadow-lg border rounded-md p-2 w-40">
-                          <button className="block w-full text-left px-2 py-1 hover:bg-gray-200 rounded-md">
+                          <Link
+                            to={`/update/single-posts-data/${row._id}`}
+                            className="block w-full text-left px-2 py-1 hover:bg-gray-200 rounded-md"
+                          >
                             Details
-                          </button>
+                          </Link>
                           <div className="flex items-center justify-between px-2 py-1 hover:bg-gray-200 rounded-md">
                             <span>Select</span>
                             <label className="inline-flex relative items-center cursor-pointer">
