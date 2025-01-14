@@ -2,10 +2,10 @@ import { FaUsers, FaMale, FaFemale, FaChalkboardTeacher } from "react-icons/fa";
 
 export default function StudentBanner({ tableStudent }) {
   // Example data (replace with dynamic data if available)
-  const totalStudents = tableStudent.totalStudents;
-  const totalBoys = tableStudent.totalMale;
-  const totalGirls = tableStudent.totalFemale;
-  const totalClasses = tableStudent.totalClasses;
+  const totalStudents = tableStudent?.totalStudents;
+  const totalBoys = tableStudent?.totalMale;
+  const totalGirls = tableStudent?.totalFemale;
+  const totalClasses = tableStudent?.totalClasses;
 
   return (
     <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">

@@ -1,6 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import logo from "../../../image/logo.png";
 // import { LiaHomeSolid } from "react-icons/lia";
 import {
   MdArrowForwardIos,
@@ -200,7 +199,11 @@ const adminNavItems = [
         path: "/notifictions/consulting",
         icon: <RiFileList3Line />,
       },
-      { name: "Hostel", path: "/reports/hostel", icon: <RiFileList3Line /> },
+      {
+        name: "All Posts",
+        path: "/update/all-posts-data",
+        icon: <RiFileList3Line />,
+      },
     ],
   },
   {
@@ -260,7 +263,7 @@ export default function SiteNavBar({ handleCallNav }) {
     <div className="w-full h-full bg-white p-4 flex flex-col gap-5">
       <div className="w-full  border-b py-5">
         <img
-          src={logo}
+          src="http://res.cloudinary.com/duegkjfvf/image/upload/v1736431614/f0clqiynnor6tavnuonl.png"
           alt="tamirul ummah maderasah logo"
           className="mx-auto w-[80px] h-[80px]"
         />
