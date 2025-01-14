@@ -1,6 +1,14 @@
+import { useState } from "react";
 import PostsTable from "./PostsTable";
 
 export default function AllPostsData() {
+  const [totalPosts, setTotalPosts] = useState(0);
+  const [selectedPsots, setSelectedPosts] = useState(0);
+
+  const getTotal = (posts, selected) => {
+    setTotalPosts(posts);
+    setSelectedPosts(selected);
+  };
   return (
     <div className="min-h-screen bg-gray-100">
       {/* Banner */}
@@ -21,14 +29,14 @@ export default function AllPostsData() {
               className="bg-white rounded-lg p-4  text-center"
               style={{ boxShadow: "gray 1px 2px 20px 0px inset" }}
             >
-              <h2 className="text-2xl font-bold">120</h2>
+              <h2 className="text-2xl font-bold">{totalPosts}</h2>
               <p className="text-sm">Total Posts</p>
             </div>
             <div
               className="bg-white  rounded-lg p-4 shadow-inset-md text-center"
               style={{ boxShadow: "gray 1px 2px 20px 0px inset" }}
             >
-              <h2 className="text-2xl font-bold">45</h2>
+              <h2 className="text-2xl font-bold">{selectedPsots}</h2>
               <p className="text-sm">Selected Posts</p>
             </div>
           </div>
@@ -37,7 +45,7 @@ export default function AllPostsData() {
 
       {/* Post Table */}
       <div className=" mt-4">
-        <PostsTable />
+        <PostsTable getTotal={getTotal} />
       </div>
     </div>
   );

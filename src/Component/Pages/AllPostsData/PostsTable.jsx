@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { FaEllipsisV } from "react-icons/fa";
+import Swal from "sweetalert2";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function PostsTable() {
+export default function PostsTable({ getTotal }) {
   const [posts, setPosts] = useState([]);
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("all"); // 'all' or 'selected'
@@ -16,7 +18,7 @@ export default function PostsTable() {
     setLoading(true);
     try {
       const response = await axios.get(
-        "http://localhost:5001/api/v1/post/table",
+        `${import.meta.env.VITE_SERVER}/post/table`,
         {
           params: {
             page: currentPage,
@@ -26,7 +28,8 @@ export default function PostsTable() {
         }
       );
 
-      const { data, totalPosts } = response.data.data;
+      const { data, totalPosts, selectedPosts } = response.data.data;
+      getTotal(totalPosts, selectedPosts);
       setPosts(data || []);
       setTotalPosts(totalPosts || 0);
     } catch (error) {
@@ -53,9 +56,74 @@ export default function PostsTable() {
     fetchPosts();
   }, [search, filter, currentPage]);
 
+  const handleDelete = async (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.delete(
+            `${import.meta.env.VITE_SERVER}/post/delete-post/${id}`
+          );
+          const data = response.data;
+
+          if (data.status === true) {
+            toast.success(data.message);
+            fetchPosts();
+          } else {
+            toast.error("Failed to delete the contact.");
+          }
+        } catch (error) {
+          console.error("Error deleting the contact:", error);
+          toast.error("Something went wrong. Please try again.");
+        }
+      }
+    });
+  };
+
+  const handleselected = async (id, UpdateData) => {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, update it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          const response = await axios.patch(
+            `${
+              import.meta.env.VITE_SERVER
+            }/post/update-single-post-by-patch/${id}`,
+            { isSelected: UpdateData }
+          );
+          const data = response.data;
+
+          if (data.status === true) {
+            toast.success(data.message);
+            fetchPosts();
+          } else {
+            toast.error("Failed to updated the contact.");
+          }
+        } catch (error) {
+          console.error("Error updateing the contact:", error);
+          toast.error("Something went wrong. Please try again.");
+        }
+      }
+    });
+  };
+
   return (
     <div className="w-full">
-      <h1 className="text-xl font-bold mb-4">Posts Table</h1>
+      <Toaster />
+      {/* <h1 className="text-xl font-bold mb-4">Posts Table</h1> */}
 
       <div className="flex items-center justify-between mb-4">
         {/* Search Bar */}
@@ -127,6 +195,12 @@ export default function PostsTable() {
                             <span>Select</span>
                             <label className="inline-flex relative items-center cursor-pointer">
                               <input
+                                onClick={() =>
+                                  handleselected(
+                                    row._id,
+                                    row.isSelected === true ? false : true
+                                  )
+                                }
                                 type="checkbox"
                                 className="sr-only peer"
                                 checked={row.isSelected}
@@ -135,6 +209,12 @@ export default function PostsTable() {
                               <div className="w-9 h-5 bg-gray-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-4 peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:left-[2px] after:bg-white after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-blue-600"></div>
                             </label>
                           </div>
+                          <button
+                            onClick={() => handleDelete(row._id)}
+                            className="block w-full text-left px-2 py-1 hover:bg-gray-200 rounded-md"
+                          >
+                            Delete
+                          </button>
                         </div>
                       )}
                     </div>
