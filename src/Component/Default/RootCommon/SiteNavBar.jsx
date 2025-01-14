@@ -204,6 +204,11 @@ const adminNavItems = [
         path: "/update/all-posts-data",
         icon: <RiFileList3Line />,
       },
+      {
+        name: "All Posts Reports",
+        path: "/notifictions/post-reports",
+        icon: <RiFileList3Line />,
+      },
     ],
   },
   {

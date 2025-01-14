@@ -1,2 +1,2 @@
-i have to fixed add result teacher id on add result
-i have to fixed add result teacher id TeachersIdTable
+post update / delete / report / on client site
+authcations onteacher

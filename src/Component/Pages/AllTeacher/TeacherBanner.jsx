@@ -3,21 +3,21 @@ import { FaChalkboardTeacher, FaFemale, FaMale, FaUsers } from "react-icons/fa";
 import fetchOutput from "../../Default/functions/fatchingData";
 
 export default function TeacherBanner() {
-  const [tableTeacher, setTableTeacher] = useState([]);
+  const [tableTeacher, settableTeacher] = useState([]);
   useEffect(() => {
     fetchOutput(`Teacher/table`)
       .then((response) => {
-        setTableTeacher(response.data);
+        settableTeacher(response.data);
       })
       .catch((err) => {
         console.error("Error fetching data:", err);
       });
   }, []);
 
-  const totalTeachers = tableTeacher.totalTeachers;
-  const totalBoys = tableTeacher.totalMale;
-  const totalGirls = tableTeacher.totalFemale;
-  const totalClasses = tableTeacher.totalClasses;
+  const totalTeachers = tableTeacher?.totalTeachers;
+  const totalBoys = tableTeacher?.totalMale;
+  const totalGirls = tableTeacher?.totalFemale;
+  const totalClasses = tableTeacher?.totalClasses;
 
   return (
     <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">

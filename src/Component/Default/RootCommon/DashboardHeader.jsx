@@ -5,6 +5,7 @@ import { MdOutlineNotificationsActive } from "react-icons/md";
 import SearchBox from "../../Shaire/SearchBox";
 import NoticfectionBox from "../../Shaire/NoticfectionBox";
 import axios from "axios";
+import { FaSpinner } from "react-icons/fa";
 
 export default function DashboardHeader({ handleCallNav }) {
   const [callNotification, setCallNotification] = useState(false);
@@ -47,8 +48,10 @@ export default function DashboardHeader({ handleCallNav }) {
     <div className="w-full h-[60px] relative p-3 px-5 flex shadow-md justify-between items-center border-b bg-white">
       <div className="flex justify-start items-center">
         {loading && (
-          <div className="flex justify-center items-center h-20">
-            <span>Loading...</span>
+          <div className="flex justify-center items-center ">
+            <span>
+              <FaSpinner className="animate-spin" />
+            </span>
           </div>
         )}
         <span

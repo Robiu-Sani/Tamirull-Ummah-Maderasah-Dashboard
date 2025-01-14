@@ -65,6 +65,7 @@ import ApplyedAdmition from "../Pages/ReportsHefzSection/ApplyedAdmition";
 import ContactMessage from "../Pages/ReportsAliaSection/ContactMessage";
 import ConsultingMessage from "../Pages/ReportsThackciciSection/ConsultingMessage";
 import PostDetails from "../Pages/AllPostsData/PostDetails";
+import PostsReports from "../Pages/AllPostsData/PostsReports";
 
 const router = createBrowserRouter([
   // login main path
@@ -507,6 +508,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <ConsultingMessage />
+          </Private>
+        ),
+      },
+      {
+        path: "/notifictions/post-reports",
+        element: (
+          <Private>
+            <PostsReports />
           </Private>
         ),
       },

@@ -5,35 +5,64 @@ import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import fetchOutput from "../../../Default/functions/fatchingData";
 
 export default function CarouselData() {
+  const [slideData, setSlideData] = useState(null); // State to hold data
+  const [error, setError] = useState(null); // State to hold error message
+
+  useEffect(() => {
+    fetchOutput("slide")
+      .then((response) => {
+        if (response.data && response.data.length > 0) {
+          setSlideData(response.data[0]);
+        } else {
+          setError("No slide data available");
+        }
+      })
+      .catch((err) => {
+        setError("Error fetching data: " + err.message);
+        console.error("Error fetching data:", err);
+      });
+  }, []);
+
+  // If there is no data or an error
+  if (error) {
+    return (
+      <div className="w-full text-center text-red-500">
+        <h1>{error}</h1>
+      </div>
+    );
+  }
+
+  if (!slideData) {
+    return (
+      <div className="w-full text-center text-black">
+        <h1>Loading carousel data...</h1>
+      </div>
+    );
+  }
+
   const data = {
     images: {
-      slide1:
-        "http://res.cloudinary.com/duegkjfvf/image/upload/v1734870553/vosbkdxep87ge1hwpdue.jpg",
-      slide2:
-        "http://res.cloudinary.com/duegkjfvf/image/upload/v1734870560/mpiaxatc4rl2kfkkpct5.jpg",
-      slide3:
-        "http://res.cloudinary.com/duegkjfvf/image/upload/v1734870564/fjwkhbkfdhsxpjquxfbg.jpg",
-      slide4:
-        "http://res.cloudinary.com/duegkjfvf/image/upload/v1734870573/nt2dirhjlkcphrskayxq.jpg",
+      slide1: slideData?.images?.slide1,
+      slide2: slideData?.images?.slide2,
+      slide3: slideData?.images?.slide3,
+      slide4: slideData?.images?.slide4,
     },
-    slide1Title: "Islamic Education for a Brighter Future",
-    slide1Description:
-      "Empowering young minds with the teachings of the Qur'an and Sunnah. Join us in nurturing a generation rooted in faith, knowledge, and moral excellence.",
-    slide2Title: "Learning with Purpose, Living with Faith",
-    slide2Description:
-      "Discover a curriculum designed to inspire hearts and minds. From Tajweed to Islamic history, we provide a holistic approach to spiritual and academic growth.",
-    slide3Title: "this is title 3",
-    slide3Description:
-      "At our Madrasah, education goes beyond books. We focus on instilling discipline, compassion, and the values of Islam in every student.",
-    slide4Title: "Shaping Leaders for Tomorrow",
-    slide4Description:
-      "Prepare for a future guided by faith and wisdom. Our Madrasah equips students with the tools to succeed in both Dunya and Akhirah.",
+    slide1Title: slideData?.slide1Title,
+    slide1Description: slideData?.slide1Description,
+    slide2Title: slideData?.slide2Title,
+    slide2Description: slideData?.slide2Description,
+    slide3Title: slideData?.slide3Title,
+    slide3Description: slideData?.slide3Description,
+    slide4Title: slideData?.slide4Title,
+    slide4Description: slideData?.slide4Description,
   };
 
   return (
-    <div className="w-full md:w-[calc(100vw-300px)] text-white mx-auto  ">
+    <div className="w-full md:w-[calc(100vw-300px)] text-white mx-auto">
       <h1 className="text-3xl text-black font-bold text-center mb-6">
         Madrasah Carousel
       </h1>
@@ -120,7 +149,7 @@ export default function CarouselData() {
       <div className="flex justify-center mt-6">
         <Link
           to={`/update/home`}
-          className="flex items-center bg-blue-400 text-white px-6 py-2 rounded-lg hover:bg-blue-500  transition duration-300"
+          className="flex items-center bg-blue-400 text-white px-6 py-2 rounded-lg hover:bg-blue-500 transition duration-300"
         >
           <FaEdit className="mr-2" /> Edit
         </Link>
