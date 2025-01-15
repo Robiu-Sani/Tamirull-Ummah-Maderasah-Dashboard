@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
-import { FaRegTrashAlt } from "react-icons/fa";
+import { FaRegTrashAlt, FaSpinner } from "react-icons/fa";
 import { MdOutlineNotificationsActive } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -76,15 +76,18 @@ export default function NoticfectionBox({ getCount }) {
       className={`w-[calc(100%-40px)] overflow-hidden sm:w-[350px] rounded-md shadow-md max-h-[500px] z-50  bg-white absolute border top-[50px] right-5`}
     >
       <Toaster />
-      {loading && (
-        <div className="flex justify-center items-center h-20">
-          <span>Loading...</span>
-        </div>
-      )}
+
       <div className="p-2 border-b">
         <h3>Notifections</h3>
       </div>
       <div className="p-3 max-h-[470px] overflow-y-auto">
+        {loading && (
+          <div className="flex justify-center items-center h-20">
+            <span>
+              <FaSpinner className="animate-spin" />
+            </span>
+          </div>
+        )}
         {notifications.map((notification, idx) => (
           <div
             key={idx}

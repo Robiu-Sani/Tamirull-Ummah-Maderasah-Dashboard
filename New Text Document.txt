@@ -1,2 +1,4 @@
 post update / delete / report / on client site
 authcations onteacher
+
+blog writer name

@@ -13,6 +13,7 @@ import {
   MdOutlineJoinFull,
   MdAddchart,
   MdOutlineTableView,
+  MdBlurOn,
 } from "react-icons/md";
 import {
   FaUserGraduate,
@@ -29,7 +30,7 @@ import {
   RiProfileLine,
 } from "react-icons/ri";
 import { GiNestedHexagons, GiTeacher } from "react-icons/gi";
-import { FaDiamond } from "react-icons/fa6";
+import { FaDiamond, FaWebAwesome } from "react-icons/fa6";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { PiStudentFill } from "react-icons/pi";
 import { SiStaffbase } from "react-icons/si";
@@ -216,12 +217,17 @@ const adminNavItems = [
     icon: <MdUpdate />,
     children: [
       { name: "Home Page", path: "/update/home", icon: <MdHome /> },
+      // {
+      //   name: "All Post Details",
+      //   path: "/update/all-posts-data",
+      //   icon: <MdPeople />,
+      // },
       {
-        name: "All Post Details",
-        path: "/update/all-posts-data",
-        icon: <MdPeople />,
+        name: "Add Notice",
+        path: "/update/add-notice",
+        icon: <FaWebAwesome />,
       },
-      { name: "Contact Page", path: "/update/contact", icon: <MdReport /> },
+      { name: "Add Blog", path: "/blog/add-blog", icon: <MdBlurOn /> },
       { name: "Services Page", path: "/update/services", icon: <MdSettings /> },
     ],
   },

@@ -66,6 +66,8 @@ import ContactMessage from "../Pages/ReportsAliaSection/ContactMessage";
 import ConsultingMessage from "../Pages/ReportsThackciciSection/ConsultingMessage";
 import PostDetails from "../Pages/AllPostsData/PostDetails";
 import PostsReports from "../Pages/AllPostsData/PostsReports";
+import AddNotice from "../Pages/ClientHomePage/AddNotice";
+import UpdateAboutOurMaderasah from "../Pages/ClientHomePage/UpdateAboutOurMaderasah";
 
 const router = createBrowserRouter([
   // login main path
@@ -446,11 +448,28 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
+      // update routes
       {
         path: "/update/home",
         element: (
           <Private>
             <ClientHomePage />
+          </Private>
+        ),
+      },
+      {
+        path: "/update/add-notice",
+        element: (
+          <Private>
+            <AddNotice />
+          </Private>
+        ),
+      },
+      {
+        path: "/blog/add-blog",
+        element: (
+          <Private>
+            <UpdateAboutOurMaderasah />
           </Private>
         ),
       },
