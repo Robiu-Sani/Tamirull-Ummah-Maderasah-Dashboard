@@ -40,7 +40,7 @@ export default function UpdateAboutOurMaderasah() {
     <div className="w-full ">
       <Toaster position="top-center" />
       <div
-        className={`w-full flex bg-white rounded-md shadow-md mb-3 justify-between cursor-pointer p-2 border items-center`}
+        className={`w-full flex bg-white rounded-md shadow-md mb-3 justify-between cursor-pointer p-3 border items-center`}
       >
         <span className="flex justify-center items-center gap-3">
           <SiGoogledataproc />
@@ -67,20 +67,6 @@ export default function UpdateAboutOurMaderasah() {
             )}
           </div>
 
-          {/* Title Field */}
-          <div className="w-full flex flex-col gap-2">
-            <label className="font-medium">Speaker</label>
-            <input
-              type="text"
-              {...register("speaker", { required: "Title is required" })}
-              className="w-full p-2 border rounded-md"
-              placeholder="Enter title"
-            />
-            {errors.title && (
-              <p className="text-red-500 text-sm">{errors.title.message}</p>
-            )}
-          </div>
-
           {/* Description Field */}
           <div className="w-full flex flex-col gap-2">
             <label className="font-medium">Description</label>
@@ -88,7 +74,7 @@ export default function UpdateAboutOurMaderasah() {
               {...register("description", {
                 required: "Description is required",
               })}
-              className="w-full p-2 border rounded-md"
+              className="w-full p-2 border h-[300px] rounded-md"
               placeholder="Enter description"
               rows="4"
             ></textarea>

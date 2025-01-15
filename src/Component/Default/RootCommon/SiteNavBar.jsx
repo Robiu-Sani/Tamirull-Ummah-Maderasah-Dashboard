@@ -5,15 +5,17 @@ import {
   MdArrowForwardIos,
   MdPeople,
   MdUpdate,
-  MdReport,
   MdHome,
-  MdSettings,
   MdMessage,
   MdAutoAwesome,
   MdOutlineJoinFull,
   MdAddchart,
   MdOutlineTableView,
   MdBlurOn,
+  MdImage,
+  MdVideoLabel,
+  MdFollowTheSigns,
+  MdBluetoothDrive,
 } from "react-icons/md";
 import {
   FaUserGraduate,
@@ -228,7 +230,13 @@ const adminNavItems = [
         icon: <FaWebAwesome />,
       },
       { name: "Add Blog", path: "/blog/add-blog", icon: <MdBlurOn /> },
-      { name: "Services Page", path: "/update/services", icon: <MdSettings /> },
+      { name: "Upload Image", path: "/upload-image", icon: <MdImage /> },
+      { name: "Upload Video", path: "/upload-video", icon: <MdVideoLabel /> },
+      {
+        name: "Set Result Re: Date",
+        path: "/update-exam-relies-date",
+        icon: <MdFollowTheSigns />,
+      },
     ],
   },
   {
@@ -258,6 +266,11 @@ const TeachersNavItems = [
     name: "Added Result",
     path: "/exam-results/result-by-single-teachers-id",
     icon: <MdOutlineTableView />,
+  },
+  {
+    name: "Write a Blog",
+    path: "/teachers-blog/add-blog",
+    icon: <MdBluetoothDrive />,
   },
 ];
 

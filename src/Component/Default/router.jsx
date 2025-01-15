@@ -68,6 +68,9 @@ import PostDetails from "../Pages/AllPostsData/PostDetails";
 import PostsReports from "../Pages/AllPostsData/PostsReports";
 import AddNotice from "../Pages/ClientHomePage/AddNotice";
 import UpdateAboutOurMaderasah from "../Pages/ClientHomePage/UpdateAboutOurMaderasah";
+import UploadImages from "../Pages/UploadImages/UploadImages";
+import UploadVideos from "../Pages/UploadVideos/UploadVideos";
+import SetResultDate from "../Pages/SetResultDate/SetResultDate";
 
 const router = createBrowserRouter([
   // login main path
@@ -448,7 +451,7 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
-      // update routes
+      // update client  routes
       {
         path: "/update/home",
         element: (
@@ -473,6 +476,31 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
+      {
+        path: "/upload-image",
+        element: (
+          <Private>
+            <UploadImages />
+          </Private>
+        ),
+      },
+      {
+        path: "/upload-video",
+        element: (
+          <Private>
+            <UploadVideos />
+          </Private>
+        ),
+      },
+      {
+        path: "/update-exam-relies-date",
+        element: (
+          <Private>
+            <SetResultDate />
+          </Private>
+        ),
+      },
+      // other route
       {
         path: "/update-admin/:id",
         element: (
@@ -591,6 +619,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <TeachersProfile />
+          </Private>
+        ),
+      },
+      {
+        path: "/teachers-blog/add-blog",
+        element: (
+          <Private>
+            <UpdateAboutOurMaderasah />
           </Private>
         ),
       },
