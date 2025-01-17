@@ -634,6 +634,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/admin-blog/add-blog",
+        element: (
+          <Private>
+            <CommingSoon />
+          </Private>
+        ),
+      },
+      {
         path: "/admin/exam-results/result-by-single-teachers-id",
         element: (
           <Private>

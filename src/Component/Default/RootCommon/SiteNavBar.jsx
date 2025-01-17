@@ -239,7 +239,7 @@ const adminNavItems = [
         path: "/update/add-notice",
         icon: <FaWebAwesome />,
       },
-      { name: "Add Blog", path: "/blog/add-blog", icon: <MdBlurOn /> },
+      // { name: "Add Blog", path: "/blog/add-blog", icon: <MdBlurOn /> },
       { name: "Upload Image", path: "/upload-image", icon: <MdImage /> },
       { name: "Upload Video", path: "/upload-video", icon: <MdVideoLabel /> },
       {
