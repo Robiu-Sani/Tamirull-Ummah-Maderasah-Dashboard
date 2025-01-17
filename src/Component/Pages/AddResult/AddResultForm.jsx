@@ -8,6 +8,7 @@ import postOutput from "../../Default/functions/postOutput";
 import toast, { Toaster } from "react-hot-toast";
 
 export default function AddResultForm() {
+  const userInfo = JSON.parse(localStorage.getItem("data"));
   const {
     register,
     handleSubmit,
@@ -82,7 +83,7 @@ export default function AddResultForm() {
         total: total,
         examName: savedExamInfo.examName,
         studentId: selectedStudent._id,
-        teacherId: "6767f30f439df9b583b4d4fc",
+        teacherId: userInfo._id,
         studentClass: savedExamInfo.className,
         studentName: selectedStudent.studentNameEnglish,
         studentGender: selectedStudent.gender || savedExamInfo.gender,

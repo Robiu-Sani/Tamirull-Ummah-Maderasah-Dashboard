@@ -12,6 +12,7 @@ export default function DashboardHeader({ handleCallNav }) {
   const [callSearchBox, setSearchBox] = useState(false);
   const [loading, setLoading] = useState(false);
   const [notificationCount, setNotificationCount] = useState(0);
+  const userInfo = JSON.parse(localStorage.getItem("data"));
 
   const handleCallSearchBox = () => {
     setSearchBox(!callSearchBox);
@@ -91,7 +92,9 @@ export default function DashboardHeader({ handleCallNav }) {
           </span>
         </div>
       </div>
-      {callNotification ? <NoticfectionBox getCount={getCount} /> : null}
+      {callNotification && userInfo.type === "admin" ? (
+        <NoticfectionBox getCount={getCount} />
+      ) : null}
 
       {callSearchBox && <SearchBox handleCallSearchBox={handleCallSearchBox} />}
     </div>

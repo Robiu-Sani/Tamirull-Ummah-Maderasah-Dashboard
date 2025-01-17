@@ -15,6 +15,7 @@ export default function TeachersIdTable() {
   const [selectedClass, setSelectedClass] = useState("");
   const [uniqueClasses, setUniqueClasses] = useState([]);
   const [menuIndex, setMenuIndex] = useState(null);
+  const userInfo = JSON.parse(localStorage.getItem("data"));
 
   useEffect(() => {
     fetchData();
@@ -24,9 +25,9 @@ export default function TeachersIdTable() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `${
-          import.meta.env.VITE_SERVER
-        }/result/get-result-by-teacher-id/6767f30f439df9b583b4d4fc`,
+        `${import.meta.env.VITE_SERVER}/result/get-result-by-teacher-id/${
+          userInfo._id
+        }`,
         {
           params: {
             search: searchQuery,
@@ -45,8 +46,6 @@ export default function TeachersIdTable() {
       setLoading(false);
     }
   };
-
-  console.log(data);
 
   const handleDelete = (id) => {
     Swal.fire({

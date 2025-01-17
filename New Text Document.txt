@@ -1,6 +1,4 @@
-post update / delete / report / on client site
-authcations onteacher
-
+change password
 blog writer name
 
 

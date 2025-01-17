@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 
-export default function Private({ children }) {
+export default function TeacherPrivate({ children }) {
   const [teacher, setTeacher] = useState(null); // Initialize state as null
   const location = useLocation();
   const logData = JSON.parse(localStorage.getItem("data"));
@@ -46,8 +46,8 @@ export default function Private({ children }) {
 
   // Show children if the teacher exists and is an admin
   if (
-    (teacher && teacher.type === "admin") ||
-    (logData && logData.type === "admin")
+    (teacher && teacher.type === "teacher") ||
+    (logData && logData.type === "teacher")
   ) {
     return children;
   }

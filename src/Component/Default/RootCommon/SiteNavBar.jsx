@@ -6,7 +6,6 @@ import {
   MdPeople,
   MdUpdate,
   MdHome,
-  MdMessage,
   MdAutoAwesome,
   MdOutlineJoinFull,
   MdAddchart,
@@ -38,6 +37,8 @@ import { PiStudentFill } from "react-icons/pi";
 import { SiStaffbase } from "react-icons/si";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { TbHexagonalPrism } from "react-icons/tb";
+import Swal from "sweetalert2";
+import toast, { Toaster } from "react-hot-toast";
 
 const adminNavItems = [
   {
@@ -248,22 +249,44 @@ const adminNavItems = [
       },
     ],
   },
+  // {
+  //   name: "Messages",
+  //   path: "/messages",
+  //   icon: <MdMessage />,
+  // },
   {
-    name: "Messages",
-    path: "/messages",
-    icon: <MdMessage />,
-  },
-  {
-    name: "Admins",
-    path: "/admins",
+    name: "Profile",
+    path: "/admin/profile",
     icon: <FaDiamond />,
+    children: [
+      {
+        name: "Profile",
+        path: "/admin/profile",
+        icon: <MdAddchart />,
+      },
+      {
+        name: "Add Result",
+        path: "/admin/add-exam-result",
+        icon: <MdAddchart />,
+      },
+      {
+        name: "Added Result",
+        path: "/admin/exam-results/result-by-single-teachers-id",
+        icon: <MdOutlineTableView />,
+      },
+      {
+        name: "Write a Blog",
+        path: "/admin-blog/add-blog",
+        icon: <MdBluetoothDrive />,
+      },
+    ],
   },
 ];
 
 const TeachersNavItems = [
   {
     name: "Profile",
-    path: "/teachers-profile",
+    path: "/teachers",
     icon: <RiProfileLine />,
   },
   {
@@ -285,9 +308,26 @@ const TeachersNavItems = [
 
 export default function SiteNavBar({ handleCallNav }) {
   const [openMenu, setOpenMenu] = useState({});
+  const userInfo = JSON.parse(localStorage.getItem("data"));
   const navigate = useNavigate();
 
-  const userInfo = JSON.parse(localStorage.getItem("data"));
+  const handleLogout = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You really want to log-out",
+
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Log-out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        localStorage.removeItem("data");
+        navigate("/");
+        toast.success("You Successfully Log-out");
+      }
+    });
+  };
 
   const toggleMenu = (index) => {
     setOpenMenu((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -296,6 +336,7 @@ export default function SiteNavBar({ handleCallNav }) {
   return (
     <div className="w-full h-full bg-white p-4 flex flex-col gap-5">
       <div className="w-full  border-b py-5">
+        <Toaster />
         <img
           src="http://res.cloudinary.com/duegkjfvf/image/upload/v1736431614/f0clqiynnor6tavnuonl.png"
           alt="tamirul ummah maderasah logo"
@@ -435,7 +476,7 @@ export default function SiteNavBar({ handleCallNav }) {
       </div>
       <div className="w-full h-[40px] flex justify-center items-center">
         <button
-          onClick={() => navigate("/admin_profile")}
+          onClick={handleLogout}
           className="w-full px-3 p-2 rounded-md flex border justify-between items-center"
         >
           <div className="flex items-center gap-2">

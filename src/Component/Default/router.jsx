@@ -73,6 +73,7 @@ import UploadVideos from "../Pages/UploadVideos/UploadVideos";
 import SetResultDate from "../Pages/SetResultDate/SetResultDate";
 import Allimages from "../Pages/UploadImages/Allimages";
 import AllVideos from "../Pages/UploadVideos/AllVideos";
+import TeacherPrivate from "./TeacherPrivate";
 
 const router = createBrowserRouter([
   // login main path
@@ -372,14 +373,6 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/exam-results/result-by-single-teachers-id",
-        element: (
-          <Private>
-            <TeachersIdTable />
-          </Private>
-        ),
-      },
-      {
         path: "/exam-results/model-test-exam-result",
         element: (
           <Private>
@@ -625,15 +618,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/admin_profile",
-        element: (
-          <Private>
-            <AdminProfile />
-          </Private>
-        ),
-      },
-      {
-        path: "/teachers-profile",
+        path: "/admin/profile",
         element: (
           <Private>
             <TeachersProfile />
@@ -641,15 +626,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/teachers-blog/add-blog",
-        element: (
-          <Private>
-            <UpdateAboutOurMaderasah />
-          </Private>
-        ),
-      },
-      {
-        path: "/add-exam-result",
+        path: "/admin/add-exam-result",
         element: (
           <Private>
             <AddResult />
@@ -657,19 +634,71 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/add-exam-result/result-form",
+        path: "/admin/exam-results/result-by-single-teachers-id",
         element: (
           <Private>
-            <AddResultForm />
+            <TeachersIdTable />
           </Private>
         ),
       },
       {
-        path: "/admin_profile/:email",
+        path: "/admin_profile",
         element: (
           <Private>
-            <OtherAdminProfile />
+            <AdminProfile />
           </Private>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/",
+    element: <Root />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/teachers",
+        element: (
+          <TeacherPrivate>
+            <TeachersProfile />
+          </TeacherPrivate>
+        ),
+      },
+      {
+        path: "/teachers-blog/add-blog",
+        element: (
+          <TeacherPrivate>
+            {/* <UpdateAboutOurMaderasah /> */}
+            <CommingSoon />
+          </TeacherPrivate>
+        ),
+      },
+      {
+        path: "/add-exam-result",
+        element: (
+          <TeacherPrivate>
+            <AddResult />
+          </TeacherPrivate>
+        ),
+      },
+      {
+        path: "/add-exam-result/result-form",
+        element: <AddResultForm />,
+      },
+      {
+        path: "/admin_profile/:email",
+        element: (
+          <TeacherPrivate>
+            <OtherAdminProfile />
+          </TeacherPrivate>
+        ),
+      },
+      {
+        path: "/exam-results/result-by-single-teachers-id",
+        element: (
+          <TeacherPrivate>
+            <TeachersIdTable />
+          </TeacherPrivate>
         ),
       },
     ],
