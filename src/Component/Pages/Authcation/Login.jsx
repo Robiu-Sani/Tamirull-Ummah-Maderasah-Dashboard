@@ -22,23 +22,44 @@ export default function Login() {
   const onSubmit = async (data) => {
     try {
       setIsLoading(true);
+
+      // Sending a POST request with the provided data
       const response = await axios.post(
-        `${import.meta.env.VITE_EXPRESS_API}/admin-login`,
+        `${import.meta.env.VITE_SERVER}/auth/teacher`,
         data
       );
 
-      // If login is successful, save the email to localStorage
-      if (response.data.message === "success") {
-        localStorage.setItem("adminEmail", response.data.email);
-        toast.success("Admin logged in successfully!");
-        reset(); // Reset the form on successful submission
-        navigate("/dashboard");
+      console.log(response.data); // Log the response for debugging
+
+      // Check if the login was successful
+      if (response.data.status === true) {
+        const userData = response.data.data;
+
+        // Save data and type to localStorage
+        localStorage.setItem("data", JSON.stringify(userData));
+
+        toast.success("Log-in successfully!");
+
+        // Reset the form on successful submission
+        reset();
+        if (userData.type === "admin") {
+          navigate("/dashboard");
+        }
+        if (userData.type === "teacher") {
+          navigate("/teachers");
+        }
+        // Navigate to the dashboard
+      } else {
+        // Handle cases where status is not true
+        toast.error(response.data.message || "Login failed!");
       }
     } catch (error) {
+      // Extract and display error message
       const errorMessage =
         error.response?.data?.message || "Something went wrong!";
       toast.error(errorMessage);
     } finally {
+      // Ensure loading state is turned off
       setIsLoading(false);
     }
   };

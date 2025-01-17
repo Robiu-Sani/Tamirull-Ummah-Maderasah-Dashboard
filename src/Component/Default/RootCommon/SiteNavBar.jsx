@@ -212,6 +212,16 @@ const adminNavItems = [
         path: "/notifictions/post-reports",
         icon: <RiFileList3Line />,
       },
+      {
+        name: "All Images",
+        path: "/notifictions/all-images",
+        icon: <MdImage />,
+      },
+      {
+        name: "All Videos",
+        path: "/notifictions/all-videos",
+        icon: <MdVideoLabel />,
+      },
     ],
   },
   {

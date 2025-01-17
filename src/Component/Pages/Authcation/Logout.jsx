@@ -19,7 +19,7 @@ export default function Logout() {
       confirmButtonText: "Yes, Log-out!",
     }).then((result) => {
       if (result.isConfirmed) {
-        localStorage.removeItem("adminEmail");
+        localStorage.removeItem("data");
         navigate("/");
         toast.success("You Successfully Log-out");
       }

@@ -71,6 +71,8 @@ import UpdateAboutOurMaderasah from "../Pages/ClientHomePage/UpdateAboutOurMader
 import UploadImages from "../Pages/UploadImages/UploadImages";
 import UploadVideos from "../Pages/UploadVideos/UploadVideos";
 import SetResultDate from "../Pages/SetResultDate/SetResultDate";
+import Allimages from "../Pages/UploadImages/Allimages";
+import AllVideos from "../Pages/UploadVideos/AllVideos";
 
 const router = createBrowserRouter([
   // login main path
@@ -587,6 +589,22 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <PostDetails />
+          </Private>
+        ),
+      },
+      {
+        path: "/notifictions/all-images",
+        element: (
+          <Private>
+            <Allimages />
+          </Private>
+        ),
+      },
+      {
+        path: "/notifictions/all-videos",
+        element: (
+          <Private>
+            <AllVideos />
           </Private>
         ),
       },
