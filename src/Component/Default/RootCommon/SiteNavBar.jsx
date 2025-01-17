@@ -36,7 +36,6 @@ import { FaDiamond, FaWebAwesome } from "react-icons/fa6";
 import { IoPersonAddSharp } from "react-icons/io5";
 import { PiStudentFill } from "react-icons/pi";
 import { SiStaffbase } from "react-icons/si";
-import useSingleAdmin from "../../customComponent/useSingleAdmin";
 import { LiaChalkboardTeacherSolid } from "react-icons/lia";
 import { TbHexagonalPrism } from "react-icons/tb";
 
@@ -287,7 +286,8 @@ const TeachersNavItems = [
 export default function SiteNavBar({ handleCallNav }) {
   const [openMenu, setOpenMenu] = useState({});
   const navigate = useNavigate();
-  const { logedAdmin } = useSingleAdmin();
+
+  const userInfo = JSON.parse(localStorage.getItem("data"));
 
   const toggleMenu = (index) => {
     setOpenMenu((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -303,137 +303,135 @@ export default function SiteNavBar({ handleCallNav }) {
         />
       </div>
       <div className="w-full dashboard h-[calc(100vh-230px)] scroll-none overflow-y-scroll">
-        {adminNavItems.map((item, index) => (
-          <div key={index} className="w-full">
-            {item.children ? (
-              <div
-                className={`w-full gap-2 p-1 rounded-md px-3 my-1 cursor-pointer ${
-                  openMenu[index]
-                    ? "bg-[rgba(0,10,27,0.74)] text-white"
-                    : "text-gray-700"
-                }`}
-                onClick={() => toggleMenu(index)}
-              >
-                <div className="w-full flex justify-between  items-center">
-                  <div className="flex gap-3  items-center">
+        {userInfo.type === "admin"
+          ? adminNavItems.map((item, index) => (
+              <div key={index} className="w-full">
+                {item.children ? (
+                  <div
+                    className={`w-full gap-2 p-1 rounded-md px-3 my-1 cursor-pointer ${
+                      openMenu[index]
+                        ? "bg-[rgba(0,10,27,0.74)] text-white"
+                        : "text-gray-700"
+                    }`}
+                    onClick={() => toggleMenu(index)}
+                  >
+                    <div className="w-full flex justify-between  items-center">
+                      <div className="flex gap-3  items-center">
+                        {item.icon}
+                        {item.name}
+                      </div>
+                      <MdArrowForwardIos
+                        className={`transition-transform ${
+                          openMenu[index] ? "rotate-90" : ""
+                        }`}
+                      />
+                    </div>
+                    {openMenu[index] && (
+                      <div className="w-full flex flex-col gap-1 mt-2">
+                        {item.children.map((child, idx) => (
+                          <NavLink
+                            key={idx}
+                            to={child.path}
+                            onClick={() => handleCallNav(false)}
+                            className={({ isActive }) =>
+                              `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
+                                isActive
+                                  ? "bg-white !text-gray-900"
+                                  : "hover:!text-gray-900 text-gray-200 hover:bg-gray-100"
+                              }`
+                            }
+                            style={{ color: openMenu[index] ? "white" : "" }}
+                          >
+                            {child.icon}
+                            {child.name}
+                          </NavLink>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <NavLink
+                    to={item.path}
+                    onClick={() => handleCallNav(false)}
+                    className={({ isActive }) =>
+                      `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
+                        isActive
+                          ? "bg-[rgba(0,10,27,0.74)] text-white"
+                          : "text-gray-700 hover:bg-gray-100"
+                      }`
+                    }
+                  >
                     {item.icon}
                     {item.name}
-                  </div>
-                  <MdArrowForwardIos
-                    className={`transition-transform ${
-                      openMenu[index] ? "rotate-90" : ""
-                    }`}
-                  />
-                </div>
-                {openMenu[index] && (
-                  <div className="w-full flex flex-col gap-1 mt-2">
-                    {item.children.map((child, idx) => (
-                      <NavLink
-                        key={idx}
-                        to={child.path}
-                        onClick={() => handleCallNav(false)}
-                        className={({ isActive }) =>
-                          `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
-                            isActive
-                              ? "bg-white !text-gray-900"
-                              : "hover:!text-gray-900 text-gray-200 hover:bg-gray-100"
-                          }`
-                        }
-                        style={{ color: openMenu[index] ? "white" : "" }}
-                      >
-                        {child.icon}
-                        {child.name}
-                      </NavLink>
-                    ))}
-                  </div>
+                  </NavLink>
                 )}
               </div>
-            ) : (
-              <NavLink
-                to={item.path}
-                onClick={() => handleCallNav(false)}
-                className={({ isActive }) =>
-                  `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
-                    isActive
-                      ? "bg-[rgba(0,10,27,0.74)] text-white"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`
-                }
-              >
-                {item.icon}
-                {item.name}
-              </NavLink>
-            )}
-          </div>
-        ))}{" "}
+            ))
+          : TeachersNavItems.map((item, index) => (
+              <div key={index} className="w-full flex flex-col gap-1">
+                {item.children ? (
+                  <div
+                    className={`w-full gap-2 p-1 rounded-md px-3 !my-1 cursor-pointer ${
+                      openMenu[index]
+                        ? "bg-[rgba(0,10,27,0.74)] text-white"
+                        : "text-gray-700"
+                    }`}
+                    onClick={() => toggleMenu(index)}
+                  >
+                    <div className="w-full flex justify-between  items-center">
+                      <div className="flex gap-3  items-center">
+                        {item.icon}
+                        {item.name}
+                      </div>
+                      <MdArrowForwardIos
+                        className={`transition-transform ${
+                          openMenu[index] ? "rotate-90" : ""
+                        }`}
+                      />
+                    </div>
+                    {openMenu[index] && (
+                      <div className="w-full flex flex-col gap-1 mt-2">
+                        {item.children.map((child, idx) => (
+                          <NavLink
+                            key={idx}
+                            to={child.path}
+                            onClick={() => handleCallNav(false)}
+                            className={({ isActive }) =>
+                              `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
+                                isActive
+                                  ? "bg-white !text-gray-900"
+                                  : "hover:!text-gray-900 text-gray-200 hover:bg-gray-100"
+                              }`
+                            }
+                            style={{ color: openMenu[index] ? "white" : "" }}
+                          >
+                            {child.icon}
+                            {child.name}
+                          </NavLink>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <NavLink
+                    to={item.path}
+                    onClick={() => handleCallNav(false)}
+                    className={({ isActive }) =>
+                      `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
+                        isActive
+                          ? "bg-[rgba(0,10,27,0.74)] text-white"
+                          : "text-gray-700 hover:bg-gray-100"
+                      }`
+                    }
+                  >
+                    {item.icon}
+                    {item.name}
+                  </NavLink>
+                )}
+              </div>
+            ))}{" "}
         <br />
         <hr />
-        <h3 className="font-semibold text-center my-3 text-gray-600">
-          Teachers Part
-        </h3>
-        {TeachersNavItems.map((item, index) => (
-          <div key={index} className="w-full flex flex-col gap-1">
-            {item.children ? (
-              <div
-                className={`w-full gap-2 p-1 rounded-md px-3 !my-1 cursor-pointer ${
-                  openMenu[index]
-                    ? "bg-[rgba(0,10,27,0.74)] text-white"
-                    : "text-gray-700"
-                }`}
-                onClick={() => toggleMenu(index)}
-              >
-                <div className="w-full flex justify-between  items-center">
-                  <div className="flex gap-3  items-center">
-                    {item.icon}
-                    {item.name}
-                  </div>
-                  <MdArrowForwardIos
-                    className={`transition-transform ${
-                      openMenu[index] ? "rotate-90" : ""
-                    }`}
-                  />
-                </div>
-                {openMenu[index] && (
-                  <div className="w-full flex flex-col gap-1 mt-2">
-                    {item.children.map((child, idx) => (
-                      <NavLink
-                        key={idx}
-                        to={child.path}
-                        onClick={() => handleCallNav(false)}
-                        className={({ isActive }) =>
-                          `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
-                            isActive
-                              ? "bg-white !text-gray-900"
-                              : "hover:!text-gray-900 text-gray-200 hover:bg-gray-100"
-                          }`
-                        }
-                        style={{ color: openMenu[index] ? "white" : "" }}
-                      >
-                        {child.icon}
-                        {child.name}
-                      </NavLink>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <NavLink
-                to={item.path}
-                onClick={() => handleCallNav(false)}
-                className={({ isActive }) =>
-                  `w-full flex items-center gap-2 p-1 rounded-md px-3 ${
-                    isActive
-                      ? "bg-[rgba(0,10,27,0.74)] text-white"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`
-                }
-              >
-                {item.icon}
-                {item.name}
-              </NavLink>
-            )}
-          </div>
-        ))}
       </div>
       <div className="w-full h-[40px] flex justify-center items-center">
         <button
@@ -441,16 +439,18 @@ export default function SiteNavBar({ handleCallNav }) {
           className="w-full px-3 p-2 rounded-md flex border justify-between items-center"
         >
           <div className="flex items-center gap-2">
-            {logedAdmin?.profile ? (
+            {userInfo?.teacherImage ? (
               <img
-                src={logedAdmin.profile}
+                src={userInfo.teacherImage}
                 alt="Admin Profile"
                 className="w-[35px] h-[35px] rounded-full"
               />
             ) : (
               <FaUserCircle className="text-3xl" />
             )}
-            <h2 className="font-semibold">{logedAdmin?.name || "Loading"}</h2>
+            <h2 className="font-semibold">
+              {userInfo?.teacherName || "Loading"}
+            </h2>
           </div>
           <RiLogoutCircleRLine />
         </button>
