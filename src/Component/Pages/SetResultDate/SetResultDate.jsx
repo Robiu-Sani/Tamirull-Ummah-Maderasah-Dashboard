@@ -1,5 +1,7 @@
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useState } from "react";
+import { toast } from "react-hot-toast";
 
 export default function SetResultDate() {
   const {
@@ -8,24 +10,27 @@ export default function SetResultDate() {
     reset,
     formState: { errors },
   } = useForm();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const onSubmit = (data) => {
-    console.log(data);
+    setIsSubmitting(true); // Start loading
     axios
-      .post(`${import.meta.env.VITE_SERVER}/set-result-date`, data)
+      .post(`${import.meta.env.VITE_SERVER}/release/create-date`, data)
       .then((response) => {
-        console.log("Response:", response.data);
-        alert("Dates saved successfully!");
+        toast.success(response.data.message || "Dates saved successfully!");
         reset();
       })
       .catch((error) => {
         console.error("Error:", error);
-        alert("Failed to save dates. Please try again.");
+        toast.error("Failed to save dates. Please try again.");
+      })
+      .finally(() => {
+        setIsSubmitting(false); // Stop loading
       });
   };
 
   return (
-    <div className="w-full ">
+    <div className="w-full">
       {/* Banner Section */}
       <div className="bg-indigo-500 rounded-md text-white text-center py-12">
         <h1 className="text-4xl font-bold">Set Result Release Dates</h1>
@@ -36,7 +41,7 @@ export default function SetResultDate() {
 
       {/* Form Section */}
       <div className="flex justify-center py-12 -mt-6">
-        <div className="bg-white rounded-lg shadow-lg w-full  p-8">
+        <div className="bg-white rounded-lg shadow-lg w-full p-8">
           <h2 className="text-2xl font-bold text-center mb-6">
             Schedule Result Dates
           </h2>
@@ -163,16 +168,16 @@ export default function SetResultDate() {
                 )}
               </div>
 
-              {/* Text */}
+              {/* Test */}
               <div>
                 <label
-                  htmlFor="text"
+                  htmlFor="test"
                   className="block text-gray-700 font-semibold mb-2"
                 >
                   Test Release Date
                 </label>
                 <input
-                  id="text"
+                  id="test"
                   type="datetime-local"
                   {...register("test", { required: false })}
                   className={`w-full p-3 border ${
@@ -181,7 +186,7 @@ export default function SetResultDate() {
                 />
                 {errors.text && (
                   <p className="text-red-500 text-sm mt-1">
-                    {errors.test.message}
+                    {errors.text.message}
                   </p>
                 )}
               </div>
@@ -191,9 +196,32 @@ export default function SetResultDate() {
             <div className="text-center">
               <button
                 type="submit"
-                className="bg-gray-500 text-white py-2 px-6 rounded-md shadow w-full hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                className="bg-gray-500 text-white py-2 px-6 rounded-md shadow w-full flex justify-center items-center hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-400"
+                disabled={isSubmitting}
               >
-                Save Dates
+                {isSubmitting ? (
+                  <svg
+                    className="animate-spin h-5 w-5 text-white mr-2"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    ></circle>
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v8H4z"
+                    ></path>
+                  </svg>
+                ) : null}
+                {isSubmitting ? "Saving..." : "Save Dates"}
               </button>
             </div>
           </form>
