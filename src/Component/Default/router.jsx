@@ -74,6 +74,9 @@ import SetResultDate from "../Pages/SetResultDate/SetResultDate";
 import Allimages from "../Pages/UploadImages/Allimages";
 import AllVideos from "../Pages/UploadVideos/AllVideos";
 import TeacherPrivate from "./TeacherPrivate";
+import CreateGain from "../Pages/our-gain/CreateGain";
+import AllGainData from "../Pages/our-gain/AllGainData";
+import EditGain from "../Pages/our-gain/EditGain";
 
 const router = createBrowserRouter([
   // login main path
@@ -476,6 +479,30 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <UploadImages />
+          </Private>
+        ),
+      },
+      {
+        path: "/upload-about-gain",
+        element: (
+          <Private>
+            <CreateGain />
+          </Private>
+        ),
+      },
+      {
+        path: "/all-about-gain",
+        element: (
+          <Private>
+            <AllGainData />
+          </Private>
+        ),
+      },
+      {
+        path: "/edit-gain/:id",
+        element: (
+          <Private>
+            <EditGain />
           </Private>
         ),
       },

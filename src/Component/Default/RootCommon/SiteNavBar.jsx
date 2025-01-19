@@ -23,6 +23,7 @@ import {
   FaRegUserCircle,
   FaArtstation,
   FaTransgenderAlt,
+  FaJoget,
 } from "react-icons/fa";
 import {
   RiDashboardFill,
@@ -125,10 +126,15 @@ const adminNavItems = [
         icon: <TbHexagonalPrism />,
       },
       {
-        name: "Institution Text",
-        path: "/additional-information/about-text",
+        name: "Gain Data",
+        path: "/all-about-gain",
         icon: <TbHexagonalPrism />,
       },
+      // {
+      //   name: "Institution Text",
+      //   path: "/additional-information/about-text",
+      //   icon: <TbHexagonalPrism />,
+      // },
       {
         name: "Institution Fees",
         path: "/additional-information/fees-information",
@@ -242,6 +248,11 @@ const adminNavItems = [
       // { name: "Add Blog", path: "/blog/add-blog", icon: <MdBlurOn /> },
       { name: "Upload Image", path: "/upload-image", icon: <MdImage /> },
       { name: "Upload Video", path: "/upload-video", icon: <MdVideoLabel /> },
+      {
+        name: "Upload Gain",
+        path: "/upload-about-gain",
+        icon: <FaJoget />,
+      },
       {
         name: "Set Result Re: Date",
         path: "/update-exam-relies-date",
