@@ -47,6 +47,10 @@ const StudentInfo = ({ student }) => {
                 <span>Mother's Name: {student?.mothersName}</span>
               </p>
               <p className="flex items-center text-gray-600">
+                <FaUser className="mr-2 text-blue-500" />
+                <span>Education Fee: {student?.monthlyFee && 0}</span>
+              </p>
+              <p className="flex items-center text-gray-600">
                 <FaEnvelope className="mr-2 text-blue-500" />
                 <span>Email: {student?.email}</span>
               </p>

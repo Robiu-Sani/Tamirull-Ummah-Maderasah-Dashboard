@@ -53,5 +53,5 @@ export default function TeacherPrivate({ children }) {
   }
 
   // Redirect to home page if not authorized
-  return <Navigate state={location.pathname} to={`/teachers`} replace />;
+  return <Navigate state={location.pathname} to={`/`} replace />;
 }

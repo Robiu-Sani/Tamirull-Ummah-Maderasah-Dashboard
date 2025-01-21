@@ -86,6 +86,7 @@ const EditStudent = () => {
         ? data.residentialStatus
         : studentData.residentialStatus,
       section: data.section ? data.section : studentData.section,
+      monthlyFee: data.monthlyFee ? data.monthlyFee : studentData.monthlyFee,
       studentNameBangla: data.studentNameBangla
         ? data.studentNameBangla
         : studentData.studentNameBangla,
@@ -282,6 +283,24 @@ const EditStudent = () => {
               className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
             {errors.height && (
+              <span className="text-red-500 text-sm">
+                This field is required
+              </span>
+            )}
+          </div>
+
+          {/* monthlyFee */}
+          <div className="w-full">
+            <label className="block font-medium text-gray-700 mb-2">
+              Education Fee
+            </label>
+            <input
+              type="number"
+              {...register("monthlyFee", { required: false })}
+              placeholder="Enter height (e.g., 5'6\)"
+              className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
+            />
+            {errors.monthlyFee && (
               <span className="text-red-500 text-sm">
                 This field is required
               </span>

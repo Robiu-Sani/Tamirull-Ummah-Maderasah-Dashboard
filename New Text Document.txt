@@ -2,14 +2,6 @@ change password
 blog writer name
 
 
-interface ResultDates {
-  firstTutorial: string; // Date and time in ISO format
-  secondTutorial: string; // Date and time in ISO format
-  halfYearlyExam: string; // Date and time in ISO format
-  finalExam: string; // Date and time in ISO format
-  modelTest: string; // Date and time in ISO format
-  test: string; // Date and time in ISO format
-}
 
 
 
