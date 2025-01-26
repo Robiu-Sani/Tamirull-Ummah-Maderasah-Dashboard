@@ -326,11 +326,7 @@ export default function SiteNavBar({ handleCallNav }) {
       path: "/exam-results/result-by-single-teachers-id",
       icon: <MdOutlineTableView />,
     },
-    {
-      name: "Update Password",
-      path: "/update-teachers-password/:id",
-      icon: <MdBluetoothDrive />,
-    },
+
     {
       name: "Edit Profile",
       path: `/teacher-profile/teacher-edit/${userInfo._id}`,
