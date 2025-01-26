@@ -10,11 +10,12 @@ import {
   MdOutlineJoinFull,
   MdAddchart,
   MdOutlineTableView,
-  MdBlurOn,
   MdImage,
   MdVideoLabel,
   MdFollowTheSigns,
   MdBluetoothDrive,
+  MdChangeHistory,
+  MdPinEnd,
 } from "react-icons/md";
 import {
   FaUserGraduate,
@@ -41,286 +42,311 @@ import { TbHexagonalPrism } from "react-icons/tb";
 import Swal from "sweetalert2";
 import toast, { Toaster } from "react-hot-toast";
 
-const adminNavItems = [
-  {
-    name: "Dashboard",
-    path: "/dashboard",
-    icon: <RiDashboardFill />,
-  },
-  {
-    name: "Add Users",
-    icon: <IoPersonAddSharp />,
-    children: [
-      {
-        name: "Student",
-        path: "/add-student",
-        icon: <PiStudentFill />,
-      },
-      {
-        name: "Teacher",
-        path: "/add-teacher",
-        icon: <GiTeacher />,
-      },
-      {
-        name: "Stafe",
-        path: "/add-stafe",
-        icon: <SiStaffbase />,
-      },
-      // { name: "Hostel", path: "/students/hostel", icon: <FaBed /> },
-    ],
-  },
-  {
-    name: "All User",
-    icon: <MdPeople />,
-    children: [
-      {
-        name: "All Students",
-        path: "/students/allStudent",
-        icon: <FaUserGraduate />,
-      },
-      {
-        name: "All Teacher",
-        path: "/teacher/all-teacher",
-        icon: <LiaChalkboardTeacherSolid />,
-      },
-      {
-        name: "All Staff",
-        path: "/staff/all-staff",
-        icon: <FaArtstation />,
-      },
-    ],
-  },
-  {
-    name: "Students Info: ",
-    icon: <MdOutlineJoinFull />,
-    children: [
-      {
-        name: "Students Father",
-        path: "/all-student-informetion/stunents-father",
-        icon: <MdAutoAwesome />,
-      },
-      {
-        name: "Students Mother",
-        path: "/all-student-informetion/stunents-mother",
-        icon: <MdAutoAwesome />,
-      },
-      {
-        name: "Students Gairdean",
-        path: "/all-student-informetion/stunents-gairdean",
-        icon: <MdAutoAwesome />,
-      },
-    ],
-  },
-  {
-    name: "Additional Info",
-    icon: <FaAudioDescription />,
-    children: [
-      {
-        name: "All Notices",
-        path: "/additional-information/all-notice",
-        icon: <TbHexagonalPrism />,
-      },
-      {
-        name: "Slide Data",
-        path: "/additional-information/carousel-information",
-        icon: <TbHexagonalPrism />,
-      },
-      {
-        name: "Gain Data",
-        path: "/all-about-gain",
-        icon: <TbHexagonalPrism />,
-      },
-      // {
-      //   name: "Institution Text",
-      //   path: "/additional-information/about-text",
-      //   icon: <TbHexagonalPrism />,
-      // },
-      {
-        name: "Institution Fees",
-        path: "/additional-information/fees-information",
-        icon: <TbHexagonalPrism />,
-      },
-      {
-        name: "Contact Info:",
-        path: "/additional-information/contact-information",
-        icon: <TbHexagonalPrism />,
-      },
-    ],
-  },
-
-  {
-    name: "Exam Results",
-    icon: <FaRegUserCircle />,
-    children: [
-      {
-        name: "All Results",
-        path: "/exam-results/all-exam-result",
-        icon: <GiNestedHexagons />,
-      },
-      {
-        name: "First Tutiral",
-        path: "/exam-results/first-tutiral",
-        icon: <GiNestedHexagons />,
-      },
-      {
-        name: "Half Yearly",
-        path: "/exam-results/half-yearly",
-        icon: <GiNestedHexagons />,
-      },
-      {
-        name: "Secend Tutiral",
-        path: "/exam-results/secend-tutiral",
-        icon: <GiNestedHexagons />,
-      },
-      {
-        name: "Fainal Exam",
-        path: "/exam-results/fainal-exam",
-        icon: <GiNestedHexagons />,
-      },
-      {
-        name: "Model Test",
-        path: "/exam-results/model-test-exam-result",
-        icon: <GiNestedHexagons />,
-      },
-      {
-        name: "Test",
-        path: "/exam-results/test-exam-result",
-        icon: <GiNestedHexagons />,
-      },
-    ],
-  },
-  {
-    name: "Notifections",
-    icon: <FaTransgenderAlt />,
-    children: [
-      {
-        name: "Contact Messages",
-        path: "/notifections/messages",
-        icon: <RiFileList3Line />,
-      },
-      {
-        name: "Admition Notice",
-        path: "/notifictions/admition-Student",
-        icon: <RiFileList3Line />,
-      },
-      {
-        name: "Consulting",
-        path: "/notifictions/consulting",
-        icon: <RiFileList3Line />,
-      },
-      {
-        name: "All Posts",
-        path: "/update/all-posts-data",
-        icon: <RiFileList3Line />,
-      },
-      {
-        name: "All Posts Reports",
-        path: "/notifictions/post-reports",
-        icon: <RiFileList3Line />,
-      },
-      {
-        name: "All Images",
-        path: "/notifictions/all-images",
-        icon: <MdImage />,
-      },
-      {
-        name: "All Videos",
-        path: "/notifictions/all-videos",
-        icon: <MdVideoLabel />,
-      },
-    ],
-  },
-  {
-    name: "Update Client",
-    icon: <MdUpdate />,
-    children: [
-      { name: "Home Page", path: "/update/home", icon: <MdHome /> },
-      // {
-      //   name: "All Post Details",
-      //   path: "/update/all-posts-data",
-      //   icon: <MdPeople />,
-      // },
-      {
-        name: "Add Notice",
-        path: "/update/add-notice",
-        icon: <FaWebAwesome />,
-      },
-      // { name: "Add Blog", path: "/blog/add-blog", icon: <MdBlurOn /> },
-      { name: "Upload Image", path: "/upload-image", icon: <MdImage /> },
-      { name: "Upload Video", path: "/upload-video", icon: <MdVideoLabel /> },
-      {
-        name: "Upload Gain",
-        path: "/upload-about-gain",
-        icon: <FaJoget />,
-      },
-      {
-        name: "Set Result Re: Date",
-        path: "/update-exam-relies-date",
-        icon: <MdFollowTheSigns />,
-      },
-    ],
-  },
-  // {
-  //   name: "Messages",
-  //   path: "/messages",
-  //   icon: <MdMessage />,
-  // },
-  {
-    name: "Profile",
-    path: "/admin/profile",
-    icon: <FaDiamond />,
-    children: [
-      {
-        name: "Profile",
-        path: "/admin/profile",
-        icon: <MdAddchart />,
-      },
-      {
-        name: "Add Result",
-        path: "/admin/add-exam-result",
-        icon: <MdAddchart />,
-      },
-      {
-        name: "Added Result",
-        path: "/admin/exam-results/result-by-single-teachers-id",
-        icon: <MdOutlineTableView />,
-      },
-      {
-        name: "Write a Blog",
-        path: "/admin-blog/add-blog",
-        icon: <MdBluetoothDrive />,
-      },
-    ],
-  },
-];
-
-const TeachersNavItems = [
-  {
-    name: "Profile",
-    path: "/teachers",
-    icon: <RiProfileLine />,
-  },
-  {
-    name: "Add Result",
-    path: "/add-exam-result",
-    icon: <MdAddchart />,
-  },
-  {
-    name: "Added Result",
-    path: "/exam-results/result-by-single-teachers-id",
-    icon: <MdOutlineTableView />,
-  },
-  {
-    name: "Write a Blog",
-    path: "/teachers-blog/add-blog",
-    icon: <MdBluetoothDrive />,
-  },
-];
-
 export default function SiteNavBar({ handleCallNav }) {
   const [openMenu, setOpenMenu] = useState({});
   const userInfo = JSON.parse(localStorage.getItem("data"));
   const navigate = useNavigate();
+
+  const adminNavItems = [
+    {
+      name: "Dashboard",
+      path: "/dashboard",
+      icon: <RiDashboardFill />,
+    },
+    {
+      name: "Add Users",
+      icon: <IoPersonAddSharp />,
+      children: [
+        {
+          name: "Student",
+          path: "/add-student",
+          icon: <PiStudentFill />,
+        },
+        {
+          name: "Teacher",
+          path: "/add-teacher",
+          icon: <GiTeacher />,
+        },
+        {
+          name: "Stafe",
+          path: "/add-stafe",
+          icon: <SiStaffbase />,
+        },
+        // { name: "Hostel", path: "/students/hostel", icon: <FaBed /> },
+      ],
+    },
+    {
+      name: "All User",
+      icon: <MdPeople />,
+      children: [
+        {
+          name: "All Students",
+          path: "/students/allStudent",
+          icon: <FaUserGraduate />,
+        },
+        {
+          name: "All Teacher",
+          path: "/teacher/all-teacher",
+          icon: <LiaChalkboardTeacherSolid />,
+        },
+        {
+          name: "All Staff",
+          path: "/staff/all-staff",
+          icon: <FaArtstation />,
+        },
+      ],
+    },
+    {
+      name: "Students Info: ",
+      icon: <MdOutlineJoinFull />,
+      children: [
+        {
+          name: "Students Father",
+          path: "/all-student-informetion/stunents-father",
+          icon: <MdAutoAwesome />,
+        },
+        {
+          name: "Students Mother",
+          path: "/all-student-informetion/stunents-mother",
+          icon: <MdAutoAwesome />,
+        },
+        {
+          name: "Students Gairdean",
+          path: "/all-student-informetion/stunents-gairdean",
+          icon: <MdAutoAwesome />,
+        },
+      ],
+    },
+    {
+      name: "Additional Info",
+      icon: <FaAudioDescription />,
+      children: [
+        {
+          name: "All Notices",
+          path: "/additional-information/all-notice",
+          icon: <TbHexagonalPrism />,
+        },
+        {
+          name: "Slide Data",
+          path: "/additional-information/carousel-information",
+          icon: <TbHexagonalPrism />,
+        },
+        {
+          name: "Gain Data",
+          path: "/all-about-gain",
+          icon: <TbHexagonalPrism />,
+        },
+        // {
+        //   name: "Institution Text",
+        //   path: "/additional-information/about-text",
+        //   icon: <TbHexagonalPrism />,
+        // },
+        {
+          name: "Institution Fees",
+          path: "/additional-information/fees-information",
+          icon: <TbHexagonalPrism />,
+        },
+        {
+          name: "Contact Info:",
+          path: "/additional-information/contact-information",
+          icon: <TbHexagonalPrism />,
+        },
+      ],
+    },
+
+    {
+      name: "Exam Results",
+      icon: <FaRegUserCircle />,
+      children: [
+        {
+          name: "All Results",
+          path: "/exam-results/all-exam-result",
+          icon: <GiNestedHexagons />,
+        },
+        {
+          name: "First Tutiral",
+          path: "/exam-results/first-tutiral",
+          icon: <GiNestedHexagons />,
+        },
+        {
+          name: "Half Yearly",
+          path: "/exam-results/half-yearly",
+          icon: <GiNestedHexagons />,
+        },
+        {
+          name: "Secend Tutiral",
+          path: "/exam-results/secend-tutiral",
+          icon: <GiNestedHexagons />,
+        },
+        {
+          name: "Fainal Exam",
+          path: "/exam-results/fainal-exam",
+          icon: <GiNestedHexagons />,
+        },
+        {
+          name: "Model Test",
+          path: "/exam-results/model-test-exam-result",
+          icon: <GiNestedHexagons />,
+        },
+        {
+          name: "Test",
+          path: "/exam-results/test-exam-result",
+          icon: <GiNestedHexagons />,
+        },
+      ],
+    },
+    {
+      name: "Notifections",
+      icon: <FaTransgenderAlt />,
+      children: [
+        {
+          name: "Contact Messages",
+          path: "/notifections/messages",
+          icon: <RiFileList3Line />,
+        },
+        {
+          name: "Admition Notice",
+          path: "/notifictions/admition-Student",
+          icon: <RiFileList3Line />,
+        },
+        {
+          name: "Consulting",
+          path: "/notifictions/consulting",
+          icon: <RiFileList3Line />,
+        },
+        {
+          name: "All Posts",
+          path: "/update/all-posts-data",
+          icon: <RiFileList3Line />,
+        },
+        {
+          name: "All Posts Reports",
+          path: "/notifictions/post-reports",
+          icon: <RiFileList3Line />,
+        },
+        {
+          name: "All Images",
+          path: "/notifictions/all-images",
+          icon: <MdImage />,
+        },
+        {
+          name: "All Videos",
+          path: "/notifictions/all-videos",
+          icon: <MdVideoLabel />,
+        },
+      ],
+    },
+    {
+      name: "Update Client",
+      icon: <MdUpdate />,
+      children: [
+        { name: "Home Page", path: "/update/home", icon: <MdHome /> },
+        // {
+        //   name: "All Post Details",
+        //   path: "/update/all-posts-data",
+        //   icon: <MdPeople />,
+        // },
+        {
+          name: "Add Notice",
+          path: "/update/add-notice",
+          icon: <FaWebAwesome />,
+        },
+        // { name: "Add Blog", path: "/blog/add-blog", icon: <MdBlurOn /> },
+        { name: "Upload Image", path: "/upload-image", icon: <MdImage /> },
+        { name: "Upload Video", path: "/upload-video", icon: <MdVideoLabel /> },
+        {
+          name: "Upload Gain",
+          path: "/upload-about-gain",
+          icon: <FaJoget />,
+        },
+        {
+          name: "Set Result Re: Date",
+          path: "/update-exam-relies-date",
+          icon: <MdFollowTheSigns />,
+        },
+      ],
+    },
+    // {
+    //   name: "Messages",
+    //   path: "/messages",
+    //   icon: <MdMessage />,
+    // },
+    {
+      name: "Profile",
+      path: "/admin/profile",
+      icon: <FaDiamond />,
+      children: [
+        {
+          name: "Profile",
+          path: "/admin/profile",
+          icon: <MdAddchart />,
+        },
+        {
+          name: "Add Result",
+          path: "/admin/add-exam-result",
+          icon: <MdAddchart />,
+        },
+        {
+          name: "Added Result",
+          path: "/admin/exam-results/result-by-single-teachers-id",
+          icon: <MdOutlineTableView />,
+        },
+        // {
+        //   name: "Write a Blog",
+        //   path: "/admin-blog/add-blog",
+        //   icon: <MdBluetoothDrive />,
+        // },
+        // {
+        //   name: "Edit Profile",
+        //   path: "/teacher-profile/teacher-edit/:id",
+        //   icon: <MdChangeHistory />,
+        // },
+        {
+          name: "Update Password",
+          path: `/update-teachers-password/${userInfo._id}`,
+          icon: <MdPinEnd />,
+        },
+      ],
+    },
+  ];
+
+  const TeachersNavItems = [
+    {
+      name: "Profile",
+      path: "/teachers",
+      icon: <RiProfileLine />,
+    },
+    {
+      name: "Add Result",
+      path: "/add-exam-result",
+      icon: <MdAddchart />,
+    },
+    {
+      name: "Added Result",
+      path: "/exam-results/result-by-single-teachers-id",
+      icon: <MdOutlineTableView />,
+    },
+    {
+      name: "Update Password",
+      path: "/update-teachers-password/:id",
+      icon: <MdBluetoothDrive />,
+    },
+    {
+      name: "Edit Profile",
+      path: `/teacher-profile/teacher-edit/${userInfo._id}`,
+      icon: <MdChangeHistory />,
+    },
+    {
+      name: "Update Password",
+      path: `/update-teachers-password/${userInfo._id}`,
+      icon: <MdPinEnd />,
+    },
+    // {
+    //   name: "Write a Blog",
+    //   path: "/teachers-blog/add-blog",
+    //   icon: <MdBluetoothDrive />,
+    // },
+  ];
 
   const handleLogout = () => {
     Swal.fire({

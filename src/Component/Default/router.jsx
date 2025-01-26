@@ -77,6 +77,7 @@ import TeacherPrivate from "./TeacherPrivate";
 import CreateGain from "../Pages/our-gain/CreateGain";
 import AllGainData from "../Pages/our-gain/AllGainData";
 import EditGain from "../Pages/our-gain/EditGain";
+import UpdatePassword from "../Pages/UpdatePassword/UpdatePassword";
 
 const router = createBrowserRouter([
   // login main path
@@ -98,6 +99,10 @@ const router = createBrowserRouter([
             <Home />
           </Private>
         ),
+      },
+      {
+        path: "/update-teachers-password/:id",
+        element: <UpdatePassword />,
       },
       // all users
       {
@@ -733,6 +738,14 @@ const router = createBrowserRouter([
         element: (
           <TeacherPrivate>
             <TeachersIdTable />
+          </TeacherPrivate>
+        ),
+      },
+      {
+        path: "/teacher-profile/teacher-edit/:id",
+        element: (
+          <TeacherPrivate>
+            <EditTeacher />
           </TeacherPrivate>
         ),
       },
