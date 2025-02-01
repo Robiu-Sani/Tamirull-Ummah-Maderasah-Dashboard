@@ -65,6 +65,7 @@ export default function EditTeacher() {
         ? data.dateOfBirth
         : teacherData.dateOfBirth,
       experience: data.experience ? data.experience : teacherData.experience,
+      nidNumber: data.nidNumber ? data.nidNumber : teacherData.nidNumber,
       gender: data.gender ? data.gender : teacherData.gender,
       phone: data.phone ? data.phone : teacherData.phone,
       qualification: data.qualification

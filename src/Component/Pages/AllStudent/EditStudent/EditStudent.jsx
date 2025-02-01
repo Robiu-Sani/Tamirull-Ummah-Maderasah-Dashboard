@@ -94,7 +94,7 @@ const EditStudent = () => {
         ? data.studentNameEnglish
         : studentData.studentNameEnglish,
       weight: data.weight ? data.weight : studentData.weight,
-      image: image ? image : studentData.weight,
+      image: image ? image : studentData.image,
     };
     try {
       setIsload(true);
@@ -297,7 +297,7 @@ const EditStudent = () => {
             <input
               type="number"
               {...register("monthlyFee", { required: false })}
-              placeholder="Enter height (e.g., 5'6\)"
+              placeholder="Education fee"
               className="w-full p-1 px-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500"
             />
             {errors.monthlyFee && (
