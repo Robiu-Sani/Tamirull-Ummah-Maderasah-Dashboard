@@ -44,7 +44,7 @@ export default function TeacherBanner() {
           </div>
           <div>
             <h3 className="text-4xl font-bold text-gray-800">{totalBoys}</h3>
-            <p className="text-sm text-gray-500">Total Boys</p>
+            <p className="text-sm text-gray-500">Total Sir</p>
           </div>
         </div>
       </div>
@@ -57,7 +57,7 @@ export default function TeacherBanner() {
           </div>
           <div>
             <h3 className="text-4xl font-bold text-gray-800">{totalGirls}</h3>
-            <p className="text-sm text-gray-500">Total Girls</p>
+            <p className="text-sm text-gray-500">Total Mam</p>
           </div>
         </div>
       </div>

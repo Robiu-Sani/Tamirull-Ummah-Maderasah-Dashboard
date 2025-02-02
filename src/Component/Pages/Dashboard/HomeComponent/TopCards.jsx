@@ -4,8 +4,10 @@ import {
   FaEnvelope,
   //   FaBook,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export default function TopCards({ total }) {
+  const navigate = useNavigate();
   const CardData = [
     {
       name: "All Users",
@@ -13,6 +15,7 @@ export default function TopCards({ total }) {
       description: "Total number of users using the platform.",
       icon: <FaUsers size={24} />,
       color: "bg-green-100 text-green-500",
+      path: "/students/allStudent",
     },
     {
       name: "All Students",
@@ -20,6 +23,7 @@ export default function TopCards({ total }) {
       description: "Total number of registered students .",
       icon: <FaUsers size={24} />,
       color: "bg-indigo-100 text-indigo-500",
+      path: "/students/allStudent",
     },
     {
       name: "All Teachers",
@@ -27,6 +31,7 @@ export default function TopCards({ total }) {
       description: "Total number of active teachers .",
       icon: <FaChalkboardTeacher size={24} />,
       color: "bg-purple-100 text-purple-500",
+      path: "/teacher/all-teacher",
     },
 
     {
@@ -35,6 +40,7 @@ export default function TopCards({ total }) {
       description: "Total number of messages on the platform.",
       icon: <FaEnvelope size={24} />,
       color: "bg-blue-100 text-blue-500",
+      path: "/notifictions/consulting",
     },
   ];
 
@@ -42,6 +48,7 @@ export default function TopCards({ total }) {
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {CardData.map((card, index) => (
         <div
+          onClick={() => navigate(card.path)}
           key={index}
           className="bg-white p-3 cursor-pointer rounded-lg shadow-lg flex w-full flex-col items-start justify-between  transition-all"
         >
