@@ -182,6 +182,9 @@ export default function StudentTable() {
                   Section
                 </th>
                 <th className="border border-gray-200 px-4 py-3 font-semibold">
+                  ID
+                </th>
+                <th className="border border-gray-200 px-4 py-3 font-semibold">
                   Blood
                 </th>
                 <th className="border border-gray-200 px-4 py-3 font-semibold">
@@ -211,6 +214,9 @@ export default function StudentTable() {
                   </td>
                   <td className="border text-center px-4 py-3 text-gray-700">
                     {student.section}
+                  </td>
+                  <td className="border text-center px-4 py-3 text-gray-700">
+                    {student?.id}
                   </td>
                   <td className="border text-center px-4 py-3 text-gray-700">
                     {student.bloodGroup}

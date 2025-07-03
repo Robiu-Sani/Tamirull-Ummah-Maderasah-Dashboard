@@ -13,7 +13,6 @@ import {
   MdImage,
   MdVideoLabel,
   MdFollowTheSigns,
-  MdBluetoothDrive,
   MdChangeHistory,
   MdPinEnd,
 } from "react-icons/md";
@@ -60,6 +59,11 @@ export default function SiteNavBar({ handleCallNav }) {
         {
           name: "Student",
           path: "/add-student",
+          icon: <PiStudentFill />,
+        },
+        {
+          name: "Add Multiple Student",
+          path: "/add-multiple-student",
           icon: <PiStudentFill />,
         },
         {
@@ -305,6 +309,28 @@ export default function SiteNavBar({ handleCallNav }) {
           name: "Update Password",
           path: `/update-teachers-password/${userInfo._id}`,
           icon: <MdPinEnd />,
+        },
+      ],
+    },
+    {
+      name: "Menage Data",
+      path: "/admin/profilefd",
+      icon: <FaDiamond />,
+      children: [
+        {
+          name: "Menage Class",
+          path: "/menage-other-thing/create-class",
+          icon: <MdAddchart />,
+        },
+        {
+          name: "Menage Subject",
+          path: "/menage-other-thing/create-subject",
+          icon: <MdAddchart />,
+        },
+        {
+          name: "Menage exam Subject",
+          path: "/menage-other-thing/create-exam-subject",
+          icon: <MdAddchart />,
         },
       ],
     },

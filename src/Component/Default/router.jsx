@@ -78,6 +78,10 @@ import CreateGain from "../Pages/our-gain/CreateGain";
 import AllGainData from "../Pages/our-gain/AllGainData";
 import EditGain from "../Pages/our-gain/EditGain";
 import UpdatePassword from "../Pages/UpdatePassword/UpdatePassword";
+import MenageExam from "../Pages/MenageExam/MenageExam";
+import MenageOrherThing from "../Pages/menage-otherThing/MenageOrherThing";
+import AddMultipleStudent from "../Pages/addMultipleStudent/AddMultipleStudent";
+import AddExamResult from "../Pages/add-exam-result/AddResult";
 
 const router = createBrowserRouter([
   // login main path
@@ -428,6 +432,22 @@ const router = createBrowserRouter([
           </Private>
         ),
       },
+      {
+        path: "/add-exam-result/:type",
+        element: (
+          <Private>
+            <AddExamResult />
+          </Private>
+        ),
+      },
+      {
+        path: "/add-multiple-student",
+        element: (
+          <Private>
+            <AddMultipleStudent />
+          </Private>
+        ),
+      },
 
       // -------------
       {
@@ -650,6 +670,14 @@ const router = createBrowserRouter([
         ),
       },
       {
+        path: "/menage-exam",
+        element: (
+          <Private>
+            <MenageExam />
+          </Private>
+        ),
+      },
+      {
         path: "/admin/profile",
         element: (
           <Private>
@@ -686,6 +714,14 @@ const router = createBrowserRouter([
         element: (
           <Private>
             <AdminProfile />
+          </Private>
+        ),
+      },
+      {
+        path: "/menage-other-thing/:type",
+        element: (
+          <Private>
+            <MenageOrherThing />
           </Private>
         ),
       },
