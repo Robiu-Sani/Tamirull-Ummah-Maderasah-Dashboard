@@ -15,6 +15,7 @@ import {
   MdFollowTheSigns,
   MdChangeHistory,
   MdPinEnd,
+  MdExpand,
 } from "react-icons/md";
 import {
   FaUserGraduate,
@@ -77,6 +78,47 @@ export default function SiteNavBar({ handleCallNav }) {
           icon: <SiStaffbase />,
         },
         // { name: "Hostel", path: "/students/hostel", icon: <FaBed /> },
+      ],
+    },
+    {
+      name: "Add Exam Result",
+      icon: <RiDashboardFill />,
+      children: [
+        {
+          name: "First tutorial",
+          path: "/add-exam-result/first-tutorial",
+          icon: <MdExpand />,
+        },
+        {
+          name: "Second tutorial",
+          path: "/add-exam-result/second-tutorial",
+          icon: <MdExpand />,
+        },
+        {
+          name: "Half tutorial",
+          path: "/add-exam-result/helf-yaerly-exam",
+          icon: <MdExpand />,
+        },
+        {
+          name: "Final Exam",
+          path: "/add-exam-result/final-exam",
+          icon: <MdExpand />,
+        },
+        {
+          name: "Test Exam",
+          path: "/add-exam-result/test-exam",
+          icon: <MdExpand />,
+        },
+        {
+          name: "Model Test Exam",
+          path: "/add-exam-result/model-text-exam",
+          icon: <MdExpand />,
+        },
+        {
+          name: "Admission Exam",
+          path: "/add-exam-result/admission-exam",
+          icon: <MdExpand />,
+        },
       ],
     },
     {
