@@ -68,7 +68,7 @@ export default function AddStudentForm() {
           console.log("Submitting:", studentData);
 
           const response = await axios.post(
-            "https://tum-server.vercel.app/api/v1/api/v1/student/create-student",
+            "https://tum-server.vercel.app/api/v1/student/create-student",
             studentData
           );
 

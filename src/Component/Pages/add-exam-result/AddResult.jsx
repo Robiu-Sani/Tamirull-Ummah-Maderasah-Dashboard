@@ -52,6 +52,12 @@ export default function AddExamResult() {
       return;
     }
 
+    // Validate percentage
+    if (data.percentage < 0 || data.percentage > 100) {
+      toast.error("Percentage must be between 0 and 100");
+      return;
+    }
+
     localStorage.setItem(
       "add-result-data",
       JSON.stringify({
@@ -59,6 +65,7 @@ export default function AddExamResult() {
         teacherId: userData._id,
         class: selectedClass.name,
         classid: selectedClass._id,
+        parcentage: data.percentage, // Add percentage to localStorage
       })
     );
 
@@ -75,14 +82,14 @@ export default function AddExamResult() {
   }
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto ">
       <Toaster />
       <div className="bg-white rounded-lg shadow-md p-6 mb-6">
         <h2 className="text-2xl font-bold mb-4 text-gray-800">
           Add Exam Information
         </h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div className="w-full grid grid-cols-2 gap-5">
+          <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-5">
             <div>
               <label
                 htmlFor="class"
@@ -131,6 +138,40 @@ export default function AddExamResult() {
               {errors.releaseDate && (
                 <p className="mt-1 text-sm text-red-600">
                   {errors.releaseDate.message}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <label
+                htmlFor="percentage"
+                className="block text-sm font-medium text-gray-700 mb-1"
+              >
+                Percentage (%)
+              </label>
+              <input
+                type="number"
+                id="percentage"
+                {...register("percentage", {
+                  required: "Percentage is required",
+                  min: {
+                    value: 0,
+                    message: "Percentage must be at least 0",
+                  },
+                  max: {
+                    value: 100,
+                    message: "Percentage cannot exceed 100",
+                  },
+                  valueAsNumber: true,
+                })}
+                className={`w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+                  errors.percentage ? "border-red-500" : "border-gray-300"
+                }`}
+                placeholder="Enter percentage (e.g., 20)"
+              />
+              {errors.percentage && (
+                <p className="mt-1 text-sm text-red-600">
+                  {errors.percentage.message}
                 </p>
               )}
             </div>

@@ -434,19 +434,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/add-exam-result/:type",
-        element: (
-          <Private>
-            <AddExamResult />
-          </Private>
-        ),
+        element: <AddExamResult />,
       },
       {
         path: "/add-multiple-student",
-        element: (
-          <Private>
-            <AddMultipleStudent />
-          </Private>
-        ),
+        element: <AddMultipleStudent />,
       },
 
       // -------------
