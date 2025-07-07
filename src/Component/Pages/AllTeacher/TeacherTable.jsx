@@ -144,6 +144,7 @@ export default function TeacherTable() {
                 <th className="border px-4 py-3 font-semibold">Name</th>
                 <th className="border px-4 py-3 font-semibold">Gender</th>
                 <th className="border px-4 py-3 font-semibold">Shift</th>
+                <th className="border px-4 py-3 font-semibold">Id</th>
                 {/* <th className="border px-4 py-3 font-semibold">email</th> */}
                 <th className="border px-4 py-3 font-semibold">Blood</th>
                 <th className="border px-4 py-3 font-semibold">Phone</th>
@@ -167,6 +168,7 @@ export default function TeacherTable() {
                   <td className="border px-4 py-3 text-center">
                     {teacher.shift}
                   </td>
+                  <td className="border px-4 py-3 text-center">{teacher.id}</td>
                   {/* <td className="border px-4 py-3 text-center">
                     {teacher.email}
                   </td> */}
